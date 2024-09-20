@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "statusName": "Pending"
+    },
+    {
+        "id": 2,
+        "statusName": "Processed"
+    },
+    {
+        "id": 3,
+        "statusName": "Shipped"
+    },
+    {
+        "id": 4,
+        "statusName": "In Transit"
+    },
+    {
+        "id": 5,
+        "statusName": "Out for Delivery"
+    },
+    {
+        "id": 6,
+        "statusName": "Delivered"
+    },
+    {
+        "id": 7,
+        "statusName": "Returned to Sender"
+    },
+    {
+        "id": 8,
+        "statusName": "Delivery Attempted"
+    }
+]
