@@ -1,7 +1,5 @@
 import { TextFieldsConfig, initialValuesCreateAccount, initialValuesSignIn } from "./types";
 import * as Yup from 'yup';
-
-export const SUBMIT_BUTTON: string = 'Submit';
 export const CANCEL_BUTTON: string = 'Cancel';
 export const FIELD_REQUIRED_MESSAGE: string = 'Required';
 export const INVALID_EMAIL_MESSAGE: string = 'Invalid email';
