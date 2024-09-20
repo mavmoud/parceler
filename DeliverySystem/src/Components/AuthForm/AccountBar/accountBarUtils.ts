@@ -12,4 +12,5 @@ export const handleAccountToggle = (accountType: string, setAccountType: Functio
 export const getButtonStyles = (accountType: string, buttonType: string) => ({
     backgroundColor: accountType === buttonType ? COLOR_MAIN : '',
     color: accountType === buttonType ? 'white' : COLOR_MAIN,
+    gap: '8px'
   });

@@ -1,48 +1,26 @@
-import { AppBar, Box, Toolbar, Typography, Button, IconButton } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import LoginIcon from '@mui/icons-material/Login';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {AppBar, Box, Toolbar, Typography, Button, IconButton} from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
-import { COLOR_MAIN } from '../../constants';
-import { HOME_PAGE, APP_NAME, LOG_IN, CREATE_ACCOUNT } from './constants';
-import { HOME_PAGE_URL, SIGN_IN_URL, CREATE_ACCOUNT_URL } from '../../constants';
-import { handleClickPage } from './headerUtils';
+import { HOME_PAGE} from './constants';
+import { HOME_PAGE_URL } from '../../constants';
+import {HeaderButtonGroup} from "./HeaderButtonGroup.tsx";
 
-
-export const Header = ({ setSignInAuth }: { setSignInAuth: Function }) => {
+export const Header = ({ setSignInAuth, signInAuth }: { setSignInAuth: Function, signInAuth : boolean }) => {
     const navigate = useNavigate();
     return (
-        <AppBar position="static" sx={{ backgroundColor: COLOR_MAIN }}>
+        <AppBar position="static" sx={{ background : 'none' , p: 3}}>
             <Toolbar>
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    sx={{ mr: 2 }}
-                >
-                    <MenuIcon />
-                </IconButton>
                 <IconButton color='inherit'
                     onClick={() => navigate(HOME_PAGE_URL)}>
                     <HomeIcon />
                 </ IconButton>
                 <Typography variant="h6" >{HOME_PAGE}</Typography>
                 <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', pl: 13 }}>
-                    <Typography variant="h5">{APP_NAME}</Typography>
+                    <Button color='inherit'>Track</Button>
+                    <Button color='inherit'>Ship</Button>
+                    <Button color='inherit'>Help</Button>
                 </Box>
-                <Button sx={{ color: "inherit", mr: 1 }}
-                    onClick={() => { handleClickPage(navigate, SIGN_IN_URL, setSignInAuth, true) }}
-                >
-                    {LOG_IN}
-                    <LoginIcon />
-                </Button>
-                <Button color="inherit"
-                    onClick={() => { handleClickPage(navigate, CREATE_ACCOUNT_URL, setSignInAuth, false) }}
-                >
-                    {CREATE_ACCOUNT}
-                    <AccountCircleIcon />
-                </Button>
+                <HeaderButtonGroup setSignInAuth={setSignInAuth} signInAuth={signInAuth} />
             </Toolbar>
         </AppBar>
     );
