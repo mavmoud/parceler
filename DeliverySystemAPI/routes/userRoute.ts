@@ -1,41 +1,22 @@
 import express from "express";
-import { getUserByEmail, getUserById, getUsers } from "../dataUtil";
-import { isAdmin } from "../middleware";
+import { isAdmin, isSelfOrAdmin } from "../middleware";
+import { User } from "../models";
+import { hashPassword } from "../utils";
 
 export const userRoutes = express.Router();
 
+// Get all users
 userRoutes.get("/users", isAdmin, async (req, res) => {
   try {
-    const users = await getUsers();
+    const users = await User.findAll();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch users" });
   }
 });
 
-userRoutes.get("/user/email", async (req, res) => {
-  try {
-    const { email } = req.query;
-
-    if (!email || typeof email !== "string") {
-      return res
-        .status(400)
-        .json({ error: "Email parameter is required and must be a string" });
-    }
-
-    const user = await getUserByEmail(email);
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch user by email" });
-  }
-});
-
-userRoutes.get("/user/:id", async (req, res) => {
+//Get user by id
+userRoutes.get("/users/:id", isSelfOrAdmin, async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
 
@@ -43,7 +24,7 @@ userRoutes.get("/user/:id", async (req, res) => {
       return res.status(400).json({ error: "Invalid user ID" });
     }
 
-    const user = await getUserById(id);
+    const user = await User.findByPk(id);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -52,5 +33,38 @@ userRoutes.get("/user/:id", async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch user" });
+  }
+});
+
+//update single user
+userRoutes.put("/users/:id", isSelfOrAdmin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+
+    const { firstName, lastName, email, password, address, phoneNumber } =
+      req.body;
+
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(401).json({ error: "User not found" });
+    }
+
+    let hashedPassword = user.password;
+    if (password) hashedPassword = hashPassword(password);
+
+    user.update({
+      firstName: firstName && firstName === "" ? user.firstName : firstName,
+      lastName: lastName && lastName === "" ? user.lastName : lastName,
+      email: email && email === "" ? user.email : email,
+      password: password && password === "" ? user.password : hashedPassword,
+      address: address && address === "" ? user.address : address,
+      phoneNumber:
+        phoneNumber && phoneNumber === "" ? user.phoneNumber : phoneNumber,
+    });
+
+    res.status(200).json({ message: "User updated successfully", user });
+  } catch (error) {
+    res.status(500).json({ error });
   }
 });

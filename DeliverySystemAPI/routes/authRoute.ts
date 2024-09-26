@@ -1,8 +1,6 @@
 import express from "express";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import { Request, Response } from "express";
-import { verifyToken } from "../middleware";
-import { User } from "../models";
 import {
   comparePassword,
   generateAccessToken,
@@ -10,13 +8,8 @@ import {
   hashPassword,
 } from "../utils";
 import { refreshTokenSecret } from "../config";
-import {
-  getUserByEmail,
-  getUserByRefreshToken,
-  insertNewUser,
-  updateUser,
-} from "../dataUtil";
 import { REFRESH_TOKEN_EXPIRATION_TIME } from "../constants";
+import { User } from "../models";
 
 export const authRoutes = express.Router();
 
@@ -49,13 +42,13 @@ authRoutes.post("/register", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Required fields" });
     }
 
-    const user = await getUserByEmail(email);
+    const user = await User.findOne({ where: { email } });
 
     if (user) {
       return res.status(409).json({ error: "User already exists" });
     }
 
-    const newUser = new User({
+    User.create({
       firstName,
       lastName,
       email,
@@ -64,8 +57,6 @@ authRoutes.post("/register", async (req: Request, res: Response) => {
       address,
       phoneNumber,
     });
-
-    await insertNewUser(newUser);
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
@@ -90,7 +81,7 @@ authRoutes.post("/login", async (req: Request, res: Response) => {
       });
     }
 
-    const user = await getUserByEmail(email);
+    const user = await User.findOne({ where: { email } });
 
     if (!user || !comparePassword(password, user.password)) {
       return res.status(401).json({ error: "Invalid credentials" });
@@ -104,18 +95,18 @@ authRoutes.post("/login", async (req: Request, res: Response) => {
       issuedAt.getTime() + REFRESH_TOKEN_EXPIRATION_TIME
     );
 
-    // Store refresh
-    user.refreshToken = refreshToken;
-    user.refreshTokenExpiry = refreshTokenExpiry;
-    user.issuedAt = issuedAt;
+    await user.update({ refreshToken, refreshTokenExpiry, issuedAt });
 
-    //update user
-
-    await updateUser(user);
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false, //change to true if https
+      maxAge: REFRESH_TOKEN_EXPIRATION_TIME,
+      sameSite: "strict",
+    });
 
     res.status(200).json({
       accessToken,
-      refreshToken,
+      user,
     });
   } catch (error) {
     res.status(500).json({ error: "Login failed" });
@@ -124,12 +115,12 @@ authRoutes.post("/login", async (req: Request, res: Response) => {
 
 authRoutes.post("/refresh-token", async (req, res) => {
   try {
-    const { refreshToken } = req.body;
+    const refreshToken = req.cookies.refreshToken;
 
     if (!refreshToken)
       return res.status(401).json({ message: "Refresh token required" });
 
-    const user = await getUserByRefreshToken(refreshToken);
+    const user = await User.findOne({ where: { refreshToken } });
 
     if (!user) {
       return res.status(403).json({ message: "User not found" });
@@ -155,26 +146,25 @@ authRoutes.post("/refresh-token", async (req, res) => {
 
 // Logout Route (Invalidate Refresh Token)
 authRoutes.post("/logout", async (req, res) => {
-  const { refreshToken } = req.body;
+  const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken)
     return res.status(401).json({ message: "Refresh token required" });
 
-  const user = await getUserByRefreshToken(refreshToken);
+  const user = await User.findOne({ where: { refreshToken } });
 
   if (!user) {
     return res.status(403).json({ message: "User not found" });
   }
-  user.refreshToken = null;
-  user.refreshTokenExpiry = null;
-  user.issuedAt = null;
-  user.revokedAt = new Date();
 
-  await updateUser(user);
+  await user.update({
+    refreshToken: null,
+    refreshTokenExpiry: null,
+    issuedAt: null,
+    revokedAt: new Date(),
+  });
+
+  res.clearCookie("refreshToken");
 
   res.status(200).json({ message: "Logged out successfully" });
-});
-
-authRoutes.post("/validate-token", verifyToken, async (req, res) => {
-  res.status(200).json({ message: "Valid token" });
 });
