@@ -10,7 +10,7 @@ import {
 // Generate Access Token (Short-lived)
 export const generateAccessToken = (user: User) => {
   return jwt.sign(
-    { username: user.email, userTypeId: user.userTypeId },
+    { userId: user.id, userTypeId: user.userTypeId },
     accessTokenSecret,
     {
       expiresIn: ACCESS_TOKEN_EXPIRATION_TIME / 1000, //15 min
@@ -21,7 +21,7 @@ export const generateAccessToken = (user: User) => {
 // Generate Refresh Token (Long-lived)
 export const generateRefreshToken = (user: User) => {
   return jwt.sign(
-    { username: user.email, userTypeId: user.userTypeId },
+    { userId: user.id, userTypeId: user.userTypeId },
     refreshTokenSecret,
     {
       expiresIn: REFRESH_TOKEN_EXPIRATION_TIME / 1000, // 7 days
