@@ -1,0 +1,9 @@
+{
+  "production": {
+    "username": "postgres",
+    "password": "password",
+    "database": "parceler_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

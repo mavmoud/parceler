@@ -1,8 +1,6 @@
 import express from "express";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import { Request, Response } from "express";
-import { verifyToken } from "../middleware";
-import { User } from "../models";
 import {
   comparePassword,
   generateAccessToken,
@@ -10,33 +8,55 @@ import {
   hashPassword,
 } from "../utils";
 import { refreshTokenSecret } from "../config";
+import { REFRESH_TOKEN_EXPIRATION_TIME } from "../constants";
+import { User } from "../models";
 
 export const authRoutes = express.Router();
-
-const user: User = {
-  id: 1,
-  email: "test@test.com",
-  password: "$2a$10$B8GQ33PNoJy/rI3rR19twORY6xmhtxSECFAhlwCMklbkEPVWIoIai",
-  firstName: "test",
-  lastName: "test",
-};
 
 // User registration
 authRoutes.post("/register", async (req: Request, res: Response) => {
   try {
-    const { email, password, firstName, lastName } = req.body;
-
-    // need to check if user already exists in db (later)
-
-    const user: User = {
-      id: 2,
-      email,
-      password: hashPassword(password),
+    const {
       firstName,
       lastName,
-    };
+      email,
+      password,
+      userTypeId,
+      address,
+      phoneNumber,
+    } = req.body;
 
-    console.log(user);
+    if (!email || typeof email !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Email parameter is required and must be a string" });
+    }
+
+    if (!password) {
+      return res.status(400).json({
+        error: "Password is required",
+      });
+    }
+
+    if (!firstName || !lastName || !userTypeId || !address || !phoneNumber) {
+      return res.status(400).json({ error: "Required fields" });
+    }
+
+    const user = await User.findOne({ where: { email } });
+
+    if (user) {
+      return res.status(409).json({ error: "User already exists" });
+    }
+
+    User.create({
+      firstName,
+      lastName,
+      email,
+      password: hashPassword(password),
+      userTypeId,
+      address,
+      phoneNumber,
+    });
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
@@ -47,9 +67,21 @@ authRoutes.post("/register", async (req: Request, res: Response) => {
 // User login
 authRoutes.post("/login", async (req: Request, res: Response) => {
   try {
-    const { password } = req.body;
+    const { email, password } = req.body;
 
-    //fetch user from db using username or something unique
+    if (!email || typeof email !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Email parameter is required and must be a string" });
+    }
+
+    if (!password) {
+      return res.status(400).json({
+        error: "Password is required",
+      });
+    }
+
+    const user = await User.findOne({ where: { email } });
 
     if (!user || !comparePassword(password, user.password)) {
       return res.status(401).json({ error: "Invalid credentials" });
@@ -58,32 +90,40 @@ authRoutes.post("/login", async (req: Request, res: Response) => {
     // Generate tokens
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
+    const issuedAt = new Date();
+    const refreshTokenExpiry = new Date(
+      issuedAt.getTime() + REFRESH_TOKEN_EXPIRATION_TIME
+    );
 
-    // Store refresh token in memory (or database)
-    user.refreshToken = refreshToken;
+    await user.update({ refreshToken, refreshTokenExpiry, issuedAt });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false, //change to true if https
+      maxAge: REFRESH_TOKEN_EXPIRATION_TIME,
+      sameSite: "strict",
+    });
 
     res.status(200).json({
       accessToken,
-      refreshToken,
+      user,
     });
-
-    console.log(user);
   } catch (error) {
     res.status(500).json({ error: "Login failed" });
   }
 });
 
-authRoutes.post("/refresh-token", (req, res) => {
+authRoutes.post("/refresh-token", async (req, res) => {
   try {
-    const { refreshToken } = req.body;
+    const refreshToken = req.cookies.refreshToken;
 
     if (!refreshToken)
       return res.status(401).json({ message: "Refresh token required" });
 
-    //find user
-    //for now I will check if the refresh TOken in not null
-    if (!user || !user.refreshToken) {
-      return res.status(403).json({ message: "Invalid refresh token" });
+    const user = await User.findOne({ where: { refreshToken } });
+
+    if (!user) {
+      return res.status(403).json({ message: "User not found" });
     }
 
     // Verify the refresh token
@@ -99,32 +139,32 @@ authRoutes.post("/refresh-token", (req, res) => {
         res.status(200).json({ accessToken: newAccessToken });
       }
     );
-
-    console.log(user);
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }
 });
 
 // Logout Route (Invalidate Refresh Token)
-authRoutes.post("/logout", (req, res) => {
-  const { refreshToken } = req.body;
+authRoutes.post("/logout", async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
 
-  if (user.refreshToken !== refreshToken) {
-    console.log("do not match token");
+  if (!refreshToken)
+    return res.status(401).json({ message: "Refresh token required" });
+
+  const user = await User.findOne({ where: { refreshToken } });
+
+  if (!user) {
+    return res.status(403).json({ message: "User not found" });
   }
-  //find user by refrensh token
 
-  if (user) {
-    // Remove the refresh token from the user
-    user.refreshToken = undefined;
-  }
+  await user.update({
+    refreshToken: null,
+    refreshTokenExpiry: null,
+    issuedAt: null,
+    revokedAt: new Date(),
+  });
 
-  console.log(user);
+  res.clearCookie("refreshToken");
 
   res.status(200).json({ message: "Logged out successfully" });
-});
-
-authRoutes.post("/validate-token", verifyToken, async (req, res) => {
-  res.status(200).json({ message: "Valid token" });
 });
