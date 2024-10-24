@@ -9,11 +9,11 @@ import { AccountBar } from './AccountBar/AccountBar';
 import { TextFieldsConfig, initialValuesCreateAccount, initialValuesSignIn } from './types';
 import {
     COLOR_MAIN,
-    CREATE_ACCOUNT_FORM_TITLE,
+    CREATE_ACCOUNT_FORM_BUTTON,
     HOME_PAGE_URL,
     IMAGE2,
     IMAGE1,
-    SIGN_IN_FORM_TITLE, BACKGROUND_BOTTOM, BACKGROUND_LEFT,
+    SIGN_IN_FORM_BUTTON, BACKGROUND_BOTTOM, BACKGROUND_LEFT,
 } from '../../constants';
 import {CANCEL_BUTTON, EMPTY_STRING, signInSchema, createAccountSchema, isPasswordField } from './constants';
 import './authform.css';
@@ -81,7 +81,7 @@ export const AuthForm = ({ title, textFields, initialValues, signInAuth }: { tit
                                 );
                             })}
                             <Grid2 container justifyContent={'center'}>
-                                <Button type='submit' variant='contained' sx={{ mr: 2, backgroundColor: COLOR_MAIN }}>{signInAuth? SIGN_IN_FORM_TITLE : CREATE_ACCOUNT_FORM_TITLE}</Button>
+                                <Button type='submit' variant='contained' sx={{ mr: 2, backgroundColor: COLOR_MAIN }}>{signInAuth? SIGN_IN_FORM_BUTTON : CREATE_ACCOUNT_FORM_BUTTON}</Button>
                                 <Button onClick={() => formik.resetForm()} sx={{ color: COLOR_MAIN }}>{CANCEL_BUTTON}</Button>
                             </ Grid2>
                         </form>
