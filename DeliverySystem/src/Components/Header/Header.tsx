@@ -20,14 +20,17 @@ export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, s
                     <img
                         src={"Parceler.svg"}
                         alt="Home Icon"
-                        style={{width: '40px', height: '40px', marginRight: '8px'}}
+                        style={{width: '40px', height: '40px'}}
                     />
                     <Typography sx={{
                         fontFamily: '"Montserrat", serif',
                         fontSize: '18px',
                         fontWeight: 'bold',
-                        letterSpacing: '20%'
-                    }}>{HOME_PAGE}</Typography>
+                        letterSpacing: '3.5px',
+                        pt: '8px'
+                    }}>
+                        {HOME_PAGE}
+                    </Typography>
                 </Box>
                 <Box sx={{
                     position: 'absolute',
