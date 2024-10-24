@@ -8,7 +8,7 @@ import {HeaderButtonGroup} from "./HeaderButtonGroup.tsx";
 export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, signInAuth: boolean }) => {
     const navigate = useNavigate();
     return (
-        <AppBar position="static" sx={{background: 'none', width: '85%', mt: '45px', mx: 'auto', boxShadow: 'none'}}>
+        <AppBar position="static" sx={{background: 'none', width: '85%', mx: 'auto', boxShadow: 'none'}}>
             <Toolbar sx={{p: '0', display: 'flex', justifyContent: 'space-between', position: 'relative'}}>
                 <Box sx={{
                     cursor: 'pointer',
