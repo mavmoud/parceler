@@ -2,6 +2,8 @@ import express from "express";
 import { authRoutes } from "./authRoute";
 import { protectedRoute } from "./protectedRoute";
 import { userRoutes } from "./userRoute";
+import { orderRoutes } from "./orderRoute";
+import { paymentRoutes } from "./paymentRoutes";
 
 const router = express.Router();
 
@@ -9,5 +11,7 @@ const router = express.Router();
 router.use("/auth", authRoutes);
 router.use("/protected", protectedRoute);
 router.use("/", userRoutes);
+router.use("/orders", orderRoutes);
+router.use("/payment", paymentRoutes);
 
 export default router;
