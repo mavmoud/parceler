@@ -1,17 +1,65 @@
-// export class Package {
-//   public packageId: number;
-//   public shipmentId: number;
-//   public weight: number;
-//   public dimensions: string;
-//   public contentDescription: string;
-//   public declaredValue: number;
+import { Model, DataTypes, Optional, Association } from "sequelize";
+import { sequelize } from "../config/database";
+import { Order } from "./order";
 
-//   constructor(other?: Partial<Package>) {
-//     this.packageId = other?.packageId || 0;
-//     this.shipmentId = other?.shipmentId || 0;
-//     this.weight = other?.weight || 0;
-//     this.dimensions = other?.dimensions || "";
-//     this.contentDescription = other?.contentDescription || "";
-//     this.declaredValue = other?.declaredValue || 0;
-//   }
-// }
+interface PackageAttributes {
+  id: number;
+  weight: number;
+  dimension: string;
+  declaredValue: number;
+}
+
+interface PackageCreationAttributes extends Optional<PackageAttributes, "id"> {}
+
+export class Package
+  extends Model<PackageAttributes, PackageCreationAttributes>
+  implements PackageAttributes
+{
+  public id!: number;
+  public weight!: number;
+  public dimension!: string;
+  public declaredValue!: number;
+
+  // Timestamps
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+
+  public static associations: {
+    orders: Association<Package, Order>;
+  };
+
+  static associate(models: any) {
+    Package.hasOne(models.Order, {
+      foreignKey: "packageId",
+      onUpdate: "CASCADE",
+      onDelete: "SET NULL",
+    });
+  }
+}
+
+Package.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    weight: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    dimension: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    declaredValue: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: "Package",
+    tableName: "Packages",
+  }
+);
