@@ -13,6 +13,8 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "allowJs": true, // Allow JavaScript files
+    "checkJs": false, // You can set this to true to check JS fil
 
     /* Linting */
     "strict": true,
