@@ -14,6 +14,12 @@ import {
 } from './constants';
 import './app.css';
 
+import Chatbot from 'react-chatbot-kit';
+import 'react-chatbot-kit/build/main.css';
+import config from 'Components/Chatbot/config.js';
+import MessageParser from 'Components/Chatbot/MessageParser.jsx';
+import ActionProvider from 'Components/Chatbot/ActionProvider.jsx';
+
 function App() {
   const location = useLocation();
   const [signInAuth, setSignInAuth] = useState<boolean>(location.pathname === SIGN_IN_URL);
@@ -21,6 +27,12 @@ function App() {
       <Container maxWidth='xl'>
         <Header setSignInAuth={setSignInAuth} signInAuth={signInAuth} />
         <Grid2>
+            <Chatbot
+            config={config}
+            messageParser={MessageParser}
+            actionProvider={ActionProvider}
+                />
+          
             <Routes>
               <Route path={HOME_PAGE_URL} element={<HomePage />} />
               <Route path={SIGN_IN_URL} element={
