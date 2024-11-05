@@ -12,14 +12,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - my-networklogging:
-  driver: json-file
-  options:
-    labels: "service"
-    env: "os,customer"
-    compress: "true"
-    max-size: "10m"
-    max-file: "3"
+      - my-network
 
 volumes:
   postgres_data:
