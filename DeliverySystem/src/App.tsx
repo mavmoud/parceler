@@ -16,6 +16,10 @@ import {
   CREATE_ACCOUNT_URL,
   CREATE_ACCOUNT_FORM_TITLE,
   SIGN_IN_FORM_TITLE,
+  INVALID_ACCESS_URL,
+  USER_DASHBOARD_URL,
+  DRIVER_DASHBOARD_URL,
+  ADMIN_DASHBOARD_URL,
 } from "./constants";
 import "./app.css";
 
@@ -24,12 +28,18 @@ import "react-chatbot-kit/build/main.css";
 import config from "./components/Chatbot/config.js";
 import MessageParser from "./components/Chatbot/MessageParser.jsx";
 import ActionProvider from "./components/Chatbot/ActionProvider.jsx";
+import { TestLogInPage } from "Components/pages/TestLogInPage.js";
+import { InvalidAccessPage } from "Components/pages/InvalidAccesPage.js";
+import { UserDashboard } from "Components/pages/UserDashboard/UserDashboard.js";
+import { DriverDashboard } from "Components/pages/DriverDashboard/DriverDashboard.js";
+import { AdminDashboard } from "Components/pages/AdminDashboard/AdminDashboard.js";
 
 function App() {
   const location = useLocation();
   const [signInAuth, setSignInAuth] = useState<boolean>(
     location.pathname === SIGN_IN_URL
   );
+
   return (
     <Container maxWidth="xl">
       <Header setSignInAuth={setSignInAuth} signInAuth={signInAuth} />
@@ -64,6 +74,10 @@ function App() {
               />
             }
           />
+          <Route path={INVALID_ACCESS_URL} element={<InvalidAccessPage />} />
+          <Route path={USER_DASHBOARD_URL} element={<UserDashboard />} />
+          <Route path={DRIVER_DASHBOARD_URL} element={<DriverDashboard />} />
+          <Route path={ADMIN_DASHBOARD_URL} element={<AdminDashboard />} />
         </Routes>
       </Grid2>
     </Container>
