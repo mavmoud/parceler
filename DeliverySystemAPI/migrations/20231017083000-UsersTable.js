@@ -45,11 +45,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      refreshToken: {
+      accessToken: {
         allowNull: true,
         type: Sequelize.STRING,
       },
-      refreshTokenExpiry: {
+      accessTokenExpiry: {
         allowNull: true,
         type: Sequelize.DATE,
       },
