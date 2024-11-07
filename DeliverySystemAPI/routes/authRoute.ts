@@ -48,7 +48,7 @@ authRoutes.post("/register", async (req: Request, res: Response) => {
       return res.status(409).json({ error: "User already exists" });
     }
 
-    User.create({
+    await User.create({
       firstName,
       lastName,
       email,
