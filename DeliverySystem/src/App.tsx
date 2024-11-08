@@ -1,6 +1,7 @@
 import { Container, Grid2 } from "@mui/material";
 import { Header } from "./components/Header/Header";
 import { HomePage } from "./components/pages/HomePage/HomePage";
+import Quote from './Components/pages/Quote/Quote';
 import { AuthForm } from "./components/AuthForm/AuthForm";
 import { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -11,11 +12,12 @@ import {
   INITIAL_VALUES_SIGN_IN,
 } from "./Components/AuthForm/constants";
 import {
-  HOME_PAGE_URL,
-  SIGN_IN_URL,
-  CREATE_ACCOUNT_URL,
-  CREATE_ACCOUNT_FORM_TITLE,
-  SIGN_IN_FORM_TITLE,
+    HOME_PAGE_URL,
+    SIGN_IN_URL,
+    CREATE_ACCOUNT_URL,
+    CREATE_ACCOUNT_FORM_TITLE,
+    SIGN_IN_FORM_TITLE,
+    QUOTE_URL,
 } from "./constants";
 import "./app.css";
 
@@ -64,6 +66,7 @@ function App() {
               />
             }
           />
+            <Route path={QUOTE_URL} element={<Quote />} />
         </Routes>
       </Grid2>
     </Container>

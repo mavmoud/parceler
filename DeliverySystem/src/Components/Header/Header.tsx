@@ -1,14 +1,14 @@
 import {AppBar, Box, Toolbar, Typography, Button} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
 import {HOME_PAGE} from './constants';
-import {HOME_PAGE_URL} from '../../constants';
+import {HOME_PAGE_URL, QUOTE_URL} from '../../constants';
 import {HeaderButtonGroup} from "./HeaderButtonGroup.tsx";
 
 
 export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, signInAuth: boolean }) => {
     const navigate = useNavigate();
     return (
-        <AppBar position="static" sx={{background: 'none', width: '85%', mx: 'auto', boxShadow: 'none'}}>
+        <AppBar position="static" sx={{background: 'none', width: '85%', mx: 'auto', boxShadow: 'none', mb: '80px'}}>
             <Toolbar sx={{p: '0', display: 'flex', justifyContent: 'space-between', position: 'relative'}}>
                 <Box sx={{
                     cursor: 'pointer',
@@ -51,7 +51,7 @@ export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, s
                         fontSize: '16px',
                         fontWeight: 'medium',
                         textTransform: 'none'
-                    }}>Ship</Button>
+                    }} onClick={() => navigate(QUOTE_URL)}>Ship</Button>
                     <Button disableRipple color='inherit' sx={{
                         fontFamily: '"Montserrat", serif',
                         fontSize: '16px',
