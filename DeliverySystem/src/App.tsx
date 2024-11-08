@@ -4,6 +4,7 @@ import { HomePage } from "./components/pages/HomePage/HomePage";
 import { AuthForm } from "./components/AuthForm/AuthForm";
 import { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { Track } from "./components/pages/HomePage/Track";
 import {
   CREATE_ACCOUNT_FIELDS,
   SIGN_IN_FIELDS,
@@ -64,6 +65,11 @@ function App() {
               />
             }
           />
+            
+          <Route 
+            path="/Track/:trackingNumber" 
+            element={<Track />} 
+            />
         </Routes>
       </Grid2>
     </Container>
