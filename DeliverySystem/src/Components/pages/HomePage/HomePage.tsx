@@ -70,9 +70,11 @@ export const HomePage = () => {
         Reliable Deliveries.
       </p>
       {/* Conditionally render trackDisplay or quoteDisplay based on state */}
-      {isQuoteDisplay
-        ? quoteDisplay(handleTrackClick)
-        : trackDisplay(handleQuoteClick)}
+      {isQuoteDisplay ? (
+        <QuoteDisplay handleTrackClick={handleTrackClick} />
+      ) : (
+        <TrackDisplay handleQuoteClick={handleQuoteClick} navigate={navigate} />
+      )}
     </Grid2>
   );
 };
