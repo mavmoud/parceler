@@ -48,7 +48,14 @@ export const AuthForm = ({ title, textFields, initialValues, signInAuth }: { tit
     }, [initialValues, signInAuth]);
     return (
         <Grid2 mt={1} pt={5} container direction="column" alignItems="center" spacing={3}>
-            <Typography variant='h4' textAlign={'center'} color={'white'}>{title}</Typography>
+            <Typography sx={{
+                fontSize: '36px',
+                fontWeight: '600',
+                color: 'white',
+                textAlign: 'center',
+                fontFamily: '"Montserrat", sans-serif',
+                mb: '50px'
+            }}>{title}</Typography>
             <Card sx={{ p: 2, maxWidth: '22rem', borderRadius: 14}}>
                 <CardContent>
                     <Paper elevation={2}>
