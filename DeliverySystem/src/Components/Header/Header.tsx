@@ -3,10 +3,14 @@ import {useNavigate} from 'react-router-dom';
 import {HOME_PAGE} from './constants';
 import {HOME_PAGE_URL} from '../../constants';
 import {HeaderButtonGroup} from "./HeaderButtonGroup.tsx";
+import { TrackPage } from "../pages/HomePage/TrackPage";
 
 
 export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, signInAuth: boolean }) => {
     const navigate = useNavigate();
+    const handleTrackClick = () => {
+        navigate('/track'); 
+    };
     return (
         <AppBar position="static" sx={{background: 'none', width: '85%', mx: 'auto', boxShadow: 'none'}}>
             <Toolbar sx={{p: '0', display: 'flex', justifyContent: 'space-between', position: 'relative'}}>
@@ -40,7 +44,7 @@ export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, s
                     justifyContent: 'center',
                     gap: '60px',
                 }}>
-                    <Button disableRipple color='inherit' sx={{
+                    <Button disableRipple color='inherit' onClick={handleTrackClick} sx={{
                         fontFamily: '"Montserrat", serif',
                         fontSize: '16px',
                         fontWeight: 'medium',
