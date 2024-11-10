@@ -52,6 +52,8 @@ export const Track = () => {
     backgroundSize: "cover",
   });
 
+  
+
   const { trackingNumber } = useParams<{ trackingNumber: string }>();
   const validTrackingNumber = trackingNumber || "";
 
@@ -72,6 +74,27 @@ export const Track = () => {
 
     fetchOrderData();
   }, [trackingNumber]);
+
+  let EstimatedDelivery = "";
+
+  if (orderData?.order?.latestStatusName === "Delivered") {
+    EstimatedDelivery = "arrived";
+  }
+  else if (orderData?.order?.latestStatusName === "Out for Delivery") {
+    EstimatedDelivery = "1 week";
+  }
+  else if (orderData?.order?.latestStatusName === "In Transit") {
+    EstimatedDelivery = "2-3 weeks";
+  }
+  else if (orderData?.order?.latestStatusName === "In Transit") {
+    EstimatedDelivery = "3-5 weeks";
+  }
+  else if (orderData?.order?.latestStatusName === "Picked Up") { 
+    EstimatedDelivery = "5-6 weeks";
+  }
+  else {
+    EstimatedDelivery = "6-10 weeks";
+  }
 
   const trackingStatus = orderData?.statusHistory;
   console.log("test", trackingStatus);
@@ -141,7 +164,7 @@ export const Track = () => {
                 <Typography pl={0.7}>Estimated Delivery</Typography>
               </Grid>
               <Typography variant="body1">
-                {trackingStatus?.estimatedDelivery ?? "N/A"}
+                {EstimatedDelivery}
               </Typography>
             </Grid>
 

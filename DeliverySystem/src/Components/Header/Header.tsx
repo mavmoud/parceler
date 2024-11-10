@@ -3,25 +3,13 @@ import {useNavigate} from 'react-router-dom';
 import {HOME_PAGE} from './constants';
 import {HOME_PAGE_URL, QUOTE_URL} from '../../constants';
 import {HeaderButtonGroup} from "./HeaderButtonGroup.tsx";
-
-export const Header = ({
-  setSignInAuth,
-  signInAuth,
-}: {
-  setSignInAuth: Function;
-  signInAuth: boolean;
-}) => {
-  const navigate = useNavigate();
+import { TrackPage } from "../pages/HomePage/TrackPage";
   
-export const Header = ({
-  setSignInAuth,
-  signInAuth,
-}: {
-  setSignInAuth: Function;
-  signInAuth: boolean;
-}) => {
-  const navigate = useNavigate();
-
+export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, signInAuth: boolean }) => {
+    const navigate = useNavigate();
+    const handleTrackClick = () => {
+        navigate('/track'); 
+    };
   return (
     <AppBar position="static" sx={{background: 'none', width: '85%', mx: 'auto', boxShadow: 'none', mb: '80px'}}>
       <Toolbar

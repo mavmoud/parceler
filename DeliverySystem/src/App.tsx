@@ -6,6 +6,7 @@ import { AuthForm } from "./components/AuthForm/AuthForm";
 import { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Track } from "./components/pages/HomePage/Track";
+import { TrackPage } from "./components/pages/HomePage/TrackPage";
 import {
   CREATE_ACCOUNT_FIELDS,
   SIGN_IN_FIELDS,
@@ -81,6 +82,10 @@ function App() {
           <Route 
             path="/Track/:trackingNumber" 
             element={<Track />} 
+            />
+          <Route 
+            path="/Track" 
+            element={<TrackPage />} 
             />
           <Route path={INVALID_ACCESS_URL} element={<InvalidAccessPage />} />
           <Route path={USER_DASHBOARD_URL} element={<UserDashboard />} />
