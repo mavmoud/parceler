@@ -1,4 +1,4 @@
-import { Grid2, Typography } from "@mui/material";
+import { Grid2, Snackbar, Alert, Typography } from "@mui/material";
 import { useBodyBackground } from "../../../Hooks/useBodyBackground.ts";
 import { BACKGROUND_RIGHT, IMAGE3 } from "../../../constants.ts";
 import TextField from "@mui/material/TextField";
@@ -11,6 +11,12 @@ import { useState } from "react";
 import { Formik, FormikErrors } from "formik";
 import { useNavigate } from "react-router-dom";
 import { OrderService } from "../../../services/OrderService";
+import { useLocation } from "react-router-dom";
+import { SUCCESS_MESSAGE_REGISTER_ACCOUNT } from "Components/AuthForm/constants.ts";
+import {
+  useAuthentication,
+  ROLE_ANY,
+} from "../../../Hooks/useAuthentication.ts";
 
 interface FormValues {
   trackingNumber: string;
@@ -22,6 +28,11 @@ export const HomePage = () => {
     backgroundPosition: BACKGROUND_RIGHT,
     backgroundSize: "cover",
   });
+  const authContext = useAuthentication(ROLE_ANY);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const param = queryParams.get("param");
+  const [successBar, setSuccessBar] = useState(!!param);
 
   const [isQuoteDisplay, setIsQuoteDisplay] = useState(false);
   const navigate = useNavigate();
@@ -33,20 +44,36 @@ export const HomePage = () => {
   const handleTrackClick = () => {
     setIsQuoteDisplay(false);
   };
+  const vertical = "top";
+  const horizontal = "right";
 
   return (
-    <>
+    <Grid2 pl={5} pt={3}>
+      <Snackbar
+        open={successBar}
+        anchorOrigin={{ vertical, horizontal }}
+        autoHideDuration={3000}
+        onClose={() => setSuccessBar(false)}
+      >
+        <Alert
+          sx={{ height: "3rem", alignItems: "center" }}
+          severity="success"
+          variant="filled"
+          onClose={() => setSuccessBar(false)}
+        >
+          <Typography>{SUCCESS_MESSAGE_REGISTER_ACCOUNT}</Typography>
+        </Alert>
+      </Snackbar>
       <p style={{ margin: "20px", color: "white", fontSize: "30px" }}>
         Global Reach,
         <br />
         Reliable Deliveries.
       </p>
-      {isQuoteDisplay ? (
-        <QuoteDisplay handleTrackClick={handleTrackClick} />
-      ) : (
-        <TrackDisplay handleQuoteClick={handleQuoteClick} navigate={navigate} />
-      )}
-    </>
+      {/* Conditionally render trackDisplay or quoteDisplay based on state */}
+      {isQuoteDisplay
+        ? quoteDisplay(handleTrackClick)
+        : trackDisplay(handleQuoteClick)}
+    </Grid2>
   );
 };
 
@@ -270,3 +297,4 @@ const QuoteDisplay = ({
     </Grid2>
   );
 };
+
