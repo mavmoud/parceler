@@ -114,6 +114,7 @@ const TrackDisplay = ({
                       Track
                     </span>
                   </Button>
+                  {/* Trigger switching to quote display */}
                   <Button
                     sx={{
                       width: "50%",
@@ -236,6 +237,7 @@ const QuoteDisplay = ({
                   aria-label="Basic button group"
                   sx={{ width: "190px" }}
                 >
+                  {/* Trigger switching to track display */}
                   <Button
                     sx={{
                       width: "50%",
@@ -299,4 +301,3 @@ const QuoteDisplay = ({
     </Grid2>
   );
 };
-

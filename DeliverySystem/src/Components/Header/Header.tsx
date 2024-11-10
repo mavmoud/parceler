@@ -4,7 +4,15 @@ import {HOME_PAGE} from './constants';
 import {HOME_PAGE_URL, QUOTE_URL} from '../../constants';
 import {HeaderButtonGroup} from "./HeaderButtonGroup.tsx";
 
-
+export const Header = ({
+  setSignInAuth,
+  signInAuth,
+}: {
+  setSignInAuth: Function;
+  signInAuth: boolean;
+}) => {
+  const navigate = useNavigate();
+  
 export const Header = ({
   setSignInAuth,
   signInAuth,
