@@ -8,12 +8,19 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { Truck, PackageSearch } from "lucide-react";
 import { useState } from "react";
+import { Formik, FormikErrors } from "formik";
+import { useNavigate } from "react-router-dom";
+import { OrderService } from "../../../services/OrderService";
 import { useLocation } from "react-router-dom";
 import { SUCCESS_MESSAGE_REGISTER_ACCOUNT } from "Components/AuthForm/constants.ts";
 import {
   useAuthentication,
   ROLE_ANY,
 } from "../../../Hooks/useAuthentication.ts";
+
+interface FormValues {
+  trackingNumber: string;
+}
 
 export const HomePage = () => {
   useBodyBackground({
@@ -27,15 +34,15 @@ export const HomePage = () => {
   const param = queryParams.get("param");
   const [successBar, setSuccessBar] = useState(!!param);
 
-  // Single state to toggle between track and quote display
   const [isQuoteDisplay, setIsQuoteDisplay] = useState(false);
+  const navigate = useNavigate();
 
   const handleQuoteClick = () => {
-    setIsQuoteDisplay(true); // Show the quote section
+    setIsQuoteDisplay(true);
   };
 
   const handleTrackClick = () => {
-    setIsQuoteDisplay(false); // Show the track section
+    setIsQuoteDisplay(false);
   };
   const vertical = "top";
   const horizontal = "right";
@@ -63,14 +70,24 @@ export const HomePage = () => {
         Reliable Deliveries.
       </p>
       {/* Conditionally render trackDisplay or quoteDisplay based on state */}
-      {isQuoteDisplay
-        ? quoteDisplay(handleTrackClick)
-        : trackDisplay(handleQuoteClick)}
+      {isQuoteDisplay ? (
+        <QuoteDisplay handleTrackClick={handleTrackClick} />
+      ) : (
+        <TrackDisplay handleQuoteClick={handleQuoteClick} navigate={navigate} />
+      )}
     </Grid2>
   );
 };
 
-const trackDisplay = (handleQuoteClick: () => void) => {
+const TrackDisplay = ({
+  handleQuoteClick,
+  navigate,
+}: {
+  handleQuoteClick: () => void;
+  navigate: any;
+}) => {
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   return (
     <Grid2 mt={1}>
       <Card sx={{ maxWidth: 275 }}>
@@ -119,33 +136,95 @@ const trackDisplay = (handleQuoteClick: () => void) => {
               </CardContent>
             </Card>
           </Grid2>
-          <Grid2 mt={1}>
-            <TextField
-              id="outlined-basic"
-              label="Tracking Number"
-              variant="outlined"
-            />
-          </Grid2>
-          <Grid2 mt={1}>
-            <Button
-              variant="contained"
-              sx={{
-                width: "220px",
-                backgroundColor: "black",
-                color: "white",
-                "&:hover": { backgroundColor: "gray" },
-              }}
-            >
-              Track Package
-            </Button>
-          </Grid2>
+          <Formik
+            initialValues={{ trackingNumber: "" }}
+            onSubmit={async (values: FormValues, { setSubmitting }) => {
+              setSubmitError(null);
+              setSubmitting(true);
+              try {
+                const orderData = await OrderService.GetOrderByTrackingNumber(
+                  values.trackingNumber
+                );
+                if (
+                  orderData?.order?.trackingNumber === values.trackingNumber
+                ) {
+                  navigate(`/Track/${values.trackingNumber}`);
+                } else {
+                  setSubmitError("Invalid tracking number");
+                }
+              } catch (error) {
+                console.error("Error tracking the order:", error);
+                setSubmitError("Invalid tracking number");
+              } finally {
+                setSubmitting(false);
+              }
+            }}
+            validate={(values: FormValues) => {
+              const errors: FormikErrors<FormValues> = {};
+              if (!values.trackingNumber) {
+                errors.trackingNumber = "Required";
+              }
+              return errors;
+            }}
+          >
+            {(formik) => (
+              <form onSubmit={formik.handleSubmit}>
+                <Grid2 mt={1}>
+                  <div>
+                    <TextField
+                      id="trackingNumber"
+                      label="Tracking Number"
+                      variant="outlined"
+                      name="trackingNumber"
+                      value={formik.values.trackingNumber}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      sx={{ mt: "1rem" }}
+                      error={
+                        Boolean(formik.errors.trackingNumber) &&
+                        formik.touched.trackingNumber
+                      }
+                      helperText={
+                        formik.touched.trackingNumber &&
+                        formik.errors.trackingNumber
+                      }
+                    />
+                  </div>
+                </Grid2>
+                {submitError && (
+                  <Typography color="red" mt={1}>
+                    {submitError}
+                  </Typography>
+                )}
+                <Grid2 mt={1}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                      width: "220px",
+                      backgroundColor: "black",
+                      color: "white",
+                      "&:hover": { backgroundColor: "gray" },
+                    }}
+                    disabled={formik.isSubmitting}
+                  >
+                    Track Package
+                  </Button>
+                </Grid2>
+              </form>
+            )}
+          </Formik>
         </CardContent>
       </Card>
     </Grid2>
   );
 };
 
-const quoteDisplay = (handleTrackClick: () => void) => {
+const QuoteDisplay = ({
+  handleTrackClick,
+}: {
+  handleTrackClick: () => void;
+}) => {
   return (
     <Grid2 mt={1}>
       <Card sx={{ maxWidth: 275 }}>

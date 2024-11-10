@@ -120,7 +120,9 @@ export const UserOrderTable = () => {
                     ))}
                   </TableBody>
                 </Table>
-              </TableContainer>
+              </TableContainer>       
+              {!dataRows.length && <Grid2 container sx={{justifyContent: 'center'}}> <Typography variant='h5' color='black' p={5} pb={3}>There are currently no results to display.</Typography></Grid2>}
+              
             </Card>
           </Grid2>
         </Grid2>
