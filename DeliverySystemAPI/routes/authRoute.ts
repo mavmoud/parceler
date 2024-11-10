@@ -1,14 +1,8 @@
 import express from "express";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import { Request, Response } from "express";
-import {
-  comparePassword,
-  generateAccessToken,
-  generateRefreshToken,
-  hashPassword,
-} from "../utils";
-import { refreshTokenSecret } from "../config";
-import { REFRESH_TOKEN_EXPIRATION_TIME } from "../constants";
+import { comparePassword, generateAccessToken, hashPassword } from "../utils";
+import { ACCESS_TOKEN_EXPIRATION_TIME } from "../constants";
 import { User } from "../models";
 
 export const authRoutes = express.Router();
@@ -89,20 +83,12 @@ authRoutes.post("/login", async (req: Request, res: Response) => {
 
     // Generate tokens
     const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
     const issuedAt = new Date();
-    const refreshTokenExpiry = new Date(
-      issuedAt.getTime() + REFRESH_TOKEN_EXPIRATION_TIME
+    const accessTokenExpiry = new Date(
+      issuedAt.getTime() + ACCESS_TOKEN_EXPIRATION_TIME
     );
 
-    await user.update({ refreshToken, refreshTokenExpiry, issuedAt });
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: false, //change to true if https
-      maxAge: REFRESH_TOKEN_EXPIRATION_TIME,
-      sameSite: "strict",
-    });
+    await user.update({ accessToken, accessTokenExpiry, issuedAt });
 
     res.status(200).json({
       accessToken,
@@ -113,58 +99,25 @@ authRoutes.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-authRoutes.post("/refresh-token", async (req, res) => {
-  try {
-    const refreshToken = req.cookies.refreshToken;
-
-    if (!refreshToken)
-      return res.status(401).json({ message: "Refresh token required" });
-
-    const user = await User.findOne({ where: { refreshToken } });
-
-    if (!user) {
-      return res.status(403).json({ message: "User not found" });
-    }
-
-    // Verify the refresh token
-    jwt.verify(
-      refreshToken,
-      refreshTokenSecret,
-      (err: VerifyErrors | null, decoded: any) => {
-        if (err) {
-          return res.status(403).json({ message: "Invalid refresh token" });
-        }
-
-        const newAccessToken = generateAccessToken(user);
-        res.status(200).json({ accessToken: newAccessToken });
-      }
-    );
-  } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
-  }
-});
-
 // Logout Route (Invalidate Refresh Token)
 authRoutes.post("/logout", async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
+  const accessToken = req.header("Authorization");
 
-  if (!refreshToken)
-    return res.status(401).json({ message: "Refresh token required" });
+  if (!accessToken)
+    return res.status(401).json({ message: "Access token required" });
 
-  const user = await User.findOne({ where: { refreshToken } });
+  const user = await User.findOne({ where: { accessToken } });
 
   if (!user) {
     return res.status(403).json({ message: "User not found" });
   }
 
   await user.update({
-    refreshToken: null,
-    refreshTokenExpiry: null,
+    accessToken: null,
+    accessTokenExpiry: null,
     issuedAt: null,
     revokedAt: new Date(),
   });
-
-  res.clearCookie("refreshToken");
 
   res.status(200).json({ message: "Logged out successfully" });
 });

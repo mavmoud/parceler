@@ -16,12 +16,13 @@ export const INVALID_ACCESS_URL = "/request-denied";
 export const USER_DASHBOARD_URL = "/user-dashboard/:id";
 export const DRIVER_DASHBOARD_URL = "/driver-dashboard/:id";
 export const ADMIN_DASHBOARD_URL = "/admin-dashboard/:id";
+export const QUOTE_URL: string = '/quote';
 
 export const CREATE_ACCOUNT_FORM_TITLE: string = "Signup to Parceler";
 export const CREATE_ACCOUNT_FORM_BUTTON: string = "Signup";
 export const SIGN_IN_FORM_TITLE: string = "Login to Parceler";
 export const SIGN_IN_FORM_BUTTON: string = "Login";
 
-export const IMAGE1: string = "ConConOther1.png";
-export const IMAGE2: string = "ConConOtherOther2.png";
-export const IMAGE3: string = "conpar1.png";
+export const IMAGE1: string = 'BottomLeft.png';
+export const IMAGE2: string = 'Bottom.png';
+export const IMAGE3: string = 'Right.png';

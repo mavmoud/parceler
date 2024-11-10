@@ -11,8 +11,8 @@ interface UserAttributes {
   userTypeId: number;
   address: string;
   phoneNumber: string;
-  refreshToken?: string | null;
-  refreshTokenExpiry?: Date | null;
+  accessToken?: string | null;
+  accessTokenExpiry?: Date | null;
   issuedAt?: Date | null;
   revokedAt?: Date | null;
 }
@@ -31,8 +31,8 @@ export class User
   public userTypeId!: number;
   public address!: string;
   public phoneNumber!: string;
-  public refreshToken!: string | null;
-  public refreshTokenExpiry!: Date | null;
+  public accessToken!: string | null;
+  public accessTokenExpiry!: Date | null;
   public issuedAt!: Date | null;
   public revokedAt!: Date | null;
 
@@ -92,11 +92,11 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    refreshToken: {
+    accessToken: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    refreshTokenExpiry: {
+    accessTokenExpiry: {
       type: DataTypes.DATE,
       allowNull: true,
     },

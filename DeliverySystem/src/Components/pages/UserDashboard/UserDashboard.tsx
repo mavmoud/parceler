@@ -34,7 +34,6 @@ export const UserDashboard = () => {
     </Grid2>
   );
 };
-
 {
   /* <Grid2 container sx={{justifyContent: 'center'}}>
             <Typography color="white" variant="h3" p={5}>{`${user[USER_INFO][USER_FIRST_NAME]} ${user[USER_INFO][USER_LAST_NAME]} ${USER_DASHBOARD_TITLE}`}</Typography>
