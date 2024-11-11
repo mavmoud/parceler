@@ -1,17 +1,31 @@
-import {AppBar, Box, Toolbar, Typography, Button} from '@mui/material';
-import {useNavigate} from 'react-router-dom';
-import {HOME_PAGE} from './constants';
-import {HOME_PAGE_URL, QUOTE_URL} from '../../constants';
-import {HeaderButtonGroup} from "./HeaderButtonGroup.tsx";
-import { TrackPage } from "../pages/HomePage/TrackPage";
-  
-export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, signInAuth: boolean }) => {
-    const navigate = useNavigate();
-    const handleTrackClick = () => {
-        navigate('/track'); 
-    };
+import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { HOME_PAGE } from "./constants.ts";
+import { HOME_PAGE_URL, QUOTE_URL } from "../../constants";
+import { HeaderButtonGroup } from "./HeaderButtonGroup";
+
+export const Header = ({
+  setSignInAuth,
+  signInAuth,
+}: {
+  setSignInAuth: Function;
+  signInAuth: boolean;
+}) => {
+  const navigate = useNavigate();
+  const handleTrackClick = () => {
+    navigate("/track");
+  };
   return (
-    <AppBar position="static" sx={{background: 'none', width: '85%', mx: 'auto', boxShadow: 'none', mb: '80px'}}>
+    <AppBar
+      position="static"
+      sx={{
+        background: "none",
+        width: "85%",
+        mx: "auto",
+        boxShadow: "none",
+        mb: "80px",
+      }}
+    >
       <Toolbar
         sx={{
           p: "0",
@@ -31,7 +45,7 @@ export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, s
           onClick={() => navigate(HOME_PAGE_URL)}
         >
           <img
-            src={"Parceler.svg"}
+            src="/Parceler.svg"
             alt="Home Icon"
             style={{ width: "40px", height: "40px" }}
           />
@@ -66,6 +80,7 @@ export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, s
               fontWeight: "small",
               textTransform: "none",
             }}
+            onClick={handleTrackClick}
           >
             Track
           </Button>
@@ -77,7 +92,11 @@ export const Header = ({setSignInAuth, signInAuth}: { setSignInAuth: Function, s
               fontSize: "16px",
               fontWeight: "medium",
               textTransform: "none",
-            }}onClick={() => navigate(QUOTE_URL)}>Ship</Button>
+            }}
+            onClick={() => navigate(QUOTE_URL)}
+          >
+            Ship
+          </Button>
           <Button
             disableRipple
             color="inherit"
