@@ -52,8 +52,6 @@ export const Track = () => {
     backgroundSize: "cover",
   });
 
-  
-
   const { trackingNumber } = useParams<{ trackingNumber: string }>();
   const validTrackingNumber = trackingNumber || "";
 
@@ -79,21 +77,18 @@ export const Track = () => {
 
   if (orderData?.order?.latestStatusName === "Delivered") {
     EstimatedDelivery = "arrived";
-  }
-  else if (orderData?.order?.latestStatusName === "Out for Delivery") {
-    EstimatedDelivery = "1 week";
-  }
-  else if (orderData?.order?.latestStatusName === "In Transit") {
-    EstimatedDelivery = "2-3 weeks";
-  }
-  else if (orderData?.order?.latestStatusName === "In Transit") {
-    EstimatedDelivery = "3-5 weeks";
-  }
-  else if (orderData?.order?.latestStatusName === "Picked Up") { 
-    EstimatedDelivery = "5-6 weeks";
-  }
-  else {
-    EstimatedDelivery = "6-10 weeks";
+  } else if (orderData?.order?.latestStatusName === "Out for Delivery") {
+    EstimatedDelivery = "1 day";
+  } else if (orderData?.order?.latestStatusName === "In Transit") {
+    EstimatedDelivery = "2-3 days";
+  } else if (orderData?.order?.latestStatusName === "In Transit") {
+    EstimatedDelivery = "3-5 days";
+  } else if (orderData?.order?.latestStatusName === "Picked Up") {
+    EstimatedDelivery = "5-6 days";
+  } else if (orderData?.order?.latestStatusName === "Shipment Created") {
+    EstimatedDelivery = "6-10 days";
+  } else {
+    EstimatedDelivery = "N/A";
   }
 
   const trackingStatus = orderData?.statusHistory;
@@ -163,9 +158,7 @@ export const Track = () => {
                 <CiDeliveryTruck />
                 <Typography pl={0.7}>Estimated Delivery</Typography>
               </Grid>
-              <Typography variant="body1">
-                {EstimatedDelivery}
-              </Typography>
+              <Typography variant="body1">{EstimatedDelivery}</Typography>
             </Grid>
 
             <Grid item xs={6}>

@@ -2,12 +2,13 @@ import React, { createContext, useState, ReactNode } from "react";
 import { UserData } from "./types";
 import { useNavigate } from "react-router-dom";
 import { HOME_PAGE_URL } from "../../constants";
+import { AuthService } from "../../services";
 
 export interface AuthContextType {
-  authToken: string;
+  authToken?: string;
+  userInfo?: UserData;
   login: (accessToken: string, userData: UserData) => void;
   logout: () => void;
-  getUserInfo: () => UserData;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -20,11 +21,11 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
-  const [authToken, setAuthToken] = useState<string>(() => {
+  const [authToken, setAuthToken] = useState<string | undefined>(() => {
     return localStorage.getItem("authToken") || "";
   });
 
-  const [userInfo, setUserInfo] = useState<UserData>(() => {
+  const [userInfo, setUserInfo] = useState<UserData | undefined>(() => {
     const savedUserData = localStorage.getItem("userData");
     return savedUserData ? JSON.parse(savedUserData) : null;
   });
@@ -36,12 +37,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.setItem("userData", JSON.stringify(userData));
   };
 
-  const logout = () => {
-    setAuthToken("");
-    setUserInfo(null);
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userData");
-    navigate(HOME_PAGE_URL);
+  const logout = async () => {
+    try {
+      const res = await AuthService.Logout(authToken || "");
+      if (res.status == 200) {
+        setAuthToken(undefined);
+        setUserInfo(undefined);
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("userData");
+        navigate(HOME_PAGE_URL);
+      } else {
+        console.log("Request failed with status:", res.status);
+      }
+    } catch (error) {
+      console.error("An error occurred during the HTTP request:", error);
+    }
   };
 
   const value = {

@@ -24,7 +24,7 @@ export const UserDashboard = () => {
       <Grid2 container justifyContent="center">
         <Grid2>
           <Typography color="white" variant="h3" p={5}>
-            {`${user[USER_INFO][USER_FIRST_NAME]} ${user[USER_INFO][USER_LAST_NAME]} ${USER_DASHBOARD_TITLE}`}
+            {`${user?.[USER_INFO]?.[USER_FIRST_NAME]} ${user?.[USER_INFO]?.[USER_LAST_NAME]} ${USER_DASHBOARD_TITLE}`}
           </Typography>
         </Grid2>
       </Grid2>

@@ -6,15 +6,11 @@ axios.defaults.withCredentials = true;
 
 export class AuthService {
   static async Register(user: User) {
-    const res = await axios.post(
-      `${BASE_URL}/api/auth/register`,
-      user,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await axios.post(`${BASE_URL}/api/auth/register`, user, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     return res.data;
   }
 
@@ -31,13 +27,17 @@ export class AuthService {
     return res.data;
   }
 
-  static async RefreshToken() {
-    const res = await axios.post(`${BASE_URL}/api/auth/refresh-token`);
-    return res.data;
-  }
-
-  static async Logout() {
-    const res = await axios.post(`${BASE_URL}/api/auth/logout`);
-    return res.data;
+  static async Logout(accesToken: string) {
+    const res = await axios.post(
+      `${BASE_URL}/api/auth/logout`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accesToken,
+        },
+      }
+    );
+    return res;
   }
 }

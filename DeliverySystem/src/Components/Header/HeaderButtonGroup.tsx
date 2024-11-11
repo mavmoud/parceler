@@ -13,7 +13,7 @@ export const HeaderButtonGroup = ({
 }) => {
   const navigate = useNavigate();
   const authContext = useAuthentication(ROLE_ANY);
-  const { logout } = authContext || {};
+  const { logout, authToken } = authContext || {};
 
   return (
     <>
@@ -25,42 +25,53 @@ export const HeaderButtonGroup = ({
           alignItems: "center",
         }}
       >
-        <Button
-          disableRipple
-          sx={{
-            fontFamily: '"Montserrat", serif',
-            fontSize: "16px",
-            textTransform: "none",
-            color: "white",
-            backgroundColor: "none",
-          }}
-          onClick={() => {
-            handleClickPage(navigate, CREATE_ACCOUNT_URL, setSignInAuth, false);
-          }}
-        >
-          {CREATE_ACCOUNT}
-        </Button>
-        <Button
-          disableRipple
-          sx={{
-            fontFamily: '"Montserrat", serif',
-            fontSize: "16px",
-            textTransform: "none",
-            color: "#071528",
-            backgroundColor: "white",
-            width: "100px",
-            height: "50px",
-            borderRadius: "80px",
-          }}
-          onClick={() => {
-            handleClickPage(navigate, SIGN_IN_URL, setSignInAuth, true);
-          }}
-        >
-          {LOG_IN}
-        </Button>
-        <Button color="inherit">
-          <Typography onClick={logout}>Logout</Typography>
-        </Button>
+        {!authToken && (
+          <>
+            <Button
+              disableRipple
+              sx={{
+                fontFamily: '"Montserrat", serif',
+                fontSize: "16px",
+                textTransform: "none",
+                color: "white",
+                backgroundColor: "none",
+              }}
+              onClick={() => {
+                handleClickPage(
+                  navigate,
+                  CREATE_ACCOUNT_URL,
+                  setSignInAuth,
+                  false
+                );
+              }}
+            >
+              {CREATE_ACCOUNT}
+            </Button>
+            <Button
+              disableRipple
+              sx={{
+                fontFamily: '"Montserrat", serif',
+                fontSize: "16px",
+                textTransform: "none",
+                color: "#071528",
+                backgroundColor: "white",
+                width: "100px",
+                height: "50px",
+                borderRadius: "80px",
+              }}
+              onClick={() => {
+                handleClickPage(navigate, SIGN_IN_URL, setSignInAuth, true);
+              }}
+            >
+              {LOG_IN}
+            </Button>
+          </>
+        )}
+        {authToken && (
+          <Button color="inherit" onClick={logout}>
+            <Typography>Logout</Typography>
+          </Button>
+        )}
       </Box>
     </>
   );

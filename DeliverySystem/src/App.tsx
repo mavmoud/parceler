@@ -1,10 +1,10 @@
 import { Container, Grid2 } from "@mui/material";
 import { Header } from "./components/Header/Header";
 import { HomePage } from "./components/pages/HomePage/HomePage";
-import Quote from './Components/pages/Quote/Quote';
+import Quote from "./Components/pages/Quote/Quote";
 import { AuthForm } from "./components/AuthForm/AuthForm";
 import { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { Track } from "./components/pages/HomePage/Track";
 import { TrackPage } from "./components/pages/HomePage/TrackPage";
 import {
@@ -79,18 +79,13 @@ function App() {
             }
           />
           <Route path={QUOTE_URL} element={<Quote />} />
-          <Route 
-            path="/Track/:trackingNumber" 
-            element={<Track />} 
-            />
-          <Route 
-            path="/Track" 
-            element={<TrackPage />} 
-            />
+          <Route path="/Track/:trackingNumber" element={<Track />} />
+          <Route path="/Track" element={<TrackPage />} />
           <Route path={INVALID_ACCESS_URL} element={<InvalidAccessPage />} />
           <Route path={USER_DASHBOARD_URL} element={<UserDashboard />} />
           <Route path={DRIVER_DASHBOARD_URL} element={<DriverDashboard />} />
           <Route path={ADMIN_DASHBOARD_URL} element={<AdminDashboard />} />
+          <Route path="*" element={<Navigate to={HOME_PAGE_URL} replace />} />
         </Routes>
       </Grid2>
     </Container>
