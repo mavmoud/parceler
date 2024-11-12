@@ -9,12 +9,14 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { OrderService } from "../../../services/OrderService";
 import { MdOutlineLocationOff, MdOutlineWrongLocation } from "react-icons/md";
-import { CiDeliveryTruck } from "react-icons/ci";
+import { GrDeliver } from "react-icons/gr";
 import { TbWeight } from "react-icons/tb";
 import { LuPackagePlus } from "react-icons/lu";
 import { LuPackage2 } from "react-icons/lu";
 import { TbPackageExport } from "react-icons/tb";
 import { LuPackageOpen } from "react-icons/lu";
+import { TbTruckReturn } from "react-icons/tb";
+import { MdOutlineNewReleases } from "react-icons/md";
 
 interface Order {
   senderAddress: string;
@@ -37,12 +39,17 @@ interface OrderData {
   statusHistory: statusHistory;
 }
 
-const iconMap = new Map([
+export const iconMap = new Map([
   ["Shipment Created", () => <LuPackagePlus color="black" size={24} />],
   ["Picked Up", () => <LuPackage2 color="black" size={24} />],
   ["In Transit", () => <TbPackageExport color="black" size={24} />],
-  ["Out for Delivery", () => <CiDeliveryTruck color="black" size={24} />],
+  ["Out for Delivery", () => <GrDeliver color="black" size={24} />],
   ["Delivered", () => <LuPackageOpen color="black" size={24} />],
+  [
+    "Delivery Attempted",
+    () => <MdOutlineNewReleases color="black" size={24} />,
+  ],
+  ["Returned to Sender", () => <TbTruckReturn color="black" size={24} />],
 ]);
 
 export const Track = () => {
