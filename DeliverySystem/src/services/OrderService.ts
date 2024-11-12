@@ -20,6 +20,12 @@ export class OrderService {
     const res = await axios.get(`${BASE_URL}/api/orders/sender/${senderId}`);
     return res.data;
   }
+
+  static async GetOrdersByDriverId(driverId: number) {
+    const res = await axios.get(`${BASE_URL}/api/orders/driver/${driverId}`);
+    return res.data;
+  }
+
   //admin only
   static async GetAllOrders() {
     const res = await axios.get(`${BASE_URL}/api/orders`, {

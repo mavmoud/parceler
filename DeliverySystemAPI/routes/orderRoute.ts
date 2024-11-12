@@ -105,6 +105,34 @@ orderRoutes.get("/", isAdmin, async (req, res) => {
   }
 });
 
+orderRoutes.get("/driver/:driverId", async (req, res) => {
+  try {
+    const driverId = parseInt(req.params.driverId, 10);
+    const orders = await OrderDetailsView.findAll({ where: { driverId } });
+
+    if (!orders) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    const ordersWithHistory = await Promise.all(
+      orders.map(async (order) => {
+        const statusHistory = await OrderStatusHistoryView.findAll({
+          where: { orderId: order.id },
+          order: [["createdAt", "ASC"]],
+        });
+        return {
+          ...order.toJSON(),
+          statusHistory,
+        };
+      })
+    );
+
+    res.status(200).json(ordersWithHistory);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch order" });
+  }
+});
+
 // Update order
 //soon
 
