@@ -1,5 +1,5 @@
 import { Button, Box, Typography } from "@mui/material";
-import { handleClickPage } from "./headerUtils.ts";
+import { handleClickPage, handleDashboardReroute } from "./headerUtils.ts";
 import { CREATE_ACCOUNT_URL, SIGN_IN_URL } from "../../constants.ts";
 import { CREATE_ACCOUNT, LOG_IN } from "./constants.ts";
 import { useNavigate } from "react-router-dom";
@@ -68,9 +68,16 @@ export const HeaderButtonGroup = ({
           </>
         )}
         {authToken && (
-          <Button color="inherit" onClick={logout}>
-            <Typography>Logout</Typography>
-          </Button>
+          <>
+            <Button sx={{color: 'white'}}
+              onClick={() => handleDashboardReroute(navigate, authContext)}
+            >
+              <Typography>Dashboard</Typography>
+            </Button>
+            <Button color="inherit" onClick={logout}>
+              <Typography>Logout</Typography>
+            </Button>
+          </>
         )}
       </Box>
     </>
