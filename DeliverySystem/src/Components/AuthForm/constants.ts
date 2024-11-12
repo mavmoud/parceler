@@ -4,7 +4,7 @@ import {
   initialValuesSignIn,
 } from "./types";
 import * as Yup from "yup";
-export const CANCEL_BUTTON: string = "Cancel";
+export const CANCEL_BUTTON: string = "Clear";
 export const FIELD_REQUIRED_MESSAGE: string = "Required";
 export const INVALID_EMAIL_MESSAGE: string = "Invalid email";
 export const INVALID_CONFIRM_PASSWORD_MESSAGE: string = "Passwords must match";
