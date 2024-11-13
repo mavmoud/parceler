@@ -104,12 +104,38 @@ const StyledTextField = styled(TextField)(() => ({
     "&.Mui-focused fieldset": {
       borderColor: "#071528",
     },
-  },
-  "& .MuiInputLabel-shrink": {
-    color: "#848D9D",
-    opacity: 0,
+    "& .MuiInputLabel-root": {
+      position: "absolute",
+      top: "50%",
+      transform: "translateY(-50%)",
+      pointerEvents: "none",
+      color: "#848D9D",
+      transition: "opacity 0.2s",
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#848D9D",
+      opacity: 0,
+    },
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "30px",
+      "& fieldset": {
+        borderColor: "#D4D7DD",
+        top: 0,
+        legend: {
+          display: "none",
+        },
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#071528",
+      },
+    },
+    "& .MuiInputLabel-shrink": {
+      color: "#848D9D",
+      opacity: 0,
+    },
   },
 }));
+export { StyledTextField };
 
 const formatAddress = (address: string): string => {
   const parts = address.split(",");
