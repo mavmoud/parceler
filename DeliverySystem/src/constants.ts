@@ -20,6 +20,8 @@ export const DRIVER_DASHBOARD_ROUTE: string = "/driver-dashboard/";
 export const ADMIN_DASHBOARD_URL: string = "/admin-dashboard/:id";
 export const ADMIN_DASHBOARD_ROUTE: string = "/admin-dashboard/";
 export const QUOTE_URL: string = "/quote";
+export const SHIP_URL: string = "/ship";
+
 
 export const CREATE_ACCOUNT_FORM_TITLE: string = "Signup to Parceler";
 export const CREATE_ACCOUNT_FORM_BUTTON: string = "Signup";
@@ -29,3 +31,4 @@ export const SIGN_IN_FORM_BUTTON: string = "Login";
 export const IMAGE1: string = "BottomLeft.png";
 export const IMAGE2: string = "Bottom.png";
 export const IMAGE3: string = "Right.png";
+export const IMAGE4: string = "BottomRight.png";

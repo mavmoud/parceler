@@ -1,12 +1,13 @@
 import { Container, Grid2 } from "@mui/material";
-import { Header } from "./components/Header/Header";
-import { HomePage } from "./components/pages/HomePage/HomePage";
-import Quote from "./Components/pages/Quote/Quote";
-import { AuthForm } from "./components/AuthForm/AuthForm";
+import { Header } from "./Components/Header/Header";
+import { HomePage } from "./Components/pages/HomePage/HomePage";
+import Quote from "./Components/pages/Ship/Quote";
+import Ship from "./Components/pages/Ship/Ship";
+import { AuthForm } from "./Components/AuthForm/AuthForm";
 import { useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { Track } from "./components/pages/HomePage/Track";
-import { TrackPage } from "./components/pages/HomePage/TrackPage";
+import { Track } from "./Components/pages/HomePage/Track";
+import { TrackPage } from "./Components/pages/HomePage/TrackPage";
 import {
   CREATE_ACCOUNT_FIELDS,
   SIGN_IN_FIELDS,
@@ -24,6 +25,7 @@ import {
   DRIVER_DASHBOARD_URL,
   ADMIN_DASHBOARD_URL,
   QUOTE_URL,
+  SHIP_URL,
 } from "./constants";
 import "./app.css";
 
@@ -79,6 +81,7 @@ function App() {
             }
           />
           <Route path={QUOTE_URL} element={<Quote />} />
+          <Route path={SHIP_URL} element={<Ship />} />
           <Route path="/Track/:trackingNumber" element={<Track />} />
           <Route path="/Track" element={<TrackPage />} />
           <Route path={INVALID_ACCESS_URL} element={<InvalidAccessPage />} />
