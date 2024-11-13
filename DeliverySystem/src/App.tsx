@@ -29,6 +29,7 @@ import {
 } from "./constants";
 import "./app.css";
 
+import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
 import config from "./components/Chatbot/config.js";
 import MessageParser from "./components/Chatbot/MessageParser.jsx";
