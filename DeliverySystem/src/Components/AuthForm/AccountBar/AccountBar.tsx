@@ -1,9 +1,9 @@
 import { Button, ToggleButtonGroup } from "@mui/material";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import PersonIcon from "@mui/icons-material/Person";
 import { handleAccountToggle, getButtonStyles } from "./accountBarUtils";
 import { CUSTOMER_ACCOUNT_TYPE, DRIVER_ACCOUNT_TYPE } from "../constants";
 import { initialValuesCreateAccount, initialValuesSignIn } from "./../types";
+import { User } from 'lucide-react';
+import { Truck } from 'lucide-react';
 import { FormikProps } from "formik";
 
 export const AccountBar = ({
@@ -18,12 +18,13 @@ export const AccountBar = ({
   signInAuth: boolean;
 }) => {
   return (
-    <ToggleButtonGroup value={accountType} exclusive>
+    <ToggleButtonGroup value={accountType} exclusive sx={{ }}>
       {[
         { value: CUSTOMER_ACCOUNT_TYPE, label: "Customer" },
         { value: DRIVER_ACCOUNT_TYPE, label: "Driver" },
       ].map(({ value, label }) => (
         <Button
+          disableRipple
           key={value}
           value={value}
           onClick={() =>
@@ -32,9 +33,9 @@ export const AccountBar = ({
           sx={getButtonStyles(accountType, value)}
         >
           {value === CUSTOMER_ACCOUNT_TYPE ? (
-            <PersonIcon />
+            <User />
           ) : (
-            <LocalShippingIcon />
+            <Truck />
           )}
           {label}
         </Button>
