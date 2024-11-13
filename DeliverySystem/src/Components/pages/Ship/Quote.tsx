@@ -98,6 +98,7 @@ const StyledTextField = styled(TextField)(() => ({
         opacity: 0,
     },
 }))
+export { StyledTextField };
 
 const formatAddress = (address: string): string => {
     const parts = address.split(',')

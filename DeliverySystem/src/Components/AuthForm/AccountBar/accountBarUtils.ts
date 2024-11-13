@@ -23,5 +23,13 @@ export const handleAccountToggle = (
 export const getButtonStyles = (accountType: string, buttonType: string) => ({
   backgroundColor: accountType === buttonType ? COLOR_MAIN : "",
   color: accountType === buttonType ? "white" : COLOR_MAIN,
-  gap: "8px",
+  gap: "10px",
+  borderRadius: '50px',
+  fontFamily: '"Montserrat", serif',
+  textTransform: 'none',
+  fontSize: '16px',
+  fontWeight: 'medium',
+  height: '48px',
+  width: '212px',
+  boxShadow: 'none'
 });
