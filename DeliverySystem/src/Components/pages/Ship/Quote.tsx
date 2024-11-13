@@ -2,13 +2,15 @@ import React, { useState, useCallback } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Box, Button, Card, CardContent, Radio, RadioGroup, FormControlLabel, TextField, Typography, styled, InputAdornment } from '@mui/material'
+import { Box, Button, Card, CardContent, Radio, RadioGroup, FormControlLabel, Typography, styled, InputAdornment } from '@mui/material'
 import { useJsApiLoader, Autocomplete } from '@react-google-maps/api'
 import { Package, Mail } from "lucide-react"
 import QuoteProposal from './QuoteProposal'
 import { PageTitle } from "../../PageTitle.tsx"
 import { useBodyBackground } from "../../../Hooks/useBodyBackground.ts"
 import { BACKGROUND_BOTTOM, IMAGE2 } from "../../../constants.ts"
+import { StyledTextField } from "../../StyledTextField.tsx";
+import {useLocation} from "react-router-dom";
 
 const StyledRadioGroup = styled(RadioGroup)({
     display: "grid",
@@ -60,45 +62,6 @@ const RadioCard = styled(FormControlLabel)({
         padding: 0,
     },
 })
-
-const StyledTextField = styled(TextField)(() => ({
-    '& .MuiFormLabel-root': {
-        paddingLeft: '25px',
-    },
-    '& .MuiInputBase-input': {
-        paddingLeft: '25px',
-    },
-    '& .MuiInputLabel-root': {
-        position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        pointerEvents: 'none',
-        color: "#848D9D",
-        transition: 'opacity 0.2s',
-    },
-    '& .MuiInputLabel-root.Mui-focused': {
-        color: "#848D9D",
-        opacity: 0,
-    },
-    '& .MuiOutlinedInput-root': {
-        borderRadius: '30px',
-        '& fieldset': {
-            borderColor: '#D4D7DD',
-            top: 0,
-            legend: {
-                display: 'none',
-            },
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: "#071528",
-        },
-    },
-    '& .MuiInputLabel-shrink': {
-        color: "#848D9D",
-        opacity: 0,
-    },
-}))
-export { StyledTextField };
 
 const formatAddress = (address: string): string => {
     const parts = address.split(',')
@@ -156,6 +119,9 @@ export default function Quote() {
     const [originAutocomplete, setOriginAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
     const [destinationAutocomplete, setDestinationAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
 
+    const location = useLocation();
+    const { origin, destination } = location.state || {};
+
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
         libraries: ['places'],
@@ -171,8 +137,8 @@ export default function Quote() {
 
     const formik = useFormik<FormValues>({
         initialValues: {
-            origin: "",
-            destination: "",
+            origin: origin || "",
+            destination: destination || "",
             type: "",
             subtype: "",
             weight: undefined,
@@ -301,6 +267,7 @@ export default function Quote() {
                                             id="origin"
                                             name="origin"
                                             label="Origin"
+                                            placeholder="Origin"
                                             value={formik.values.origin}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
@@ -314,6 +281,7 @@ export default function Quote() {
                                             id="destination"
                                             name="destination"
                                             label="Destination"
+                                            placeholder="Destination"
                                             value={formik.values.destination}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
@@ -497,6 +465,7 @@ export default function Quote() {
                                                             id="weight"
                                                             name="weight"
                                                             label="Weight"
+                                                            placeholder="Weight"
                                                             type="string"
                                                             variant="outlined"
                                                             value={formik.values.weight || ""}
