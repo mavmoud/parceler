@@ -1,7 +1,5 @@
 import { MapPinCheck, Calendar1, Weight, MapPinHouse } from "lucide-react";
 import { Box, Typography, Button, Card, CardContent } from "@mui/material";
-import { useCallback } from "react";
-import { Payment } from "models";
 
 interface QuoteProposalProps {
   type: "document" | "package";
@@ -59,24 +57,6 @@ export default function QuoteProposal({
     }
     return `${subtype === "small" ? "Small" : "Large"} Package`;
   };
-
-  const handleOnShip = useCallback(async () => {
-    // try {
-    //   const payment = new Payment({
-    //     amount: Number(totalPrice.toFixed(2)) * 100,
-    //     productName: `${type} - ${subtype}`,
-    //     userEmail: "test@test.com",
-    //   });
-    //   const data = await PaymentService.stripeURL(payment);
-    //   if (data.url) {
-    //     window.location.href = data.url;
-    //   } else {
-    //     console.error("Stripe URL not found in response");
-    //   }
-    // } catch (error) {
-    //   console.error("Error during Stripe checkout:", error);
-    // }
-  }, []);
 
   return (
     <Box sx={{ width: "800px", mx: "auto", borderRadius: "50px" }}>
@@ -297,7 +277,6 @@ export default function QuoteProposal({
               height: "50px",
               boxShadow: "none",
             }}
-            onClick={handleOnShip}
           >
             Ship
           </Button>
