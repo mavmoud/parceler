@@ -16,18 +16,18 @@ export const SUCCESS_MESSAGE_REGISTER_ACCOUNT: string =
 export const ERROR_MESSAGE: string = "An error has occured";
 
 export const CREATE_ACCOUNT_FIELDS: Array<TextFieldsConfig> = [
-  { label: "First name", name: "fName" },
-  { label: "Last name", name: "lName" },
-  { label: "Phone number", name: "phoneNumber" },
+  { label: "First Name", name: "fName" },
+  { label: "Last Name", name: "lName" },
+  { label: "Phone Number", name: "phoneNumber" },
   { label: "Address", name: "address" },
-  { label: "Enter email", name: "emailCreateAccount" },
-  { label: "Enter password", name: "passwordCreateAccount" },
-  { label: "Confirm password", name: "confirmPassword" },
+  { label: "Email", name: "emailCreateAccount" },
+  { label: "Password", name: "passwordCreateAccount" },
+  { label: "Confirm Password", name: "confirmPassword" },
 ];
 
 export const SIGN_IN_FIELDS: Array<TextFieldsConfig> = [
-  { label: "Enter email", name: "emailSignIn" },
-  { label: "Enter password", name: "passwordSignIn" },
+  { label: "Email", name: "emailSignIn" },
+  { label: "Password", name: "passwordSignIn" },
 ];
 
 export const INITIAL_VALUES_CREATE_ACCOUNT: initialValuesCreateAccount = {

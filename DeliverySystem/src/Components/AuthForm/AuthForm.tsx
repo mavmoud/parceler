@@ -6,12 +6,13 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import { StyledTextField } from "./../StyledTextField.tsx";
+import { PageTitle } from "./../PageTitle.tsx"
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AccountBar } from "./AccountBar/AccountBar";
 import {
@@ -133,16 +134,13 @@ export const AuthForm = ({
   }, [initialValues, signInAuth]);
 
   const horizontal = "right";
-  const vertical = "top";
+  const vertical = "bottom";
 
   return (
     <Grid2
-      mt={1}
-      pt={5}
       container
       direction="column"
       alignItems="center"
-      spacing={3}
     >
       <Snackbar
         open={!!authError}
@@ -151,7 +149,7 @@ export const AuthForm = ({
         onClose={() => setAuthError("")}
       >
         <Alert
-          sx={{ height: "3rem", alignItems: "center" }}
+          sx={{ height: "3rem", alignItems: "center", borderRadius: '50px' }}
           severity="error"
           variant="filled"
           onClose={() => setAuthError("")}
@@ -159,14 +157,12 @@ export const AuthForm = ({
           <Typography>{authError}</Typography>
         </Alert>
       </Snackbar>
-      <Typography variant="h4" textAlign={"center"} color={"white"}>
-        {title}
-      </Typography>
-      <Card sx={{ p: 2, maxWidth: "22rem", borderRadius: 14 }}>
-        <CardContent>
+      <PageTitle title={title} />
+      <Card sx={{ width: "500px", borderRadius: '50px' }}>
+        <CardContent sx={{ m: '25px', p: '0 !important' }}>
           {signInAuth ? (
-            <Paper elevation={2}>
-              <Grid2 pt={1} pb={1} mb={2} container justifyContent={"center"}>
+            <Paper elevation={2} sx={{ boxShadow: 'none', border: '1px solid #D4D7DD', borderRadius: '50px', mb: '15px'}}>
+              <Grid2 pt={'10px'} pb={'10px'} container justifyContent={"center"} sx={{ boxShadow: 'none'}}>
                 <AccountBar
                   accountType={accountType}
                   setAccountType={setAccountType}
@@ -177,7 +173,7 @@ export const AuthForm = ({
             </Paper>
           ) : null}
 
-          <Grid2 size={12}>
+          <Grid2>
             <form onSubmit={formik.handleSubmit}>
               {textFields.map((textField, index) => {
                 const fieldName = textField.name as keyof (
@@ -185,23 +181,18 @@ export const AuthForm = ({
                   | initialValuesSignIn
                 );
                 return (
-                  <TextField
+                  <StyledTextField
                     key={`${index}${title}`}
                     fullWidth
-                    size={"small"}
-                    sx={{ mb: 2 }}
+                    sx={{ mb: '15px' }}
                     name={textField.name}
                     label={textField.label}
+                    placeholder={`${textField.label}`}
                     value={formik.values[fieldName]}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={
                       !!(formik.touched[fieldName] && formik.errors[fieldName])
-                    }
-                    helperText={
-                      formik.touched[fieldName]
-                        ? formik.errors[fieldName]
-                        : EMPTY_STRING
                     }
                     type={isPasswordField(fieldName)}
                   />
@@ -209,18 +200,39 @@ export const AuthForm = ({
               })}
               <Grid2 container justifyContent={"center"}>
                 <Button
+                  disableRipple
                   onClick={formik.handleSubmit}
                   type="submit"
                   variant="contained"
-                  sx={{ mr: 2, backgroundColor: COLOR_MAIN }}
+                  sx={{
+                    backgroundColor: COLOR_MAIN,
+                    borderRadius: '30px',
+                    fontFamily: '"Montserrat", serif',
+                    textTransform: 'none',
+                    fontSize: '16px',
+                    fontWeight: 'medium',
+                    height: '50px',
+                    width: '225px',
+                    boxShadow: 'none'
+                }}
                 >
                   {signInAuth
                     ? SIGN_IN_FORM_BUTTON
                     : CREATE_ACCOUNT_FORM_BUTTON}
                 </Button>
                 <Button
+                  disableRipple
                   onClick={() => formik.resetForm()}
-                  sx={{ color: COLOR_MAIN }}
+                  sx={{
+                    color: COLOR_MAIN,
+                    borderRadius: '30px',
+                    fontFamily: '"Montserrat", serif',
+                    textTransform: 'none',
+                    fontSize: '16px',
+                    fontWeight: 'medium',
+                    height: '50px',
+                    width: '225px',
+                    boxShadow: 'none' }}
                 >
                   {CANCEL_BUTTON}
                 </Button>
