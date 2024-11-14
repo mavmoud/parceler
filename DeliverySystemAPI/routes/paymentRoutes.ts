@@ -8,7 +8,7 @@ import {
   retrieveSession,
 } from "../Services";
 import { accessTokenSecret } from "../config";
-import { Order, Package, Payment } from "../models";
+import { Order, OrderStatusHistory, Package, Payment } from "../models";
 import { eventManager, generateTrackingNumber } from "../utils";
 
 export const paymentRoutes = express.Router();
@@ -39,8 +39,6 @@ paymentRoutes.post("/complete", async (req, res) => {
 
     const {
       weight,
-      dimension,
-      declaredValue,
       recipientFirstName,
       recipientLastName,
       recipientAddress,
@@ -50,8 +48,6 @@ paymentRoutes.post("/complete", async (req, res) => {
 
     if (
       !weight ||
-      !dimension ||
-      !declaredValue ||
       !recipientFirstName ||
       !recipientLastName ||
       !recipientAddress ||
@@ -69,8 +65,8 @@ paymentRoutes.post("/complete", async (req, res) => {
     //create package first
     const p = await Package.create({
       weight,
-      dimension,
-      declaredValue,
+      dimension: "5x5x5",
+      declaredValue: 0,
     });
 
     //create payment
@@ -84,7 +80,7 @@ paymentRoutes.post("/complete", async (req, res) => {
     //generate tracking number
     const trackingNumber = generateTrackingNumber();
 
-    await Order.create({
+    const newOrder = await Order.create({
       packageId: p.id,
       paymentId: payment.id,
       senderId: userId,
@@ -94,6 +90,11 @@ paymentRoutes.post("/complete", async (req, res) => {
       recipientAddress,
       senderAddress,
       trackingNumber,
+    });
+
+    await OrderStatusHistory.create({
+      orderId: newOrder.id,
+      statusId: 1,
     });
 
     eventManager.emit("orderCreated", trackingNumber);
