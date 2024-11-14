@@ -8,7 +8,6 @@ export interface initialValuesCreateAccount {
   lName: string;
   emailCreateAccount: string;
   phoneNumber: string;
-  address: string;
   passwordCreateAccount: string;
   confirmPassword: string;
   accountTypeCreateAccount: string;
@@ -31,7 +30,6 @@ export interface CreateAccountData {
   email: string;
   password: string;
   userTypeId?: number;
-  address: string;
   phoneNumber: string;
 }
 
@@ -42,7 +40,6 @@ export interface UserData {
   email: string;
   password: string;
   userTypeId: number;
-  address: string;
   phoneNumber: string;
   refreshToken: string;
   refreshTokenExpiry: string;

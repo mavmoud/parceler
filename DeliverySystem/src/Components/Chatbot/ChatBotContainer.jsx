@@ -3,9 +3,9 @@ import Chatbot from "react-chatbot-kit";
 import ActionProvider from "./ActionProvider";
 import MessageParser from "./MessageParser";
 import config from "./config";
-import './ChatBotContainer.css'; // Import the CSS file
+import "./ChatBotContainer.css"; // Import the CSS file
 
-const ChatBotContainer = () => {
+export const ChatBotContainer = () => {
   const [showChatbot, setShowChatbot] = useState(false); // Start with chatbot closed
 
   // Function to toggle the chatbot visibility
@@ -17,7 +17,6 @@ const ChatBotContainer = () => {
     <div>
       {/* Logo to toggle chatbot */}
       <img
-     
         src="../../public/chatbot.png" // Replace with the actual path to your logo
         alt="Chatbot Logo"
         className="chatbot-toggle-logo"
@@ -40,5 +39,3 @@ const ChatBotContainer = () => {
     </div>
   );
 };
-
-export default ChatBotContainer;
