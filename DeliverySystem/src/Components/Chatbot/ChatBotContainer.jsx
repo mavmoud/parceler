@@ -17,7 +17,7 @@ export const ChatBotContainer = () => {
     <div>
       {/* Logo to toggle chatbot */}
       <img
-        src="../../public/chatbot.png" // Replace with the actual path to your logo
+        src="../../public/chatbot.png"
         alt="Chatbot Logo"
         className="chatbot-toggle-logo"
         onClick={toggleChatbot}
