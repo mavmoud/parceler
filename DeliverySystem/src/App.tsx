@@ -1,8 +1,9 @@
 import { Container, Grid2 } from "@mui/material";
 import { Header } from "./Components/Header/Header";
 import { HomePage } from "./Components/pages/HomePage/HomePage";
-import Quote from "./Components/pages/Ship/Quote";
+import Quote from "./Components/pages/Quote/Quote.tsx";
 import Ship from "./Components/pages/Ship/Ship";
+import Help from "./Components/pages/Help/Help";
 import { AuthForm } from "./Components/AuthForm/AuthForm";
 import { useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
@@ -26,6 +27,7 @@ import {
   ADMIN_DASHBOARD_URL,
   QUOTE_URL,
   SHIP_URL,
+  HELP_URL
 } from "./constants";
 import "./app.css";
 
@@ -38,7 +40,7 @@ import { InvalidAccessPage } from "Components/pages/InvalidAccesPage.js";
 import { UserDashboard } from "Components/pages/UserDashboard/UserDashboard.js";
 import { DriverDashboard } from "Components/pages/DriverDashboard/DriverDashboard.js";
 import { AdminDashboard } from "Components/pages/AdminDashboard/AdminDashboard.js";
-import ChatBotContainer from './components/Chatbot/ChatBotContainer.jsx'; 
+// import ChatBotContainer from './Components/Chatbot/ChatBotContainer.jsx';
 
 function App() {
   const location = useLocation();
@@ -50,7 +52,7 @@ function App() {
     <Container maxWidth="xl">
       <Header setSignInAuth={setSignInAuth} signInAuth={signInAuth} />
       <Grid2>
-        <ChatBotContainer />
+        {/*<ChatBotContainer />*/}
 
         <Routes>
           <Route path={HOME_PAGE_URL} element={<HomePage />} />
@@ -78,6 +80,7 @@ function App() {
           />
           <Route path={QUOTE_URL} element={<Quote />} />
           <Route path={SHIP_URL} element={<Ship />} />
+          <Route path={HELP_URL} element={<Help />} />
           <Route path="/Track/:trackingNumber" element={<Track />} />
           <Route path="/Track" element={<TrackPage />} />
           <Route path={INVALID_ACCESS_URL} element={<InvalidAccessPage />} />

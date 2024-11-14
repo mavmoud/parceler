@@ -1,5 +1,7 @@
 import { MapPinCheck, Calendar1, Weight, MapPinHouse } from "lucide-react";
 import { Box, Typography, Button, Card, CardContent } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+
 
 interface QuoteProposalProps {
   type: "document" | "package";
@@ -22,7 +24,10 @@ export default function QuoteProposal({
   distance = 500,
   basePrice = 10,
 }: QuoteProposalProps) {
-  const getMaxDimensions = (): string => {
+
+    const navigate = useNavigate();
+
+    const getMaxDimensions = (): string => {
     if (type === "document") {
       return subtype === "standard"
         ? "Max dimensions: 245mm x 156mm"
@@ -57,6 +62,20 @@ export default function QuoteProposal({
     }
     return `${subtype === "small" ? "Small" : "Large"} Package`;
   };
+    const handleShip = () => {
+        const productName = getTitle();
+        const tax = totalPrice * 0.15;
+        const totalWithTax = totalPrice + tax;
+
+        navigate('/ship', {
+            state: {
+                productName,
+                totalPrice,
+                tax,
+                totalWithTax
+            }
+        });
+    };
 
   return (
     <Box sx={{ width: "800px", mx: "auto", borderRadius: "50px" }}>
@@ -266,6 +285,7 @@ export default function QuoteProposal({
             disableRipple
             fullWidth
             variant="contained"
+            onClick={handleShip}
             sx={{
               mt: "25px",
               borderRadius: "30px",

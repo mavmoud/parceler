@@ -1,7 +1,7 @@
 import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { HOME_PAGE } from "./constants.ts";
-import { HOME_PAGE_URL, QUOTE_URL } from "../../constants";
+import {HELP_URL, HOME_PAGE_URL, QUOTE_URL} from "../../constants";
 import { HeaderButtonGroup } from "./HeaderButtonGroup";
 
 export const Header = ({
@@ -106,6 +106,7 @@ export const Header = ({
               fontWeight: "medium",
               textTransform: "none",
             }}
+            onClick={() => navigate(HELP_URL)}
           >
             Help
           </Button>

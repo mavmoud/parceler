@@ -21,6 +21,7 @@ export const ADMIN_DASHBOARD_URL: string = "/admin-dashboard/:id";
 export const ADMIN_DASHBOARD_ROUTE: string = "/admin-dashboard/";
 export const QUOTE_URL: string = "/quote";
 export const SHIP_URL: string = "/ship";
+export const HELP_URL: string = "/help";
 
 
 export const CREATE_ACCOUNT_FORM_TITLE: string = "Signup to Parceler";
