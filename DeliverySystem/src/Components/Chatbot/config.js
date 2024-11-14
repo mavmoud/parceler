@@ -1,19 +1,19 @@
-import React from 'react'; // Add this import statement
+import React from 'react'; 
 import { createChatBotMessage } from 'react-chatbot-kit';
-import Options from './Options'; // Import the Options component
+import Options from './Options'; 
 
 const config = {
   botName: "DeliveryBot",
   initialMessages: [
     createChatBotMessage("What would you like to do?", {
-      widget: "optionsWidget", // Reference the widget by name
+      widget: "optionsWidget", 
     }),
   ],
   widgets: [
     {
-      widgetName: "optionsWidget", // Name of the widget
+      widgetName: "optionsWidget", 
       widgetFunc: (props) => {
-        return React.createElement(Options, props); // Use React.createElement instead of JSX
+        return React.createElement(Options, props); 
       },
     },
   ],
