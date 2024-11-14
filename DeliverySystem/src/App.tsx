@@ -2,7 +2,6 @@ import { Container, Grid2 } from "@mui/material";
 import { Header } from "./Components/Header/Header";
 import { HomePage } from "./Components/pages/HomePage/HomePage";
 import Quote from "./Components/pages/Ship/Quote";
-import Ship from "./Components/pages/Ship/Ship";
 import { AuthForm } from "./Components/AuthForm/AuthForm";
 import { useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
@@ -28,17 +27,12 @@ import {
   SHIP_URL,
 } from "./constants";
 import "./app.css";
-
 import "react-chatbot-kit/build/main.css";
-import config from "./components/Chatbot/config.js";
-import MessageParser from "./components/Chatbot/MessageParser.jsx";
-import ActionProvider from "./components/Chatbot/ActionProvider.jsx";
-import { TestLogInPage } from "Components/pages/TestLogInPage.js";
 import { InvalidAccessPage } from "Components/pages/InvalidAccesPage.js";
 import { UserDashboard } from "Components/pages/UserDashboard/UserDashboard.js";
 import { DriverDashboard } from "Components/pages/DriverDashboard/DriverDashboard.js";
 import { AdminDashboard } from "Components/pages/AdminDashboard/AdminDashboard.js";
-import ChatBotContainer from './components/Chatbot/ChatBotContainer.jsx'; 
+import { ChatBotContainer } from "./components/Chatbot/ChatBotContainer";
 
 function App() {
   const location = useLocation();
@@ -77,7 +71,7 @@ function App() {
             }
           />
           <Route path={QUOTE_URL} element={<Quote />} />
-          <Route path={SHIP_URL} element={<Ship />} />
+          {/* <Route path={SHIP_URL} element={<Ship />} /> */}
           <Route path="/Track/:trackingNumber" element={<Track />} />
           <Route path="/Track" element={<TrackPage />} />
           <Route path={INVALID_ACCESS_URL} element={<InvalidAccessPage />} />
