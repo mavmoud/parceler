@@ -4,7 +4,6 @@ export class User {
   public email: string;
   public password: string;
   public userTypeId: number;
-  public address: string;
   public phoneNumber: string;
 
   constructor(others?: Partial<User>) {
@@ -13,7 +12,6 @@ export class User {
     this.email = others?.email || "";
     this.password = others?.password || "";
     this.userTypeId = others?.userTypeId || 1;
-    this.address = others?.address || "";
     this.phoneNumber = others?.phoneNumber || "";
   }
 }
