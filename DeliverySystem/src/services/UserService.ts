@@ -10,7 +10,7 @@ export class UserService {
     const res = await axios.get(`${BASE_URL}/api/users`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("AccessToken"),
+        Authorization: localStorage.getItem("authToken"),
       },
     });
     return res.data;
@@ -20,7 +20,7 @@ export class UserService {
     const res = await axios.get(`${BASE_URL}/api/users/${userId}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("AccessToken"),
+        Authorization: localStorage.getItem("authToken"),
       },
     });
     return res.data;
@@ -33,7 +33,7 @@ export class UserService {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("AccessToken"),
+          Authorization: localStorage.getItem("authToken"),
         },
       }
     );
