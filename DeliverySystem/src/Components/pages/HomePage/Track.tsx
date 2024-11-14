@@ -162,7 +162,7 @@ export const Track = () => {
 
             <Grid item xs={6}>
               <Grid container alignItems="center">
-                <CiDeliveryTruck />
+                {/*<CiDeliveryTruck />*/}
                 <Typography pl={0.7}>Estimated Delivery</Typography>
               </Grid>
               <Typography variant="body1">{EstimatedDelivery}</Typography>
