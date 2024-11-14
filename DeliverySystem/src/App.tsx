@@ -30,17 +30,13 @@ import {
   HELP_URL
 } from "./constants";
 import "./app.css";
-
 import "react-chatbot-kit/build/main.css";
-import config from "./components/Chatbot/config.js";
-import MessageParser from "./components/Chatbot/MessageParser.jsx";
-import ActionProvider from "./components/Chatbot/ActionProvider.jsx";
-import { TestLogInPage } from "Components/pages/TestLogInPage.js";
 import { InvalidAccessPage } from "Components/pages/InvalidAccesPage.js";
 import { UserDashboard } from "Components/pages/UserDashboard/UserDashboard.js";
 import { DriverDashboard } from "Components/pages/DriverDashboard/DriverDashboard.js";
 import { AdminDashboard } from "Components/pages/AdminDashboard/AdminDashboard.js";
 // import ChatBotContainer from './Components/Chatbot/ChatBotContainer.jsx';
+
 
 function App() {
   const location = useLocation();

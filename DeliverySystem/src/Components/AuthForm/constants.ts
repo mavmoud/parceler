@@ -19,7 +19,6 @@ export const CREATE_ACCOUNT_FIELDS: Array<TextFieldsConfig> = [
   { label: "First Name", name: "fName" },
   { label: "Last Name", name: "lName" },
   { label: "Phone Number", name: "phoneNumber" },
-  { label: "Address", name: "address" },
   { label: "Email", name: "emailCreateAccount" },
   { label: "Password", name: "passwordCreateAccount" },
   { label: "Confirm Password", name: "confirmPassword" },
@@ -34,7 +33,6 @@ export const INITIAL_VALUES_CREATE_ACCOUNT: initialValuesCreateAccount = {
   fName: EMPTY_STRING,
   lName: EMPTY_STRING,
   phoneNumber: EMPTY_STRING,
-  address: EMPTY_STRING,
   emailCreateAccount: EMPTY_STRING,
   passwordCreateAccount: EMPTY_STRING,
   confirmPassword: EMPTY_STRING,
@@ -58,7 +56,6 @@ export const createAccountSchema = Yup.object().shape({
   fName: Yup.string().required(FIELD_REQUIRED_MESSAGE),
   lName: Yup.string().required(FIELD_REQUIRED_MESSAGE),
   phoneNumber: Yup.string().required(FIELD_REQUIRED_MESSAGE),
-  address: Yup.string().required(FIELD_REQUIRED_MESSAGE),
   emailCreateAccount: Yup.string()
     .email(INVALID_EMAIL_MESSAGE)
     .required(FIELD_REQUIRED_MESSAGE),

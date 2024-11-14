@@ -17,6 +17,7 @@ import { TbPackageExport } from "react-icons/tb";
 import { LuPackageOpen } from "react-icons/lu";
 import { TbTruckReturn } from "react-icons/tb";
 import { MdOutlineNewReleases } from "react-icons/md";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 interface Order {
   senderAddress: string;
