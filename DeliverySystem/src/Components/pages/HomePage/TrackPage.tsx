@@ -76,6 +76,7 @@ interface FormValues {
               <StyledTextField
                 id="trackingNumber"
                 label="Tracking Number"
+                placeholder="Tracking Number"
                 variant="outlined"
                 name="trackingNumber"
                 fullWidth
@@ -94,6 +95,7 @@ interface FormValues {
                 </Typography>
               )}
               <Button
+                disableRipple
                 type="submit"
                 variant="contained"
                 sx={{

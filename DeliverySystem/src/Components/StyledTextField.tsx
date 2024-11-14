@@ -1,6 +1,7 @@
 import { TextField, styled } from '@mui/material';
 
 export const StyledTextField = styled(TextField)(() => ({
+
     '& .MuiFormLabel-root': {
         paddingLeft: '25px',
     },
