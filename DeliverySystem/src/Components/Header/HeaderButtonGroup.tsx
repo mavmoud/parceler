@@ -4,6 +4,25 @@ import { CREATE_ACCOUNT_URL, SIGN_IN_URL } from "../../constants.ts";
 import { CREATE_ACCOUNT, LOG_IN } from "./constants.ts";
 import { useNavigate } from "react-router-dom";
 import { useAuthentication, ROLE_ANY } from "../../Hooks/useAuthentication.ts";
+import { styled } from "@mui/material";
+
+const StyledMainButton = styled(Button)({
+  fontFamily: '"Montserrat", serif',
+  fontSize: "16px",
+  textTransform: "none",
+  color: "#071528",
+  backgroundColor: "white",
+  height: "50px",
+  borderRadius: "80px",
+});
+
+const StyledSecondaryButton = styled(Button)({
+  fontFamily: '"Montserrat", serif',
+  fontSize: "16px",
+  textTransform: "none",
+  color: "white",
+  backgroundColor: "none",
+});
 
 export const HeaderButtonGroup = ({
   setSignInAuth,
@@ -27,56 +46,46 @@ export const HeaderButtonGroup = ({
       >
         {!authToken && (
           <>
-            <Button
+            <StyledSecondaryButton
               disableRipple
-              sx={{
-                fontFamily: '"Montserrat", serif',
-                fontSize: "16px",
-                textTransform: "none",
-                color: "white",
-                backgroundColor: "none",
-              }}
               onClick={() => {
                 handleClickPage(
                   navigate,
                   CREATE_ACCOUNT_URL,
                   setSignInAuth,
-                  false
+                  false,
                 );
               }}
             >
               {CREATE_ACCOUNT}
-            </Button>
-            <Button
+            </StyledSecondaryButton>
+            <StyledMainButton
               disableRipple
               sx={{
-                fontFamily: '"Montserrat", serif',
-                fontSize: "16px",
-                textTransform: "none",
-                color: "#071528",
-                backgroundColor: "white",
                 width: "100px",
-                height: "50px",
-                borderRadius: "80px",
               }}
               onClick={() => {
                 handleClickPage(navigate, SIGN_IN_URL, setSignInAuth, true);
               }}
             >
               {LOG_IN}
-            </Button>
+            </StyledMainButton>
           </>
         )}
         {authToken && (
           <>
-            <Button sx={{color: 'white'}}
+            <StyledSecondaryButton disableRipple onClick={logout}>
+              Logout
+            </StyledSecondaryButton>
+            <StyledMainButton
+              disableRipple
+              sx={{
+                width: "140px",
+              }}
               onClick={() => handleDashboardReroute(navigate, authContext)}
             >
-              <Typography>Dashboard</Typography>
-            </Button>
-            <Button color="inherit" onClick={logout}>
-              <Typography>Logout</Typography>
-            </Button>
+              Dashboard
+            </StyledMainButton>
           </>
         )}
       </Box>
