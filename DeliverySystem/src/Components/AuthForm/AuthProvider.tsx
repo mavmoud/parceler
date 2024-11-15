@@ -3,6 +3,7 @@ import { UserData } from "./types";
 import { useNavigate } from "react-router-dom";
 import { HOME_PAGE_URL } from "../../constants";
 import { AuthService } from "../../services";
+import { useSnackbar } from "notistack";
 
 export interface AuthContextType {
   authToken?: string;
@@ -21,6 +22,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const [authToken, setAuthToken] = useState<string | undefined>(() => {
     return localStorage.getItem("authToken") || "";
   });
@@ -46,6 +48,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         localStorage.removeItem("authToken");
         localStorage.removeItem("userData");
         navigate(HOME_PAGE_URL);
+        enqueueSnackbar(res.data.message, { variant: "success" });
       } else {
         console.log("Request failed with status:", res.status);
       }

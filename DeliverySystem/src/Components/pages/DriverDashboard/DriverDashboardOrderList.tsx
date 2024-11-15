@@ -13,6 +13,7 @@ import {
 import { USER_INFO, USER_ID } from "../../../Hooks/constants";
 import { Grid2 } from "@mui/material";
 import { DriverOrderDetails } from "./DriverOrderDetails";
+import { Order } from "models";
 
 export const DriverDashboardOrderList = () => {
   const [expanded, setExpanded] = useState<string | false>(false);
@@ -33,11 +34,12 @@ export const DriverDashboardOrderList = () => {
   return (
     <Grid2 sx={{ width: "100%" }}>
       {!isLoading && orders ? (
-        orders.map((order) => {
+        orders.map((order: Order) => {
           return (
             <Accordion
-              expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}
+              key={order.trackingNumber}
+              expanded={expanded === order.trackingNumber}
+              onChange={handleChange(order.trackingNumber)}
               sx={{
                 bgcolor: "#FFFFFF",
                 color: "black",

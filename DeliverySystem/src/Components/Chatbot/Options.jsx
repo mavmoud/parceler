@@ -1,5 +1,5 @@
 import React from "react";
-import './Options.css'; // Import the Options component
+import './Options.css'; 
 
 const Options = ({ actionProvider }) => {
   return (

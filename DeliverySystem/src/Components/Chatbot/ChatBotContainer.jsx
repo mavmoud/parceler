@@ -3,7 +3,7 @@ import Chatbot from "react-chatbot-kit";
 import ActionProvider from "./ActionProvider";
 import MessageParser from "./MessageParser";
 import config from "./config";
-import './ChatBotContainer.css'; // Import the CSS file
+import "./ChatBotContainer.css"; // Import the CSS file
 
 const ChatBotContainer = () => {
   const [showChatbot, setShowChatbot] = useState(false); // Start with chatbot closed
@@ -17,8 +17,7 @@ const ChatBotContainer = () => {
     <div>
       {/* Logo to toggle chatbot */}
       <img
-     
-        src="../../public/chatbot.png" // Replace with the actual path to your logo
+        src="../../public/chatbot.png"
         alt="Chatbot Logo"
         className="chatbot-toggle-logo"
         onClick={toggleChatbot}

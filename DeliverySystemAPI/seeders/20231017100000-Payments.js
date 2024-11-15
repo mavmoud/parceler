@@ -8,10 +8,24 @@ module.exports = {
       [
         {
           id: 1,
-          stripeId: "tessssssssssssssssssssssst",
+          stripeId: "3433",
           amount: 50.5,
           currency: "CAD",
-          method: "VISA",
+          method: "visa",
+        },
+        {
+          id: 2,
+          stripeId: "3434",
+          amount: 500,
+          currency: "CAD",
+          method: "visa",
+        },
+        {
+          id: 3,
+          stripeId: "3435",
+          amount: 600,
+          currency: "CAD",
+          method: "visa",
         },
       ],
       {}

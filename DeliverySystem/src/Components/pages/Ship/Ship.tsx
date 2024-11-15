@@ -11,6 +11,7 @@ import {
   BACKGROUND_BOTTOM,
   BACKGROUND_RIGHT,
   IMAGE4,
+  SIGN_IN_URL,
 } from "../../../constants.ts";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -71,6 +72,7 @@ interface ShipmentData {
   subtype: string;
   weight: number;
   distance: number;
+  weight: number;
 }
 
 const validationSchema = Yup.object({
@@ -118,6 +120,7 @@ export default function Ship() {
     subtype: "",
     weight: 0,
     distance: 0,
+    weught: 0,
   });
   const [senderAddress, setSenderAddress] = useState("");
   const [recipientAddress, setRecipientAddress] = useState("");
@@ -172,7 +175,7 @@ export default function Ship() {
     setRecipientLastName(lastName);
 
     const initiatePayment = async () => {
-      const token = localStorage.getItem("authToken"); // Retrieve the token
+      const token = user?.authToken; // Retrieve the token
 
       if (!token) {
         console.error("Authentication token is missing");
@@ -181,49 +184,47 @@ export default function Ship() {
       }
 
       try {
+        const shipmentPayload = {
+          weight: shipmentData.weight,
+          recipientFirstName: firstName,
+          recipientLastName: lastName,
+          senderAddress,
+          recipientAddress: address,
+        };
+
+        sessionStorage.setItem(
+          "shipmentPayload",
+          JSON.stringify(shipmentPayload)
+        );
+
         const response = await axios.post(
           "http://localhost:3001/api/payment/checkout",
           {
-            amount: Math.round(shipmentData.totalWithTax * 100), // Convert to cents and ensure it's an integer
+            amount: Math.round(shipmentData.totalWithTax * 100),
             userEmail: user?.userInfo?.email,
             productName: shipmentData.productName || "Shipment",
+            userId: user.userInfo?.id,
           },
           {
             headers: {
               Authorization: `${token}`,
               "Content-Type": "application/json",
             },
-          },
+          }
         );
 
         window.location.href = response.data.url;
       } catch (error) {
         console.error(
           "Payment initiation failed:",
-          error.response?.data || error.message,
+          error.response?.data || error.message
         );
       }
     };
 
     // Call the initiatePayment function
     await initiatePayment();
-
-    console.log({
-      senderAddress,
-      recipientAddress,
-      recipientFirstName,
-      recipientLastName,
-      ...shipmentData,
-    });
   };
-
-  console.log({
-    senderAddress,
-    recipientAddress,
-    recipientFirstName,
-    recipientLastName,
-    ...shipmentData,
-  });
 
   const formik = useFormik<FormValues>({
     initialValues: {

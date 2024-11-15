@@ -5,7 +5,7 @@ import Quote from "./Components/pages/Quote/Quote.tsx";
 import Ship from "./Components/pages/Ship/Ship";
 import Help from "./Components/pages/Help/Help";
 import { AuthForm } from "./Components/AuthForm/AuthForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { Track } from "./Components/pages/HomePage/Track";
 import { TrackPage } from "./Components/pages/HomePage/TrackPage";
@@ -27,32 +27,31 @@ import {
   ADMIN_DASHBOARD_URL,
   QUOTE_URL,
   SHIP_URL,
-  HELP_URL
+  HELP_URL,
 } from "./constants";
 import "./app.css";
-
 import "react-chatbot-kit/build/main.css";
-import config from "./components/Chatbot/config.js";
-import MessageParser from "./components/Chatbot/MessageParser.jsx";
-import ActionProvider from "./components/Chatbot/ActionProvider.jsx";
-import { TestLogInPage } from "Components/pages/TestLogInPage.js";
 import { InvalidAccessPage } from "Components/pages/InvalidAccesPage.js";
 import { UserDashboard } from "Components/pages/UserDashboard/UserDashboard.js";
 import { DriverDashboard } from "Components/pages/DriverDashboard/DriverDashboard.js";
 import { AdminDashboard } from "Components/pages/AdminDashboard/AdminDashboard.js";
+import { PaymentSuccess } from "Components/pages/PaymentSuccess/PaymentSuccess.tsx";
+import ChatBotContainer from "Components/Chatbot/ChatBotContainer.jsx";
 // import ChatBotContainer from './Components/Chatbot/ChatBotContainer.jsx';
 
 function App() {
   const location = useLocation();
-  const [signInAuth, setSignInAuth] = useState<boolean>(
-    location.pathname === SIGN_IN_URL
-  );
+  const [signInAuth, setSignInAuth] = useState<boolean>(false);
+
+  useEffect(() => {
+    setSignInAuth(location.pathname === SIGN_IN_URL);
+  }, [location]);
 
   return (
     <Container maxWidth="xl">
       <Header setSignInAuth={setSignInAuth} signInAuth={signInAuth} />
       <Grid2>
-        {/*<ChatBotContainer />*/}
+        {<ChatBotContainer />}
 
         <Routes>
           <Route path={HOME_PAGE_URL} element={<HomePage />} />
@@ -87,6 +86,7 @@ function App() {
           <Route path={USER_DASHBOARD_URL} element={<UserDashboard />} />
           <Route path={DRIVER_DASHBOARD_URL} element={<DriverDashboard />} />
           <Route path={ADMIN_DASHBOARD_URL} element={<AdminDashboard />} />
+          <Route path={"/payment-success"} element={<PaymentSuccess />} />
           <Route path="*" element={<Navigate to={HOME_PAGE_URL} replace />} />
         </Routes>
       </Grid2>

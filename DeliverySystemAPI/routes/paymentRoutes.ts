@@ -8,7 +8,7 @@ import {
   retrieveSession,
 } from "../Services";
 import { accessTokenSecret } from "../config";
-import { Order, Package, Payment } from "../models";
+import { Order, OrderStatusHistory, Package, Payment } from "../models";
 import { eventManager, generateTrackingNumber } from "../utils";
 
 export const paymentRoutes = express.Router();
@@ -16,15 +16,20 @@ export const paymentRoutes = express.Router();
 //Protected route
 paymentRoutes.post("/checkout", verifyToken, async (req, res) => {
   try {
-    const { amount, userEmail, productName } = req.body;
+    const { amount, userEmail, productName, userId } = req.body;
 
     if (!amount || amount < 50) {
       return res.status(400).json({ error: "Invalid amount" });
-    } else if (!userEmail || !productName) {
+    } else if (!userEmail || !productName || !userId) {
       return res.status(400).json({ error: "Missing attributes" });
     }
 
-    const url = await createStripeSession(amount, userEmail, productName);
+    const url = await createStripeSession(
+      amount,
+      userEmail,
+      productName,
+      userId
+    );
     res.status(200).json({ url });
   } catch (err) {
     res.status(500).json({ error: "Failed to create a payment url" });
@@ -39,8 +44,6 @@ paymentRoutes.post("/complete", async (req, res) => {
 
     const {
       weight,
-      dimension,
-      declaredValue,
       recipientFirstName,
       recipientLastName,
       recipientAddress,
@@ -50,8 +53,6 @@ paymentRoutes.post("/complete", async (req, res) => {
 
     if (
       !weight ||
-      !dimension ||
-      !declaredValue ||
       !recipientFirstName ||
       !recipientLastName ||
       !recipientAddress ||
@@ -69,8 +70,8 @@ paymentRoutes.post("/complete", async (req, res) => {
     //create package first
     const p = await Package.create({
       weight,
-      dimension,
-      declaredValue,
+      dimension: "5x5x5",
+      declaredValue: 0,
     });
 
     //create payment
@@ -84,11 +85,11 @@ paymentRoutes.post("/complete", async (req, res) => {
     //generate tracking number
     const trackingNumber = generateTrackingNumber();
 
-    await Order.create({
+    const newOrder = await Order.create({
       packageId: p.id,
       paymentId: payment.id,
       senderId: userId,
-      driverId: null,
+      driverId: 2,
       recipientFirstName,
       recipientLastName,
       recipientAddress,
@@ -96,9 +97,14 @@ paymentRoutes.post("/complete", async (req, res) => {
       trackingNumber,
     });
 
+    await OrderStatusHistory.create({
+      orderId: newOrder.id,
+      statusId: 1,
+    });
+
     eventManager.emit("orderCreated", trackingNumber);
 
-    res.status(200).json({ message: "Order created!" });
+    res.status(200).json({ message: "Order created!", trackingNumber });
   } catch (err) {
     res.status(500).json({ err });
   }
