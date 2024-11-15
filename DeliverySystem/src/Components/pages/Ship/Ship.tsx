@@ -13,6 +13,8 @@ import {
   IMAGE4,
   SIGN_IN_URL,
 } from "../../../constants.ts";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { PageTitle } from "../../PageTitle.tsx";
 import { StyledTextField } from "../../StyledTextField.tsx";
 import React, { useState, useEffect } from "react";
@@ -30,16 +32,71 @@ const Price = styled(Typography)(() => ({
   textAlign: "right",
 }));
 
+interface FormValues {
+  senderFirstName: string;
+  senderLastName: string;
+  senderAddress: string;
+  senderApartment: string;
+  senderCity: string;
+  senderState: string;
+  senderPostalCode: string;
+  senderCountry: string;
+  recipientFirstName: string;
+  recipientLastName: string;
+  recipientAddress: string;
+  recipientApartment: string;
+  recipientCity: string;
+  recipientState: string;
+  recipientPostalCode: string;
+  recipientCountry: string;
+}
+
 interface ShipmentData {
   productName: string;
   totalPrice: number;
   tax: number;
   totalWithTax: number;
+  originStreetNumber: string;
+  originStreetName: string;
+  originCity: string;
+  originProvince: string;
+  originPostalCode: string;
+  originCountry: string;
+  destinationStreetNumber: string;
+  destinationStreetName: string;
+  destinationCity: string;
+  destinationProvince: string;
+  destinationPostalCode: string;
+  destinationCountry: string;
+  type: string;
+  subtype: string;
+  weight: number;
+  distance: number;
   weight: number;
 }
 
+const validationSchema = Yup.object({
+  senderFirstName: Yup.string().required("First name is required"),
+  senderLastName: Yup.string().required("Last name is required"),
+  senderAddress: Yup.string().required("Address is required"),
+  senderApartment: Yup.string().optional(),
+  senderCity: Yup.string().required("City is required"),
+  senderState: Yup.string().required("State is required"),
+  senderPostalCode: Yup.string().required("Postal Code is required"),
+  senderCountry: Yup.string().required("Country is required"),
+
+  recipientFirstName: Yup.string().required("First name is required"),
+  recipientLastName: Yup.string().required("Last name is required"),
+  recipientAddress: Yup.string().required("Address is required"),
+  recipientApartment: Yup.string().optional(),
+  recipientCity: Yup.string().required("City is required"),
+  recipientState: Yup.string().required("State is required"),
+  recipientPostalCode: Yup.string().required("Postal Code is required"),
+  recipientCountry: Yup.string().required("Country is required"),
+});
+
 export default function Ship() {
-  const user = useAuthentication(ROLE_USER, SIGN_IN_URL);
+  const user = useAuthentication(ROLE_USER);
 
   const [step, setStep] = useState("sender");
   const [shipmentData, setShipmentData] = useState<ShipmentData>({
@@ -47,12 +104,31 @@ export default function Ship() {
     totalPrice: 0,
     tax: 0,
     totalWithTax: 0,
+    originStreetNumber: "",
+    originStreetName: "",
+    originCity: "",
+    originProvince: "",
+    originPostalCode: "",
+    originCountry: "",
+    destinationStreetNumber: "",
+    destinationStreetName: "",
+    destinationCity: "",
+    destinationProvince: "",
+    destinationPostalCode: "",
+    destinationCountry: "",
+    type: "",
+    subtype: "",
     weight: 0,
+    distance: 0,
+    weught: 0,
   });
   const [senderAddress, setSenderAddress] = useState("");
   const [recipientAddress, setRecipientAddress] = useState("");
   const [recipientFirstName, setRecipientFirstName] = useState("");
   const [recipientLastName, setRecipientLastName] = useState("");
+
+  const originAddress = `${shipmentData.originStreetNumber} ${shipmentData.originStreetName}`;
+  const destinationAddress = `${shipmentData.destinationStreetNumber} ${shipmentData.destinationStreetName}`;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -75,31 +151,22 @@ export default function Ship() {
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const address = `${
-      formData.get("senderApartment")
-        ? formData.get("senderApartment") + "-"
-        : ""
-    }${formData.get("senderAddress")}, ${formData.get(
-      "senderCity"
-    )}, ${formData.get("senderState")} ${formData.get(
-      "senderPostalCode"
-    )}, ${formData.get("senderCountry")}`;
+    const address = `${formData.get("senderApartment") ? formData.get("senderApartment") + "-" : ""}${shipmentData.originStreetNumber} ${shipmentData.originStreetName}, ${shipmentData.originCity}, ${shipmentData.originProvince} ${shipmentData.originPostalCode}, ${shipmentData.originCountry}`;
     setSenderAddress(address);
     setStep("recipient");
+    console.log({
+      senderAddress,
+      recipientAddress,
+      recipientFirstName,
+      recipientLastName,
+      ...shipmentData,
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const address = `${
-      formData.get("recipientApartment")
-        ? formData.get("recipientApartment") + "-"
-        : ""
-    }${formData.get("recipientAddress")}, ${formData.get(
-      "recipientCity"
-    )}, ${formData.get("recipientState")} ${formData.get(
-      "recipientPostalCode"
-    )}, ${formData.get("recipientCountry")}`;
+    const address = `${formData.get("recipientApartment") ? formData.get("recipientApartment") + "-" : ""}${shipmentData.destinationStreetNumber} ${shipmentData.destinationStreetName}, ${shipmentData.destinationProvince} ${shipmentData.destinationPostalCode}, ${shipmentData.destinationCountry}`;
     const firstName = formData.get("recipientFirstName") as string;
     const lastName = formData.get("recipientLastName") as string;
 
@@ -159,6 +226,29 @@ export default function Ship() {
     await initiatePayment();
   };
 
+  const formik = useFormik<FormValues>({
+    initialValues: {
+      senderFirstName: "",
+      senderLastName: "",
+      senderAddress: "",
+      senderApartment: "",
+      senderCity: "",
+      senderState: "",
+      senderPostalCode: "",
+      senderCountry: "",
+      recipientFirstName: "",
+      recipientLastName: "",
+      recipientAddress: "",
+      recipientApartment: "",
+      recipientCity: "",
+      recipientState: "",
+      recipientPostalCode: "",
+      recipientCountry: "",
+    },
+    validationSchema,
+    onSubmit: step === "sender" ? handleNext : handleSubmit,
+  });
+
   const renderFormFields = () => {
     const fields = [
       { id: "FirstName", label: "First Name" },
@@ -176,66 +266,168 @@ export default function Ship() {
         <Box
           sx={{ display: "flex", justifyContent: "space-between", gap: "14px" }}
         >
-          {fields.slice(0, 2).map((field) => {
-            const id = `${step}${field.id}`;
-            return (
-              <StyledTextField
-                key={id}
-                fullWidth
-                id={id}
-                name={id}
-                label={step === "sender" ? "" : field.label}
-                placeholder={field.label}
-                //value={value}
-                //disabled={step === "sender"}
-              />
-            );
-          })}
+          <StyledTextField
+            key={`${step}${fields[0].id}`}
+            fullWidth
+            id={`${step}${fields[0].id}`}
+            name={`${step}${fields[0].id}`}
+            label={step === "sender" ? "" : fields[0].label}
+            placeholder={fields[0].label}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              step === "sender"
+                ? formik.touched.senderFirstName &&
+                  !!formik.errors.senderFirstName
+                : formik.touched.recipientFirstName &&
+                  !!formik.errors.recipientFirstName
+            }
+          />
+          <StyledTextField
+            key={`${step}${fields[1].id}`}
+            fullWidth
+            id={`${step}${fields[1].id}`}
+            name={`${step}${fields[1].id}`}
+            label={step === "sender" ? "" : fields[1].label}
+            placeholder={fields[1].label}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              step === "sender"
+                ? formik.touched.senderLastName &&
+                  !!formik.errors.senderLastName
+                : formik.touched.recipientLastName &&
+                  !!formik.errors.recipientLastName
+            }
+          />
         </Box>
-        {fields.slice(2, 4).map((field) => {
-          const id = `${step}${field.id}`;
-          return (
-            <StyledTextField
-              key={id}
-              fullWidth
-              id={id}
-              name={id}
-              label={field.label}
-              placeholder={field.label}
-            />
-          );
-        })}
-
+        <StyledTextField
+          key={`${step}${fields[2].id}`}
+          fullWidth
+          id={`${step}${fields[2].id}`}
+          name={`${step}${fields[2].id}`}
+          value={step === "sender" ? originAddress : destinationAddress}
+          slotProps={{
+            input: { readOnly: true },
+          }}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            step === "sender"
+              ? formik.touched.senderAddress && !!formik.errors.senderAddress
+              : formik.touched.recipientAddress &&
+                !!formik.errors.recipientAddress
+          }
+        />
+        <StyledTextField
+          key={`${step}${fields[3].id}`}
+          fullWidth
+          id={`${step}${fields[3].id}`}
+          name={`${step}${fields[3].id}`}
+          label={fields[3].label}
+          placeholder={fields[3].label}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            step === "sender"
+              ? formik.touched.senderApartment &&
+                !!formik.errors.senderApartment
+              : formik.touched.recipientApartment &&
+                !!formik.errors.recipientApartment
+          }
+        />
         <Box
           sx={{ display: "flex", justifyContent: "space-between", gap: "14px" }}
         >
-          {fields.slice(4, 7).map((field) => {
-            const id = `${step}${field.id}`;
-            return (
-              <StyledTextField
-                key={id}
-                fullWidth
-                id={id}
-                name={id}
-                label={field.label}
-                placeholder={field.label}
-              />
-            );
-          })}
+          <StyledTextField
+            key={`${step}${fields[4].id}`}
+            fullWidth
+            id={`${step}${fields[4].id}`}
+            name={`${step}${fields[4].id}`}
+            value={
+              step === "sender"
+                ? shipmentData.originCity
+                : shipmentData.destinationCity
+            }
+            slotProps={{
+              input: { readOnly: true },
+            }}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              step === "sender"
+                ? formik.touched.senderCity && !!formik.errors.senderCity
+                : formik.touched.recipientCity && !!formik.errors.recipientCity
+            }
+          />
+          <StyledTextField
+            key={`${step}${fields[5].id}`}
+            fullWidth
+            id={`${step}${fields[5].id}`}
+            name={`${step}${fields[5].id}`}
+            value={
+              step === "sender"
+                ? shipmentData.originProvince
+                : shipmentData.destinationProvince
+            }
+            slotProps={{
+              input: { readOnly: true },
+            }}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              step === "sender"
+                ? formik.touched.senderState && !!formik.errors.senderState
+                : formik.touched.recipientState &&
+                  !!formik.errors.recipientState
+            }
+          />
+          <StyledTextField
+            key={`${step}${fields[6].id}`}
+            fullWidth
+            id={`${step}${fields[6].id}`}
+            name={`${step}${fields[6].id}`}
+            value={
+              step === "sender"
+                ? shipmentData.originPostalCode
+                : shipmentData.destinationPostalCode
+            }
+            slotProps={{
+              input: { readOnly: true },
+            }}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              step === "sender"
+                ? formik.touched.senderPostalCode &&
+                  !!formik.errors.senderPostalCode
+                : formik.touched.recipientPostalCode &&
+                  !!formik.errors.recipientPostalCode
+            }
+          />
         </Box>
-        {fields.slice(-1).map((field) => {
-          const id = `${step}${field.id}`;
-          return (
-            <StyledTextField
-              key={id}
-              fullWidth
-              id={id}
-              name={id}
-              label={field.label}
-              placeholder={field.label}
-            />
-          );
-        })}
+        <StyledTextField
+          key={`${step}${fields[7].id}`}
+          fullWidth
+          id={`${step}${fields[7].id}`}
+          name={`${step}${fields[7].id}`}
+          value={
+            step === "sender"
+              ? shipmentData.originCountry
+              : shipmentData.destinationCountry
+          }
+          slotProps={{
+            input: { readOnly: true },
+          }}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            step === "sender"
+              ? formik.touched.senderCountry && !!formik.errors.senderCountry
+              : formik.touched.recipientCountry &&
+                !!formik.errors.recipientCountry
+          }
+        />
       </>
     );
   };
