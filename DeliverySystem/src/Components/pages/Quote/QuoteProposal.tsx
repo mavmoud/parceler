@@ -5,8 +5,18 @@ import { useNavigate } from "react-router-dom";
 interface QuoteProposalProps {
   type: "document" | "package";
   subtype: "standard" | "large" | "small";
-  origin: string;
-  destination: string;
+  originStreetNumber: string;
+  originStreetName: string;
+  originCity: string;
+  originProvince: string;
+  originPostalCode: string;
+  originCountry: string;
+  destinationStreetNumber: string;
+  destinationStreetName: string;
+  destinationCity: string;
+  destinationProvince: string;
+  destinationPostalCode: string;
+  destinationCountry: string;
   weight?: number;
   totalPrice: number;
   distance: number;
@@ -16,14 +26,27 @@ interface QuoteProposalProps {
 export default function QuoteProposal({
   type = "document",
   subtype = "large",
-  origin = "Montréal, Quebec",
-  destination = "Montréal, Quebec",
+  originStreetNumber,
+  originStreetName,
+  originCity,
+  originProvince,
+  originPostalCode,
+  originCountry,
+  destinationStreetNumber,
+  destinationStreetName,
+  destinationCity,
+  destinationProvince,
+  destinationPostalCode,
+  destinationCountry,
   weight = 5000,
   totalPrice = 10,
   distance = 500,
   basePrice = 10,
 }: QuoteProposalProps) {
   const navigate = useNavigate();
+
+  const origin = `${originCity}, ${originProvince}`;
+  const destination = `${destinationCity}, ${destinationProvince}`;
 
   const getMaxDimensions = (): string => {
     if (type === "document") {
@@ -74,6 +97,23 @@ export default function QuoteProposal({
         totalPrice,
         tax,
         totalWithTax,
+        // Pass along all address components
+        originStreetNumber,
+        originStreetName,
+        originCity,
+        originProvince,
+        originPostalCode,
+        originCountry,
+        destinationStreetNumber,
+        destinationStreetName,
+        destinationCity,
+        destinationProvince,
+        destinationPostalCode,
+        destinationCountry,
+        type,
+        subtype,
+        weight,
+        distance,
         weight,
       },
     });
@@ -96,8 +136,8 @@ export default function QuoteProposal({
                         ? "StandardEnvelope"
                         : "LargeEnvelope"
                       : subtype === "small"
-                      ? "SmallPackage"
-                      : "LargePackage"
+                        ? "SmallPackage"
+                        : "LargePackage"
                   }.svg`}
                   alt={getTitle()}
                   style={{ width: "90px", objectFit: "contain" }}
@@ -132,7 +172,7 @@ export default function QuoteProposal({
                     {
                       icon: Calendar1,
                       label: "Estimated Delivery",
-                      value: "3-5 Business Days",
+                      value: "6-10 Business Days",
                     },
                   ].map((item, index) => (
                     <Box
