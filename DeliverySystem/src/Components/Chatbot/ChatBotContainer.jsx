@@ -5,7 +5,7 @@ import MessageParser from "./MessageParser";
 import config from "./config";
 import "./ChatBotContainer.css"; // Import the CSS file
 
-export const ChatBotContainer = () => {
+const ChatBotContainer = () => {
   const [showChatbot, setShowChatbot] = useState(false); // Start with chatbot closed
 
   // Function to toggle the chatbot visibility
@@ -39,3 +39,5 @@ export const ChatBotContainer = () => {
     </div>
   );
 };
+
+export default ChatBotContainer;

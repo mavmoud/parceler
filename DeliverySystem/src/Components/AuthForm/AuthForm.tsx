@@ -7,7 +7,7 @@ import {
   Alert,
 } from "@mui/material";
 import { StyledTextField } from "./../StyledTextField.tsx";
-import { PageTitle } from "./../PageTitle.tsx"
+import { PageTitle } from "./../PageTitle.tsx";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useMutation } from "@tanstack/react-query";
@@ -137,11 +137,7 @@ export const AuthForm = ({
   const vertical = "bottom";
 
   return (
-    <Grid2
-      container
-      direction="column"
-      alignItems="center"
-    >
+    <Grid2 container direction="column" alignItems="center">
       <Snackbar
         open={!!authError}
         anchorOrigin={{ vertical, horizontal }}
@@ -149,7 +145,7 @@ export const AuthForm = ({
         onClose={() => setAuthError("")}
       >
         <Alert
-          sx={{ height: "3rem", alignItems: "center", borderRadius: '50px' }}
+          sx={{ height: "3rem", alignItems: "center", borderRadius: "50px" }}
           severity="error"
           variant="filled"
           onClose={() => setAuthError("")}
@@ -158,11 +154,25 @@ export const AuthForm = ({
         </Alert>
       </Snackbar>
       <PageTitle title={title} />
-      <Card sx={{ width: "500px", borderRadius: '50px' }}>
-        <CardContent sx={{ m: '25px', p: '0 !important' }}>
+      <Card sx={{ width: "500px", borderRadius: "50px" }}>
+        <CardContent sx={{ m: "25px", p: "0 !important" }}>
           {signInAuth ? (
-            <Paper elevation={2} sx={{ boxShadow: 'none', border: '1px solid #D4D7DD', borderRadius: '50px', mb: '15px'}}>
-              <Grid2 pt={'10px'} pb={'10px'} container justifyContent={"center"} sx={{ boxShadow: 'none'}}>
+            <Paper
+              elevation={2}
+              sx={{
+                boxShadow: "none",
+                border: "1px solid #D4D7DD",
+                borderRadius: "50px",
+                mb: "15px",
+              }}
+            >
+              <Grid2
+                pt={"10px"}
+                pb={"10px"}
+                container
+                justifyContent={"center"}
+                sx={{ boxShadow: "none" }}
+              >
                 <AccountBar
                   accountType={accountType}
                   setAccountType={setAccountType}
@@ -184,7 +194,7 @@ export const AuthForm = ({
                   <StyledTextField
                     key={`${index}${title}`}
                     fullWidth
-                    sx={{ mb: '15px' }}
+                    sx={{ mb: "15px" }}
                     name={textField.name}
                     label={textField.label}
                     placeholder={`${textField.label}`}
@@ -206,15 +216,15 @@ export const AuthForm = ({
                   variant="contained"
                   sx={{
                     backgroundColor: COLOR_MAIN,
-                    borderRadius: '30px',
+                    borderRadius: "30px",
                     fontFamily: '"Montserrat", serif',
-                    textTransform: 'none',
-                    fontSize: '16px',
-                    fontWeight: 'medium',
-                    height: '50px',
-                    width: '225px',
-                    boxShadow: 'none'
-                }}
+                    textTransform: "none",
+                    fontSize: "16px",
+                    fontWeight: "medium",
+                    height: "50px",
+                    width: "225px",
+                    boxShadow: "none",
+                  }}
                 >
                   {signInAuth
                     ? SIGN_IN_FORM_BUTTON
@@ -225,14 +235,15 @@ export const AuthForm = ({
                   onClick={() => formik.resetForm()}
                   sx={{
                     color: COLOR_MAIN,
-                    borderRadius: '30px',
+                    borderRadius: "30px",
                     fontFamily: '"Montserrat", serif',
-                    textTransform: 'none',
-                    fontSize: '16px',
-                    fontWeight: 'medium',
-                    height: '50px',
-                    width: '225px',
-                    boxShadow: 'none' }}
+                    textTransform: "none",
+                    fontSize: "16px",
+                    fontWeight: "medium",
+                    height: "50px",
+                    width: "225px",
+                    boxShadow: "none",
+                  }}
                 >
                   {CANCEL_BUTTON}
                 </Button>
