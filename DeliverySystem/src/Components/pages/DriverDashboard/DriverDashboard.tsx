@@ -6,11 +6,6 @@ import {
 } from "../../../Hooks/useAuthentication";
 import { BACKGROUND_RIGHT, IMAGE3 } from "../../../constants";
 import { DriverDashboardOrderList } from "./DriverDashboardOrderList";
-import {
-  USER_FIRST_NAME,
-  USER_LAST_NAME,
-  USER_INFO,
-} from "../../../Hooks/constants";
 
 export const DriverDashboard = () => {
   useBodyBackground({
@@ -29,8 +24,9 @@ export const DriverDashboard = () => {
       justifyContent="center"
     >
       <Typography variant="h2" color="white" align="center">
-        {`${driver?.[USER_INFO]?.[USER_FIRST_NAME]} ${driver?.[USER_INFO]?.[USER_LAST_NAME]}`}{" "}
-        <br /> Assigned Deliveries
+        {`${driver?.userInfo?.firstName} ${driver?.userInfo?.lastName}'s`}{" "}
+        <br />
+        Assigned Deliveries
       </Typography>
       <Grid2 container justifyContent="center" sx={{ width: "55rem", mt: 4 }}>
         <DriverDashboardOrderList />
