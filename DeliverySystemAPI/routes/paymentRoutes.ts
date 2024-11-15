@@ -16,15 +16,20 @@ export const paymentRoutes = express.Router();
 //Protected route
 paymentRoutes.post("/checkout", verifyToken, async (req, res) => {
   try {
-    const { amount, userEmail, productName } = req.body;
+    const { amount, userEmail, productName, userId } = req.body;
 
     if (!amount || amount < 50) {
       return res.status(400).json({ error: "Invalid amount" });
-    } else if (!userEmail || !productName) {
+    } else if (!userEmail || !productName || !userId) {
       return res.status(400).json({ error: "Missing attributes" });
     }
 
-    const url = await createStripeSession(amount, userEmail, productName);
+    const url = await createStripeSession(
+      amount,
+      userEmail,
+      productName,
+      userId
+    );
     res.status(200).json({ url });
   } catch (err) {
     res.status(500).json({ error: "Failed to create a payment url" });
@@ -84,7 +89,7 @@ paymentRoutes.post("/complete", async (req, res) => {
       packageId: p.id,
       paymentId: payment.id,
       senderId: userId,
-      driverId: null,
+      driverId: 2,
       recipientFirstName,
       recipientLastName,
       recipientAddress,
@@ -99,7 +104,7 @@ paymentRoutes.post("/complete", async (req, res) => {
 
     eventManager.emit("orderCreated", trackingNumber);
 
-    res.status(200).json({ message: "Order created!" });
+    res.status(200).json({ message: "Order created!", trackingNumber });
   } catch (err) {
     res.status(500).json({ err });
   }

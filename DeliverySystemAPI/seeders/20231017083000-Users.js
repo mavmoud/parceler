@@ -8,9 +8,9 @@ module.exports = {
       [
         {
           id: 1,
-          firstName: "Danny",
-          lastName: "Mousa",
-          email: "test@test.com",
+          firstName: "Sarah",
+          lastName: "Johnson",
+          email: "sarah.johnson@example.com",
           password:
             "$2a$10$B8GQ33PNoJy/rI3rR19twORY6xmhtxSECFAhlwCMklbkEPVWIoIai",
           userTypeId: 1,
@@ -24,11 +24,27 @@ module.exports = {
         },
         {
           id: 2,
-          firstName: "Danny",
-          lastName: "Mousa",
-          email: "test1@test.com",
+          firstName: "Michael",
+          lastName: "Thompson",
+          email: "mthompson@parceler.com",
           password:
-            "$2a$10$KiZjidNIlH8F5xwA4yOwOOX28bl8bK8ZL8zu4yyoZHJY4Q4M15lMm",
+            "$2a$10$B8GQ33PNoJy/rI3rR19twORY6xmhtxSECFAhlwCMklbkEPVWIoIai",
+          userTypeId: 2,
+          phoneNumber: "123456789",
+          accessToken: null,
+          accessTokenExpiry: null,
+          issuedAt: null,
+          revokedAt: null,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: 3,
+          firstName: "Emily",
+          lastName: "Davis",
+          email: "edavis@parceler.com",
+          password:
+            "$2a$10$B8GQ33PNoJy/rI3rR19twORY6xmhtxSECFAhlwCMklbkEPVWIoIai",
           userTypeId: 3,
           phoneNumber: "123456789",
           accessToken: null,
