@@ -17,6 +17,7 @@ import { TbPackageExport } from "react-icons/tb";
 import { LuPackageOpen } from "react-icons/lu";
 import { TbTruckReturn } from "react-icons/tb";
 import { MdOutlineNewReleases } from "react-icons/md";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 interface Order {
   senderAddress: string;
@@ -70,7 +71,6 @@ export const Track = () => {
         const data = await OrderService.GetOrderByTrackingNumber(
           validTrackingNumber
         );
-        console.log(data);
         setOrderData(data);
       } catch (error) {
         console.error("Error fetching order data:", error);
@@ -78,7 +78,7 @@ export const Track = () => {
     };
 
     fetchOrderData();
-  }, [trackingNumber]);
+  }, [trackingNumber, validTrackingNumber]);
 
   let EstimatedDelivery = "";
 
@@ -99,7 +99,6 @@ export const Track = () => {
   }
 
   const trackingStatus = orderData?.statusHistory;
-  console.log("test", trackingStatus);
   return (
     <Grid
       container

@@ -60,11 +60,13 @@ export default function QuoteProposal({
     }
   };
 
-  const getWeight = (): string => {
+  const getWeight = (): { value: number; unit: string } => {
     if (type === "document") {
-      return subtype === "standard" ? "50g" : "500g";
+      return subtype === "standard"
+        ? { value: 50, unit: "g" }
+        : { value: 500, unit: "g" };
     }
-    return `${(weight / 1000).toFixed(1)} kg`;
+    return { value: weight, unit: "g" };
   };
 
   const getDistancePrice = (): string => {
@@ -85,6 +87,7 @@ export default function QuoteProposal({
   };
   const handleShip = () => {
     const productName = getTitle();
+    const weight = getWeight().value;
     const tax = totalPrice * 0.15;
     const totalWithTax = totalPrice + tax;
 
@@ -111,6 +114,7 @@ export default function QuoteProposal({
         subtype,
         weight,
         distance,
+        weight,
       },
     });
   };
@@ -208,7 +212,11 @@ export default function QuoteProposal({
                       label: "Destination",
                       value: destination,
                     },
-                    { icon: Weight, label: "Weight", value: getWeight() },
+                    {
+                      icon: Weight,
+                      label: "Weight",
+                      value: `${getWeight().value} ${getWeight().unit}`,
+                    },
                   ].map((item, index) => (
                     <Box
                       key={index}

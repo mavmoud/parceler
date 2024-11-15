@@ -31,9 +31,23 @@ export class OrderService {
     const res = await axios.get(`${BASE_URL}/api/orders`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("AccessToken"),
+        Authorization: localStorage.getItem("authToken"),
       },
     });
     return res.data;
+  }
+
+  static async UpdateStatus(orderId: number, statusId: number) {
+    const res = await axios.put(
+      `${BASE_URL}/api/orders/status`,
+      { orderId, statusId },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("authToken"),
+        },
+      }
+    );
+    return res;
   }
 }
