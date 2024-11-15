@@ -1,13 +1,22 @@
 import { MapPinCheck, Calendar1, Weight, MapPinHouse } from "lucide-react";
 import { Box, Typography, Button, Card, CardContent } from "@mui/material";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 interface QuoteProposalProps {
   type: "document" | "package";
   subtype: "standard" | "large" | "small";
-  origin: string;
-  destination: string;
+  originStreetNumber: string;
+  originStreetName: string;
+  originCity: string;
+  originProvince: string;
+  originPostalCode: string;
+  originCountry: string;
+  destinationStreetNumber: string;
+  destinationStreetName: string;
+  destinationCity: string;
+  destinationProvince: string;
+  destinationPostalCode: string;
+  destinationCountry: string;
   weight?: number;
   totalPrice: number;
   distance: number;
@@ -17,17 +26,29 @@ interface QuoteProposalProps {
 export default function QuoteProposal({
   type = "document",
   subtype = "large",
-  origin = "Montréal, Quebec",
-  destination = "Montréal, Quebec",
+  originStreetNumber,
+  originStreetName,
+  originCity,
+  originProvince,
+  originPostalCode,
+  originCountry,
+  destinationStreetNumber,
+  destinationStreetName,
+  destinationCity,
+  destinationProvince,
+  destinationPostalCode,
+  destinationCountry,
   weight = 5000,
   totalPrice = 10,
   distance = 500,
   basePrice = 10,
 }: QuoteProposalProps) {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const origin = `${originCity}, ${originProvince}`;
+  const destination = `${destinationCity}, ${destinationProvince}`;
 
-    const getMaxDimensions = (): string => {
+  const getMaxDimensions = (): string => {
     if (type === "document") {
       return subtype === "standard"
         ? "Max dimensions: 245mm x 156mm"
@@ -62,20 +83,37 @@ export default function QuoteProposal({
     }
     return `${subtype === "small" ? "Small" : "Large"} Package`;
   };
-    const handleShip = () => {
-        const productName = getTitle();
-        const tax = totalPrice * 0.15;
-        const totalWithTax = totalPrice + tax;
+  const handleShip = () => {
+    const productName = getTitle();
+    const tax = totalPrice * 0.15;
+    const totalWithTax = totalPrice + tax;
 
-        navigate('/ship', {
-            state: {
-                productName,
-                totalPrice,
-                tax,
-                totalWithTax
-            }
-        });
-    };
+    navigate("/ship", {
+      state: {
+        productName,
+        totalPrice,
+        tax,
+        totalWithTax,
+        // Pass along all address components
+        originStreetNumber,
+        originStreetName,
+        originCity,
+        originProvince,
+        originPostalCode,
+        originCountry,
+        destinationStreetNumber,
+        destinationStreetName,
+        destinationCity,
+        destinationProvince,
+        destinationPostalCode,
+        destinationCountry,
+        type,
+        subtype,
+        weight,
+        distance,
+      },
+    });
+  };
 
   return (
     <Box sx={{ width: "800px", mx: "auto", borderRadius: "50px" }}>
@@ -94,8 +132,8 @@ export default function QuoteProposal({
                         ? "StandardEnvelope"
                         : "LargeEnvelope"
                       : subtype === "small"
-                      ? "SmallPackage"
-                      : "LargePackage"
+                        ? "SmallPackage"
+                        : "LargePackage"
                   }.svg`}
                   alt={getTitle()}
                   style={{ width: "90px", objectFit: "contain" }}
@@ -130,7 +168,7 @@ export default function QuoteProposal({
                     {
                       icon: Calendar1,
                       label: "Estimated Delivery",
-                      value: "3-5 Business Days",
+                      value: "6-10 Business Days",
                     },
                   ].map((item, index) => (
                     <Box
