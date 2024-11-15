@@ -71,7 +71,6 @@ export const Track = () => {
         const data = await OrderService.GetOrderByTrackingNumber(
           validTrackingNumber
         );
-        console.log(data);
         setOrderData(data);
       } catch (error) {
         console.error("Error fetching order data:", error);
@@ -79,7 +78,7 @@ export const Track = () => {
     };
 
     fetchOrderData();
-  }, [trackingNumber]);
+  }, [trackingNumber, validTrackingNumber]);
 
   let EstimatedDelivery = "";
 
@@ -100,7 +99,6 @@ export const Track = () => {
   }
 
   const trackingStatus = orderData?.statusHistory;
-  console.log("test", trackingStatus);
   return (
     <Grid
       container
@@ -163,7 +161,7 @@ export const Track = () => {
 
             <Grid item xs={6}>
               <Grid container alignItems="center">
-                <CiDeliveryTruck />
+                {/*<CiDeliveryTruck />*/}
                 <Typography pl={0.7}>Estimated Delivery</Typography>
               </Grid>
               <Typography variant="body1">{EstimatedDelivery}</Typography>

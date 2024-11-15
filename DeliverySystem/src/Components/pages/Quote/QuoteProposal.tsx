@@ -1,5 +1,6 @@
 import { MapPinCheck, Calendar1, Weight, MapPinHouse } from "lucide-react";
 import { Box, Typography, Button, Card, CardContent } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface QuoteProposalProps {
   type: "document" | "package";
@@ -22,6 +23,8 @@ export default function QuoteProposal({
   distance = 500,
   basePrice = 10,
 }: QuoteProposalProps) {
+  const navigate = useNavigate();
+
   const getMaxDimensions = (): string => {
     if (type === "document") {
       return subtype === "standard"
@@ -34,11 +37,13 @@ export default function QuoteProposal({
     }
   };
 
-  const getWeight = (): string => {
+  const getWeight = (): { value: number; unit: string } => {
     if (type === "document") {
-      return subtype === "standard" ? "50g" : "500g";
+      return subtype === "standard"
+        ? { value: 50, unit: "g" }
+        : { value: 500, unit: "g" };
     }
-    return `${(weight / 1000).toFixed(1)} kg`;
+    return { value: weight, unit: "g" };
   };
 
   const getDistancePrice = (): string => {
@@ -56,6 +61,22 @@ export default function QuoteProposal({
       return `${subtype === "standard" ? "Standard" : "Large"} Envelope`;
     }
     return `${subtype === "small" ? "Small" : "Large"} Package`;
+  };
+  const handleShip = () => {
+    const productName = getTitle();
+    const weight = getWeight().value;
+    const tax = totalPrice * 0.15;
+    const totalWithTax = totalPrice + tax;
+
+    navigate("/ship", {
+      state: {
+        productName,
+        totalPrice,
+        tax,
+        totalWithTax,
+        weight,
+      },
+    });
   };
 
   return (
@@ -151,7 +172,11 @@ export default function QuoteProposal({
                       label: "Destination",
                       value: destination,
                     },
-                    { icon: Weight, label: "Weight", value: getWeight() },
+                    {
+                      icon: Weight,
+                      label: "Weight",
+                      value: `${getWeight().value} ${getWeight().unit}`,
+                    },
                   ].map((item, index) => (
                     <Box
                       key={index}
@@ -266,6 +291,7 @@ export default function QuoteProposal({
             disableRipple
             fullWidth
             variant="contained"
+            onClick={handleShip}
             sx={{
               mt: "25px",
               borderRadius: "30px",

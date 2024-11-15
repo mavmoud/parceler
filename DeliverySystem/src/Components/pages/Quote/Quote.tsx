@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Box, Button, Card, CardContent, Radio, RadioGroup, FormControlLabel, Typography, styled, InputAdornment } from '@mui/material'
 import { useJsApiLoader, Autocomplete } from '@react-google-maps/api'
 import { Package, Mail } from "lucide-react"
-import QuoteProposal from './QuoteProposal'
+import QuoteProposal from './QuoteProposal.tsx'
 import { PageTitle } from "../../PageTitle.tsx"
 import { useBodyBackground } from "../../../Hooks/useBodyBackground.ts"
 import { BACKGROUND_BOTTOM, IMAGE2 } from "../../../constants.ts"

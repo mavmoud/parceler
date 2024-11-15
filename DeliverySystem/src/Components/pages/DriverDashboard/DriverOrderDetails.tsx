@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Grid2, Typography, Select, Button } from "@mui/material";
+import { Grid2, Typography, Select, Button, Tooltip } from "@mui/material";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { ORDER_STATUS_OPTIONS, getStatusId, getStatusName } from "./constants";
 import InputLabel from "@mui/material/InputLabel";
@@ -42,11 +42,11 @@ export const DriverOrderDetails: React.FC<DriverOrderDetailsProps> = ({
         variant: "error",
       });
     }
-  }, [orderStatus, order.id]);
+  }, [order.id, orderStatus, enqueueSnackbar]);
 
   return (
     <AccordionDetails>
-      <Grid2 container gap={13}>
+      <Grid2 container gap={2}>
         <Grid2>
           <Typography>
             <b>Sender: </b>
@@ -58,8 +58,12 @@ export const DriverOrderDetails: React.FC<DriverOrderDetailsProps> = ({
           </Typography>
         </Grid2>
         <Grid2>
-          <Typography>
-            <b>Recipient address: </b> {order.recipientAddress}
+          <Typography noWrap style={{ maxWidth: "380px" }}>
+            <Tooltip title={order.recipientAddress}>
+              <span>
+                <b>Recipient address: </b> {order.recipientAddress}
+              </span>
+            </Tooltip>
           </Typography>
           <Typography>
             <b>Package weight: </b> {order.packageWeight}
