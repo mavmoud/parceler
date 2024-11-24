@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AccountBar } from "./AccountBar/AccountBar";
+import { EmailService } from "../../services/EmailService";
 import {
   TextFieldsConfig,
   initialValuesCreateAccount,
@@ -32,7 +33,6 @@ import {
 } from "../../constants";
 import {
   CANCEL_BUTTON,
-  EMPTY_STRING,
   signInSchema,
   createAccountSchema,
   isPasswordField,
@@ -77,7 +77,7 @@ export const AuthForm = ({
           backgroundImage: IMAGE1,
           backgroundPosition: `${BACKGROUND_LEFT} ${BACKGROUND_BOTTOM}`,
           backgroundSize: "cover",
-        }
+        },
   );
 
   const authContext = useAuthentication(ROLE_ANY);
@@ -88,10 +88,11 @@ export const AuthForm = ({
   const { mutate } = useMutation(
     signInAuth ? AuthService.Login : AuthService.Register,
     {
-      onSuccess: (data) => {
+      onSuccess: async (data, variables) => {
         if (signInAuth && login) {
           login(data.accessToken, data.user);
         }
+
         if (signInAuth) {
           if (data.user[USER_TYPE_ID] === ROLE_USER) {
             navigate(`/user-dashboard/${data.user["id"]}`);
@@ -101,13 +102,18 @@ export const AuthForm = ({
             navigate(`/admin-dashboard/${data.user["id"]}`);
           }
         } else {
+          try {
+            await EmailService.sendWelcomeEmail(variables.email);
+          } catch (error) {
+            console.error("Failed to send welcome email:", error);
+          }
           navigate(`${HOME_PAGE_URL}?param=success`);
         }
       },
       onError: (error: any) => {
         setAuthError(error?.response?.data?.error || error?.code);
       },
-    }
+    },
   );
 
   const [accountType, setAccountType] = useState<string>("customer");
