@@ -23,7 +23,6 @@ export const QUOTE_URL: string = "/quote";
 export const SHIP_URL: string = "/ship";
 export const HELP_URL: string = "/help";
 
-
 export const CREATE_ACCOUNT_FORM_TITLE: string = "Signup to Parceler";
 export const CREATE_ACCOUNT_FORM_BUTTON: string = "Signup";
 export const SIGN_IN_FORM_TITLE: string = "Login to Parceler";

@@ -73,7 +73,7 @@ orderRoutes.get("/sender/:senderId", async (req, res) => {
           ...order.toJSON(),
           statusHistory,
         };
-      })
+      }),
     );
 
     res.status(200).json(ordersWithHistory);
@@ -97,7 +97,7 @@ orderRoutes.get("/", isAdmin, async (req, res) => {
           ...order.toJSON(),
           statusHistory,
         };
-      })
+      }),
     );
     res.status(200).json(ordersWithHistory);
   } catch (error) {
@@ -124,7 +124,7 @@ orderRoutes.get("/driver/:driverId", async (req, res) => {
           ...order.toJSON(),
           statusHistory,
         };
-      })
+      }),
     );
 
     res.status(200).json(ordersWithHistory);
