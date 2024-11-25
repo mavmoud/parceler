@@ -3,6 +3,7 @@ import { comparePassword, hashPassword } from "../utils";
 import { ACCESS_TOKEN_EXPIRATION_TIME } from "../constants";
 import { JWTStrategy, SessionStrategy } from "../strategies";
 import AuthContext from "../strategies/AuthContext";
+import { eventManager } from "../utils/EventManager"; // Import event manager
 
 const authStrategy =
   process.env.AUTH_TYPE === "session"
@@ -32,6 +33,11 @@ class AuthFacade {
     }
 
     const hashedPassword = hashPassword(password);
+
+     eventManager.emit("userCreated", {
+      email: userData.email,
+    });
+
     return User.create({
       firstName,
       lastName,

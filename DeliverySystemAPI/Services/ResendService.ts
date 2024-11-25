@@ -22,19 +22,15 @@ export class ResendService {
 
   async sendShipmentEmail(
     userEmail: string,
-    trackingNumber: string,
-    estimatedDelivery: string,
+    // trackingNumber: string,
+    // estimatedDelivery: string,
   ) {
     try {
       const data = await resend.emails.send({
         from: "Parceler <ship@parceler.mahmoud.am>",
         to: userEmail,
         subject: "Your Shipment Has Been Created",
-        react: Shipment({
-          trackingNumber,
-          estimatedDelivery,
-          recipientName: "",
-        }),
+        react: Shipment(),
       });
       return { success: true, data };
     } catch (error) {
