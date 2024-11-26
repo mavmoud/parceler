@@ -7,7 +7,6 @@ module.exports = {
       "Users",
       [
         {
-          id: 1,
           firstName: "Sarah",
           lastName: "Johnson",
           email: "sarah.johnson@example.com",
@@ -23,7 +22,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 2,
           firstName: "Michael",
           lastName: "Thompson",
           email: "mthompson@parceler.com",
@@ -39,7 +37,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 3,
           firstName: "Emily",
           lastName: "Davis",
           email: "edavis@parceler.com",
