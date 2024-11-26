@@ -7,17 +7,14 @@ module.exports = {
       "OrderStatusHistory",
       [
         {
-          id: 1,
           orderId: 1,
           statusId: 1,
         },
         {
-          id: 2,
           orderId: 2,
           statusId: 1,
         },
         {
-          id: 3,
           orderId: 3,
           statusId: 1,
         },
