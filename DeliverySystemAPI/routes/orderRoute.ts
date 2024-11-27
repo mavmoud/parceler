@@ -1,12 +1,12 @@
 import express from "express";
 import {
-  Order,
   OrderDetailsView,
   OrderStatusHistory,
   OrderStatusHistoryView,
-  Package,
+  User,
 } from "../models";
 import { isAdmin, verifyToken } from "../middleware";
+import { eventManager } from "../utils/EventManager"; // Import event manager
 
 export const orderRoutes = express.Router();
 
@@ -173,11 +173,23 @@ orderRoutes.put("/status", verifyToken, async (req, res) => {
       order: [["createdAt", "ASC"]],
     });
 
+    if (updatedOrder) {
+      const sender = await User.findOne({
+        where: { id: updatedOrder.senderId },
+      });
+
+      eventManager.emit("orderUpdated", {
+        trackingNumber: updatedOrder.trackingNumber,
+        newStatusId: statusId,
+        userEmail: sender?.email,
+        userName: sender?.firstName,
+      });
+    } else {
+      return res.status(404).json({ error: "Updated order not found." });
+    }
+
     res.status(200).json({ updatedOrder, statusHistory });
   } catch (error) {
     res.status(500).json({ error });
   }
 });
-
-// Update order
-//soon
