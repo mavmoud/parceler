@@ -994,7 +994,7 @@ export default function Quote() {
             marginLeft: "auto",
             marginRight: "auto",
           }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.5 }}
         >
           {quoteData && <QuoteProposal {...quoteData} />}
         </motion.div>
