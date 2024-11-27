@@ -19,8 +19,7 @@ export function PaymentSuccess() {
   const navigate = useNavigate();
   const user = useAuthentication(ROLE_USER);
   const [trackingNumber, setTrackingNumber] = useState<string>("");
-  const [recipientFirstName, setRecipientFirstName] = useState<string>("");
-  const [recipientLastName, setRecipientLastName] = useState<string>("");
+  const [recipientName, setRecipientName] = useState<string>();
   const sessionId = new URLSearchParams(location.search).get("session_id");
   const { enqueueSnackbar } = useSnackbar();
 
@@ -49,12 +48,14 @@ export function PaymentSuccess() {
           sessionId,
         };
 
+        setRecipientName(
+          `${orderPayload.recipientFirstName} ${orderPayload.recipientLastName}`
+        );
+
         sessionStorage.setItem("orderCreated", "true");
 
         const res = await PaymentService.CreateOrder(orderPayload);
         setTrackingNumber(res.trackingNumber);
-        setRecipientFirstName(res.recipientFirstName);
-        setRecipientLastName(res.recipientLastName);
         enqueueSnackbar(res.message, { variant: "success" });
       }
     } catch (err: any) {
@@ -142,10 +143,7 @@ export function PaymentSuccess() {
                 marginTop: "10px",
               }}
             >
-              Recipient:{" "}
-              <strong>
-                {recipientFirstName} {recipientLastName}
-              </strong>
+              Recipient: <strong>{recipientName}</strong>
             </Typography>
           </Box>
 
