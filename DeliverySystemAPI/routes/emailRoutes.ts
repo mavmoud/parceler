@@ -28,12 +28,12 @@ emailRoutes.post("/shipment", async (req, res) => {
 });
 
 emailRoutes.post("/update", async (req, res) => {
-  const { email, trackingNumber, status, location } = req.body;
+  const { userEmail, trackingNumber, userName, statusName } = req.body;
   const result = await emailService.sendUpdateEmail(
-    email,
+    userEmail,
     trackingNumber,
-    status,
-    location,
+    statusName,
+    userName,
   );
   if (result.success) {
     res.json({ message: "Update email sent successfully" });
