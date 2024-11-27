@@ -32,7 +32,6 @@ import {
 } from "../../constants";
 import {
   CANCEL_BUTTON,
-  EMPTY_STRING,
   signInSchema,
   createAccountSchema,
   isPasswordField,
@@ -77,7 +76,7 @@ export const AuthForm = ({
           backgroundImage: IMAGE1,
           backgroundPosition: `${BACKGROUND_LEFT} ${BACKGROUND_BOTTOM}`,
           backgroundSize: "cover",
-        }
+        },
   );
 
   const authContext = useAuthentication(ROLE_ANY);
@@ -88,7 +87,7 @@ export const AuthForm = ({
   const { mutate } = useMutation(
     signInAuth ? AuthService.Login : AuthService.Register,
     {
-      onSuccess: (data) => {
+      onSuccess: async (data) => {
         if (signInAuth && login) {
           login(data.accessToken, data.user);
         }
@@ -107,7 +106,7 @@ export const AuthForm = ({
       onError: (error: any) => {
         setAuthError(error?.response?.data?.error || error?.code);
       },
-    }
+    },
   );
 
   const [accountType, setAccountType] = useState<string>("customer");

@@ -1,8 +1,17 @@
 import { eventManager } from "./EventManager";
+import { ResendService } from "../Services/ResendService";
 
-eventManager.on("userCreated", (user) => {
+const resendService = new ResendService();
+
+eventManager.on("userCreated", async (user) => {
   console.log(`User created: ${user.email}`);
-  //email notification later
+  try {
+    // Send a welcome email
+    await resendService.sendWelcomeEmail(user.email);
+    console.log("Welcome email sent successfully");
+  } catch (error) {
+    console.error("Failed to send welcome email:", error);
+  }
 });
 
 eventManager.on("orderCreated", (trackingNumber) => {
