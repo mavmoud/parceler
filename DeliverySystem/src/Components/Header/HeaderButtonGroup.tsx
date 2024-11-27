@@ -1,4 +1,4 @@
-import { Button, Box, Typography } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import { handleClickPage, handleDashboardReroute } from "./headerUtils.ts";
 import { CREATE_ACCOUNT_URL, SIGN_IN_URL } from "../../constants.ts";
 import { CREATE_ACCOUNT, LOG_IN } from "./constants.ts";
