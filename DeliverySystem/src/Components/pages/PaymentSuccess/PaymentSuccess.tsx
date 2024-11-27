@@ -5,12 +5,22 @@ import { ROLE_USER, useAuthentication } from "../../../Hooks/useAuthentication";
 import { OrderPayload, PaymentService } from "../../../services";
 import { useCallback, useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
+import { useBodyBackground } from "../../../Hooks/useBodyBackground.ts";
+import { BACKGROUND_BOTTOM, IMAGE2 } from "../../../constants.ts";
 
 export function PaymentSuccess() {
+  useBodyBackground({
+    backgroundImage: IMAGE2,
+    backgroundPosition: BACKGROUND_BOTTOM,
+    backgroundSize: "cover",
+  });
+
   const location = useLocation();
   const navigate = useNavigate();
   const user = useAuthentication(ROLE_USER);
   const [trackingNumber, setTrackingNumber] = useState<string>("");
+  const [recipientFirstName, setRecipientFirstName] = useState<string>("");
+  const [recipientLastName, setRecipientLastName] = useState<string>("");
   const sessionId = new URLSearchParams(location.search).get("session_id");
   const { enqueueSnackbar } = useSnackbar();
 
@@ -43,6 +53,8 @@ export function PaymentSuccess() {
 
         const res = await PaymentService.CreateOrder(orderPayload);
         setTrackingNumber(res.trackingNumber);
+        setRecipientFirstName(res.recipientFirstName);
+        setRecipientLastName(res.recipientLastName);
         enqueueSnackbar(res.message, { variant: "success" });
       }
     } catch (err: any) {
@@ -60,24 +72,22 @@ export function PaymentSuccess() {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #0D0D0D, #1A1A1A)",
       }}
     >
       <Card
         sx={{
           width: "600px",
-          borderRadius: "30px",
+          borderRadius: "50px",
           textAlign: "center",
-          backgroundColor: "#FFFFFF",
-          padding: "40px 20px",
-          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+          px: "25px",
+          pt: "40px",
+          pb: "25px",
         }}
       >
-        <CardContent>
+        <CardContent sx={{ p: "0 !important" }}>
           <CheckCircle color="#28a745" size={64} />
           <Typography
             variant="h4"
@@ -134,7 +144,7 @@ export function PaymentSuccess() {
             >
               Recipient:{" "}
               <strong>
-                {user?.userInfo?.firstName} {user?.userInfo?.lastName}
+                {recipientFirstName} {recipientLastName}
               </strong>
             </Typography>
           </Box>
