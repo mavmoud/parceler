@@ -1,5 +1,6 @@
 import { eventManager } from "./EventManager";
 import { ResendService } from "../Services/ResendService";
+import { TrackingStatus } from "../models";
 
 const resendService = new ResendService();
 
@@ -31,3 +32,39 @@ eventManager.on("orderCreated", async (trackingNumber) => {
     console.error("Failed to send welcome email:", error);
   }
 });
+
+eventManager.on(
+  "orderUpdated",
+  async ({ trackingNumber, newStatusId, userEmail, userName }) => {
+    try {
+      if (!userEmail) {
+        console.error("User email is missing.");
+        return;
+      }
+
+      const status = await TrackingStatus.findOne({
+        where: { id: newStatusId },
+      });
+
+      const statusName = status?.statusName || "Unknown";
+
+      try {
+        await resendService.sendUpdateEmail(
+          userEmail,
+          trackingNumber,
+          statusName,
+          userName,
+        );
+        console.log("Update email sent successfully");
+      } catch (error) {
+        console.error("Failed to send welcome email:", error);
+      }
+
+      console.log(
+        `Email sent to ${userEmail} for tracking number ${trackingNumber}.`,
+      );
+    } catch (error) {
+      console.error("Failed to handle orderUpdated event:", error);
+    }
+  },
+);
