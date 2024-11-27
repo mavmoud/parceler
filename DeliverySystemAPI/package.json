@@ -7,16 +7,19 @@
     "dev": "nodemon --watch \"**/*.ts\" --exec ts-node server.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "migrate": "ts-node config/run-migrations.ts"
+    "migrate": "ts-node config/run-migrations.ts",
+    "email": "email dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@react-email/components": "^0.0.28",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/pg": "^8.11.10",
+    "@types/react": "^18.3.12",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -25,6 +28,9 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.0",
     "pg-hstore": "^2.3.4",
+    "react": "^18.3.1",
+    "react-email": "^3.0.2",
+    "resend": "^4.0.1",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2",
     "stripe": "^17.3.0"
