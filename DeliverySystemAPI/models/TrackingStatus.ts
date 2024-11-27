@@ -4,7 +4,7 @@ import { Order } from "./order";
 
 interface TrackingStatusAttributes {
   id: number;
-  name: string;
+  statusName: string;
 }
 
 interface TrackingStatusCreationAttributes
@@ -15,7 +15,7 @@ export class TrackingStatus
   implements TrackingStatusAttributes
 {
   public id!: number;
-  public name!: string;
+  public statusName!: string;
 
   // Timestamps
   public readonly createdAt!: Date;
@@ -41,7 +41,7 @@ TrackingStatus.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
+    statusName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -50,5 +50,5 @@ TrackingStatus.init(
     sequelize,
     modelName: "TrackingStatus",
     tableName: "TrackingStatus",
-  }
+  },
 );
