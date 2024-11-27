@@ -114,7 +114,6 @@ export default function QuoteProposal({
         subtype,
         weight,
         distance,
-        weight,
       },
     });
   };

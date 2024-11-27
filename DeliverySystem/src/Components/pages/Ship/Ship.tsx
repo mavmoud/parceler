@@ -72,7 +72,6 @@ interface ShipmentData {
   subtype: string;
   weight: number;
   distance: number;
-  weight: number;
 }
 
 const validationSchema = Yup.object({
@@ -120,7 +119,6 @@ export default function Ship() {
     subtype: "",
     weight: 0,
     distance: 0,
-    weught: 0,
   });
   const [senderAddress, setSenderAddress] = useState("");
   const [recipientAddress, setRecipientAddress] = useState("");
@@ -194,7 +192,7 @@ export default function Ship() {
 
         sessionStorage.setItem(
           "shipmentPayload",
-          JSON.stringify(shipmentPayload)
+          JSON.stringify(shipmentPayload),
         );
 
         const response = await axios.post(
@@ -210,14 +208,14 @@ export default function Ship() {
               Authorization: `${token}`,
               "Content-Type": "application/json",
             },
-          }
+          },
         );
 
         window.location.href = response.data.url;
       } catch (error) {
         console.error(
           "Payment initiation failed:",
-          error.response?.data || error.message
+          error.response?.data || error.message,
         );
       }
     };
