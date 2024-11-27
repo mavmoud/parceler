@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import QRCode from "qrcode";
-import WelcomeEmail from "../emails/Welcome";
+import Welcome from "../emails/Welcome";
 import Shipment from "../emails/Shipment";
 import Update from "../emails/Update";
 
@@ -13,7 +13,7 @@ export class ResendService {
         from: "Parceler <welcome@parceler.mahmoud.am>",
         to: userEmail,
         subject: "Welcome to Parceler!",
-        react: WelcomeEmail(),
+        react: Welcome(),
       });
       return { success: true, data };
     } catch (error) {
@@ -42,8 +42,8 @@ export class ResendService {
   async sendUpdateEmail(
     userEmail: string,
     trackingNumber: string,
-    status: string,
-    location: string,
+    statusName: string,
+    userName: string,
   ) {
     try {
       const data = await resend.emails.send({
@@ -52,9 +52,8 @@ export class ResendService {
         subject: "Shipment Status Update",
         react: Update({
           trackingNumber,
-          status,
-          location,
-          userName: "",
+          statusName,
+          userName,
         }),
       });
       return { success: true, data };
