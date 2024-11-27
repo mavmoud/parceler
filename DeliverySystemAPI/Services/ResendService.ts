@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import QRCode from "qrcode";
 import WelcomeEmail from "../emails/Welcome";
 import Shipment from "../emails/Shipment";
 import Update from "../emails/Update";
@@ -20,20 +21,20 @@ export class ResendService {
     }
   }
 
-  async sendShipmentEmail(
-    userEmail: string,
-    // trackingNumber: string,
-    // estimatedDelivery: string,
-  ) {
+  async sendShipmentEmail(userEmail: string, trackingNumber: string) {
     try {
+      // Generate the QR code
+      const qrCodeUrl = await QRCode.toDataURL(trackingNumber);
+
       const data = await resend.emails.send({
         from: "Parceler <ship@parceler.mahmoud.am>",
         to: userEmail,
         subject: "Your Shipment Has Been Created",
-        react: Shipment(),
+        react: Shipment({ trackingNumber, qrCodeUrl }),
       });
       return { success: true, data };
     } catch (error) {
+      console.error("Error in sendShipmentEmail:", error); // Log error details
       return { success: false, error };
     }
   }

@@ -22,7 +22,7 @@ module.exports = {
           declaredValue: 55,
         },
       ],
-      {}
+      {},
     );
   },
 

@@ -19,7 +19,7 @@ module.exports = {
           statusId: 1,
         },
       ],
-      {}
+      {},
     );
   },
 
