@@ -15,8 +15,11 @@ emailRoutes.post("/welcome", async (req, res) => {
 });
 
 emailRoutes.post("/shipment", async (req, res) => {
-  const { email, trackingNumber, estimatedDelivery } = req.body;
-  const result = await emailService.sendShipmentEmail(email);
+  const { userEmail, trackingNumber } = req.body;
+  const result = await emailService.sendShipmentEmail(
+    userEmail,
+    trackingNumber,
+  );
   if (result.success) {
     res.json({ message: "Shipment email sent successfully" });
   } else {
