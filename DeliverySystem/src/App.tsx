@@ -37,7 +37,6 @@ import { DriverDashboard } from "Components/pages/DriverDashboard/DriverDashboar
 import { AdminDashboard } from "Components/pages/AdminDashboard/AdminDashboard.js";
 import { PaymentSuccess } from "Components/pages/PaymentSuccess/PaymentSuccess.tsx";
 import ChatBotContainer from "Components/Chatbot/ChatBotContainer.jsx";
-// import ChatBotContainer from './Components/Chatbot/ChatBotContainer.jsx';
 
 function App() {
   const location = useLocation();
