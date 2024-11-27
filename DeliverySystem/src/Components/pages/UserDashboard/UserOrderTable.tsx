@@ -23,7 +23,7 @@ function createData(
   packageDimension: string,
   weight: number,
   cost: string,
-  paymentMethod: string
+  paymentMethod: string,
 ) {
   return {
     trackingNumber: trackingNumber,
@@ -63,12 +63,12 @@ export const UserOrderTable = () => {
             order.packageDimension,
             order.packageWeight,
             `${order.amount} ${order.currency}`,
-            order.method
-          )
+            order.method,
+          ),
         );
         setDataRows(transformedData);
       },
-    }
+    },
   );
 
   console.log(JSON.stringify(data));
@@ -76,36 +76,67 @@ export const UserOrderTable = () => {
     <>
       {!isLoading && (
         <Grid2 container justifyContent="center">
-          <Grid2 item xs={12} md={12} sx={{ width: "60%" }}>
+          <Grid2 item xs={12} md={12} sx={{ width: "100%" }}>
             <Card
               sx={{
-                padding: 3,
+                padding: "25px",
                 background: "linear-gradient(to bottom, #ffffff, #f0f0f5)",
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-                borderRadius: 2,
               }}
             >
               <TableContainer
                 component={Paper}
-                sx={{ borderRadius: 2, overflow: "hidden" }}
+                sx={{
+                  borderRadius: "30px",
+                  overflow: "hidden",
+                  boxShadow: "none",
+                }}
               >
                 <Table aria-label="collapsible table">
                   <TableHead>
                     <TableRow sx={{ backgroundColor: "black" }}>
                       <TableCell sx={{ color: "white" }} />
-                      <TableCell sx={{ color: "white" }}>
-                        Tracking number
+                      <TableCell
+                        sx={{
+                          color: "white",
+                          fontFamily: '"Montserrat", serif',
+                        }}
+                      >
+                        Tracking Number
                       </TableCell>
-                      <TableCell align="center" sx={{ color: "white" }}>
+                      <TableCell
+                        align="center"
+                        sx={{
+                          color: "white",
+                          fontFamily: '"Montserrat", serif',
+                        }}
+                      >
                         Driver
                       </TableCell>
-                      <TableCell align="center" sx={{ color: "white" }}>
+                      <TableCell
+                        align="center"
+                        sx={{
+                          color: "white",
+                          fontFamily: '"Montserrat", serif',
+                        }}
+                      >
                         Recipient
                       </TableCell>
-                      <TableCell align="center" sx={{ color: "white" }}>
+                      <TableCell
+                        align="center"
+                        sx={{
+                          color: "white",
+                          fontFamily: '"Montserrat", serif',
+                        }}
+                      >
                         Destination
                       </TableCell>
-                      <TableCell align="center" sx={{ color: "white" }}>
+                      <TableCell
+                        align="center"
+                        sx={{
+                          color: "white",
+                          fontFamily: '"Montserrat", serif',
+                        }}
+                      >
                         Status
                       </TableCell>
                     </TableRow>
@@ -120,9 +151,15 @@ export const UserOrderTable = () => {
                     ))}
                   </TableBody>
                 </Table>
-              </TableContainer>       
-              {!dataRows.length && <Grid2 container sx={{justifyContent: 'center'}}> <Typography variant='h5' color='black' p={5} pb={3}>There are currently no results to display.</Typography></Grid2>}
-              
+              </TableContainer>
+              {!dataRows.length && (
+                <Grid2 container sx={{ justifyContent: "center" }}>
+                  {" "}
+                  <Typography variant="h5" color="black" p={5} pb={3}>
+                    There are currently no results to display.
+                  </Typography>
+                </Grid2>
+              )}
             </Card>
           </Grid2>
         </Grid2>

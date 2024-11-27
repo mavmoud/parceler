@@ -33,13 +33,37 @@ export const UserOrderTableRow = ({ row, index }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell
+          component="th"
+          scope="row"
+          sx={{ fontFamily: '"Montserrat", serif', fontWeight: "medium" }}
+        >
           {row.trackingNumber}
         </TableCell>
-        <TableCell align="center">{row.driver}</TableCell>
-        <TableCell align="center">{row.recipient}</TableCell>
-        <TableCell align="center">{row.destination}</TableCell>
-        <TableCell align="center">{row.status}</TableCell>
+        <TableCell
+          align="center"
+          sx={{ fontFamily: '"Montserrat", serif', fontWeight: "medium" }}
+        >
+          {row.driver}
+        </TableCell>
+        <TableCell
+          align="center"
+          sx={{ fontFamily: '"Montserrat", serif', fontWeight: "medium" }}
+        >
+          {row.recipient}
+        </TableCell>
+        <TableCell
+          align="center"
+          sx={{ fontFamily: '"Montserrat", serif', fontWeight: "medium" }}
+        >
+          {row.destination}
+        </TableCell>
+        <TableCell
+          align="center"
+          sx={{ fontFamily: '"Montserrat", serif', fontWeight: "medium" }}
+        >
+          {row.status}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
