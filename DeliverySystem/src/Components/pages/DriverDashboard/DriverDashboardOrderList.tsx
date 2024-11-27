@@ -2,7 +2,7 @@ import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import { Truck } from "lucide-react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { OrderService } from "../../../services";
 import { useQuery } from "@tanstack/react-query";
@@ -26,13 +26,13 @@ export const DriverDashboardOrderList = () => {
   const user = useAuthentication(ROLE_DRIVER);
   const { data: orders, isLoading } = useQuery(
     ["getOrdersBySenderId", user?.userInfo?.id],
-    () => OrderService.GetOrdersByDriverId(user?.[USER_INFO]?.[USER_ID])
+    () => OrderService.GetOrdersByDriverId(user?.[USER_INFO]?.[USER_ID]),
   );
 
   console.log("data", orders);
 
   return (
-    <Grid2 sx={{ width: "100%" }}>
+    <Grid2 sx={{ margin: "25px" }}>
       {!isLoading && orders ? (
         orders.map((order: Order) => {
           return (
@@ -40,21 +40,35 @@ export const DriverDashboardOrderList = () => {
               key={order.trackingNumber}
               expanded={expanded === order.trackingNumber}
               onChange={handleChange(order.trackingNumber)}
+              disableGutters
               sx={{
-                bgcolor: "#FFFFFF",
+                boxShadow: "none",
                 color: "black",
                 border: "1px solid rgba(0, 0, 0, .125)",
-                boxShadow: 2,
+                borderRadius: "35px",
+                marginTop: "15px",
+                "&:first-of-type": {
+                  borderTopLeftRadius: "35px",
+                  borderTopRightRadius: "35px",
+                },
+                "&:last-of-type": {
+                  borderBottomLeftRadius: "35px",
+                  borderBottomRightRadius: "35px",
+                },
+                "&:before": {
+                  display: "none",
+                },
               }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ color: "black" }} />}
                 aria-controls="panel1d-content"
                 id="panel1d-header"
+                sx={{ height: "50px", pl: "20px" }}
               >
                 {" "}
-                <LocalShippingOutlinedIcon />
-                <Typography pl={2}>
+                <Truck />
+                <Typography pl={2} sx={{ fontFamily: '"Montserrat", serif' }}>
                   <b>Delivery number: </b>
                   {order.trackingNumber}
                 </Typography>

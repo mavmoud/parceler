@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Grid2, Typography, Select, Button, Tooltip } from "@mui/material";
+import { Grid2, Typography, Select, Button } from "@mui/material";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { ORDER_STATUS_OPTIONS, getStatusId, getStatusName } from "./constants";
 import InputLabel from "@mui/material/InputLabel";
@@ -20,10 +20,10 @@ export const DriverOrderDetails: React.FC<DriverOrderDetailsProps> = ({
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [latestStatusName, setLatestStatusName] = useState<string>(
-    order.latestStatusName
+    order.latestStatusName,
   );
   const [orderStatus, setOrderStatus] = useState<number | undefined>(
-    getStatusId(order.latestStatusName) || 0
+    getStatusId(order.latestStatusName) || 0,
   );
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -37,7 +37,7 @@ export const DriverOrderDetails: React.FC<DriverOrderDetailsProps> = ({
       setLatestStatusName(newStatus);
       setOrderStatus(getStatusId(newStatus));
       enqueueSnackbar("Status updated successfully! ", { variant: "success" });
-    } catch (err) {
+    } catch (error) {
       enqueueSnackbar("Status update failed. Please try again.", {
         variant: "error",
       });
@@ -46,45 +46,87 @@ export const DriverOrderDetails: React.FC<DriverOrderDetailsProps> = ({
 
   return (
     <AccordionDetails>
-      <Grid2 container gap={2}>
+      <Grid2
+        container
+        gap={2}
+        sx={{
+          width: "770px",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <Grid2>
-          <Typography>
+          <Typography sx={{ fontFamily: '"Montserrat", serif' }}>
             <b>Sender: </b>
             {`${order.senderFirstName} ${order.senderLastName}`}
           </Typography>
-          <Typography>
+          <Typography sx={{ fontFamily: '"Montserrat", serif' }}>
             <b>Recipient: </b>{" "}
             {`${order.recipientFirstName} ${order.recipientLastName}`}
           </Typography>
+          <Typography sx={{ fontFamily: '"Montserrat", serif' }}>
+            <b>Package weight: </b> {order.packageWeight} g
+          </Typography>
         </Grid2>
         <Grid2>
-          <Typography noWrap style={{ maxWidth: "380px" }}>
-            <Tooltip title={order.recipientAddress}>
-              <span>
-                <b>Recipient address: </b> {order.recipientAddress}
-              </span>
-            </Tooltip>
-          </Typography>
-          <Typography>
-            <b>Package weight: </b> {order.packageWeight}
+          <Typography
+            style={{ maxWidth: "250px", fontFamily: '"Montserrat", serif' }}
+          >
+            <span>
+              <b>Recipient address: </b> <br /> {order.recipientAddress}
+            </span>
           </Typography>
         </Grid2>
         <Grid2 width={"15rem"}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Order status</InputLabel>
+          <FormControl sx={{ width: "280px" }}>
+            <InputLabel
+              id="demo-simple-select-label"
+              sx={{
+                display: "none",
+              }}
+            >
+              Order status
+            </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={getStatusName(orderStatus || 0)}
               label="Order status"
               onChange={handleChange}
+              sx={{
+                height: "60px",
+                pb: "5px",
+                borderRadius: "35px",
+                "& .MuiOutlinedInput-notchedOutline": {
+                  legend: {
+                    display: "none",
+                  },
+                },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#071528",
+                },
+              }}
             >
               {ORDER_STATUS_OPTIONS?.map((option) => {
                 return (
-                  <MenuItem value={option.name}>
+                  <MenuItem
+                    value={option.name}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
                     <Grid2 container gap="1.0rem">
                       <Typography>{iconMap.get(option.name)?.()}</Typography>
-                      <Typography>{option.name}</Typography>
+                      <Typography
+                        sx={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          fontFamily: '"Montserrat", serif',
+                        }}
+                      >
+                        {option.name}
+                      </Typography>
                     </Grid2>
                   </MenuItem>
                 );
@@ -92,7 +134,18 @@ export const DriverOrderDetails: React.FC<DriverOrderDetailsProps> = ({
             </Select>
             <Button
               variant="contained"
-              sx={{ margin: "1rem 0rem" }}
+              disableRipple
+              sx={{
+                borderRadius: "30px",
+                backgroundColor: "#071528",
+                fontFamily: '"Montserrat", serif',
+                textTransform: "none",
+                fontSize: "16px",
+                fontWeight: "medium",
+                height: "50px",
+                boxShadow: "none",
+                mt: "10px",
+              }}
               disabled={orderStatus === getStatusId(latestStatusName)}
               onClick={handleOnClick}
             >
