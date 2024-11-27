@@ -34,7 +34,7 @@ class AuthFacade {
 
     const hashedPassword = hashPassword(password);
 
-     eventManager.emit("userCreated", {
+    eventManager.emit("userCreated", {
       email: userData.email,
     });
 
@@ -57,8 +57,12 @@ class AuthFacade {
     const accessToken = authContext.generateToken(user);
     const issuedAt = new Date();
     const accessTokenExpiry = new Date(
-      issuedAt.getTime() + ACCESS_TOKEN_EXPIRATION_TIME
+      issuedAt.getTime() + ACCESS_TOKEN_EXPIRATION_TIME,
     );
+
+    eventManager.emit("userLoggedIn", {
+      email,
+    });
 
     await user.update({ accessToken, accessTokenExpiry, issuedAt });
     return { accessToken, user };

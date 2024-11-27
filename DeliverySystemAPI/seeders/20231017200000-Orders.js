@@ -7,7 +7,6 @@ module.exports = {
       "Orders",
       [
         {
-          id: 1,
           packageId: 1,
           paymentId: 1,
           senderId: 1,
@@ -23,7 +22,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 2,
           packageId: 2,
           paymentId: 2,
           senderId: 1,
@@ -39,7 +37,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 3,
           packageId: 3,
           paymentId: 3,
           senderId: 1,
@@ -55,7 +52,7 @@ module.exports = {
           updatedAt: new Date(),
         },
       ],
-      {}
+      {},
     );
   },
 

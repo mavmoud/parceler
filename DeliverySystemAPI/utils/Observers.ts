@@ -3,6 +3,14 @@ import { ResendService } from "../Services/ResendService";
 
 const resendService = new ResendService();
 
+let userEmail: string;
+
+eventManager.on("userLoggedIn", (data) => {
+  console.log(`User signed in: ${JSON.stringify(data)}`);
+  console.log(`User email: ${data.email}`);
+  userEmail = data.email; // Save the signed-in user's email
+});
+
 eventManager.on("userCreated", async (user) => {
   console.log(`User created: ${user.email}`);
   try {
@@ -14,7 +22,12 @@ eventManager.on("userCreated", async (user) => {
   }
 });
 
-eventManager.on("orderCreated", (trackingNumber) => {
+eventManager.on("orderCreated", async (trackingNumber) => {
   console.log(`Order created with tracking number: ${trackingNumber}`);
-  //email notification later
+  try {
+    await resendService.sendShipmentEmail(userEmail, trackingNumber);
+    console.log("Shipment email sent successfully");
+  } catch (error) {
+    console.error("Failed to send welcome email:", error);
+  }
 });
