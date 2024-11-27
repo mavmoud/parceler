@@ -28,7 +28,7 @@ paymentRoutes.post("/checkout", verifyToken, async (req, res) => {
       amount,
       userEmail,
       productName,
-      userId
+      userId,
     );
     res.status(200).json({ url });
   } catch (err) {
@@ -64,7 +64,7 @@ paymentRoutes.post("/complete", async (req, res) => {
 
     const sessionData = await retrieveSession(sessionId);
     const paymentMethod = await retrievePaymentMethod(
-      sessionData.payment_intent
+      sessionData.payment_intent,
     );
 
     //create package first
@@ -102,6 +102,7 @@ paymentRoutes.post("/complete", async (req, res) => {
       statusId: 1,
     });
 
+    // Emit orderCreated event with trackingNumber and user details
     eventManager.emit("orderCreated", trackingNumber);
 
     res.status(200).json({ message: "Order created!", trackingNumber });
