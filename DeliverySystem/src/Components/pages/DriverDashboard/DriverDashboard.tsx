@@ -1,4 +1,4 @@
-import { Grid2, Typography } from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
 import { useBodyBackground } from "../../../Hooks/useBodyBackground";
 import {
   useAuthentication,
@@ -6,6 +6,7 @@ import {
 } from "../../../Hooks/useAuthentication";
 import { BACKGROUND_RIGHT, IMAGE3 } from "../../../constants";
 import { DriverDashboardOrderList } from "./DriverDashboardOrderList";
+import { PageTitle } from "../../PageTitle.tsx";
 
 export const DriverDashboard = () => {
   useBodyBackground({
@@ -23,13 +24,21 @@ export const DriverDashboard = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <Typography variant="h2" color="white" align="center">
-        {`${driver?.userInfo?.firstName} ${driver?.userInfo?.lastName}'s`}{" "}
-        <br />
-        Assigned Deliveries
-      </Typography>
-      <Grid2 container justifyContent="center" sx={{ width: "55rem", mt: 4 }}>
-        <DriverDashboardOrderList />
+      <PageTitle
+        title={`${driver?.userInfo?.firstName}'s Assigned Deliveries`}
+      />
+      <Grid2 container justifyContent="center" sx={{ width: "900px" }}>
+        <Box
+          sx={{
+            backgroundColor: "white",
+            borderRadius: "70px",
+            height: "500px",
+            overflowY: "auto",
+            width: "900px",
+          }}
+        >
+          <DriverDashboardOrderList />
+        </Box>
       </Grid2>
     </Grid2>
   );
