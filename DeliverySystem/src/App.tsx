@@ -36,7 +36,6 @@ import { UserDashboard } from "Components/pages/UserDashboard/UserDashboard.js";
 import { DriverDashboard } from "Components/pages/DriverDashboard/DriverDashboard.js";
 import { AdminDashboard } from "Components/pages/AdminDashboard/AdminDashboard.js";
 import { PaymentSuccess } from "Components/pages/PaymentSuccess/PaymentSuccess.tsx";
-import ChatBotContainer from "Components/Chatbot/ChatBotContainer.jsx";
 
 function App() {
   const location = useLocation();
@@ -50,8 +49,6 @@ function App() {
     <Container maxWidth="xl">
       <Header setSignInAuth={setSignInAuth} signInAuth={signInAuth} />
       <Grid2>
-        {<ChatBotContainer />}
-
         <Routes>
           <Route path={HOME_PAGE_URL} element={<HomePage />} />
           <Route
