@@ -79,6 +79,7 @@ export const UserOrderTable = () => {
           <Grid2 item xs={12} md={12} sx={{ width: "100%" }}>
             <Card
               sx={{
+                height: "400px",
                 padding: "25px",
                 background: "linear-gradient(to bottom, #ffffff, #f0f0f5)",
               }}
@@ -155,7 +156,13 @@ export const UserOrderTable = () => {
               {!dataRows.length && (
                 <Grid2 container sx={{ justifyContent: "center" }}>
                   {" "}
-                  <Typography variant="h5" color="black" p={5} pb={3}>
+                  <Typography
+                    variant="h5"
+                    color="black"
+                    p={5}
+                    pb={3}
+                    sx={{ fontFamily: '"Montserrat", serif' }}
+                  >
                     There are currently no results to display.
                   </Typography>
                 </Grid2>
