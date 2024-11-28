@@ -164,7 +164,7 @@ export default function Ship() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const address = `${formData.get("recipientApartment") ? formData.get("recipientApartment") + "-" : ""}${shipmentData.destinationStreetNumber} ${shipmentData.destinationStreetName}, ${shipmentData.destinationProvince} ${shipmentData.destinationPostalCode}, ${shipmentData.destinationCountry}`;
+    const address = `${formData.get("recipientApartment") ? formData.get("recipientApartment") + "-" : ""}${shipmentData.destinationStreetNumber} ${shipmentData.destinationStreetName}, ${shipmentData.destinationCity}, ${shipmentData.destinationProvince} ${shipmentData.destinationPostalCode}, ${shipmentData.destinationCountry}`;
     const firstName = formData.get("recipientFirstName") as string;
     const lastName = formData.get("recipientLastName") as string;
 
