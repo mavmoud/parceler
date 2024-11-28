@@ -5,10 +5,13 @@ import {
   ROLE_ADMIN,
 } from "./../../Hooks/useAuthentication";
 
-const userTypeMapper = new Map([
+export const userTypeMapper = new Map([
   ["customer", ROLE_USER],
   ["driver", ROLE_DRIVER],
   ["admin", ROLE_ADMIN],
+  [ROLE_USER, "customer"],
+  [ROLE_DRIVER, "driver"],
+  [ROLE_ADMIN, "admin"],
 ]);
 
 export const prepareCreateAccountValues = (

@@ -32,7 +32,8 @@ export const DriverDashboard = () => {
           sx={{
             backgroundColor: "white",
             borderRadius: "70px",
-            height: "500px",
+            minHeight: "fit-content",
+            maxHeight: "500px",
             overflowY: "auto",
             width: "900px",
           }}
