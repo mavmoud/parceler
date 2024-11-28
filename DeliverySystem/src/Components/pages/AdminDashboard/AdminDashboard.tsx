@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Grid2, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Grid2, Typography } from "@mui/material";
 import { useBodyBackground } from "../../../Hooks/useBodyBackground";
 import {
   useAuthentication,
@@ -11,6 +11,7 @@ import { AdminDashboardAccounts } from "./AdminDashboardAccounts";
 import { AdminDashboardOrders } from "./AdminDashboardOrders";
 import { AdminDashboardTitle } from "./AdminDashboardTitle";
 import "./adminDashboard.css";
+import { PageTitle } from "../../PageTitle.tsx";
 
 export const AdminDashboard = () => {
   useBodyBackground({
@@ -27,8 +28,10 @@ export const AdminDashboard = () => {
       <Grid2 container className="container-title">
         <AdminDashboardTitle mode={mode} setMode={setMode} />
       </Grid2>
-      <Grid2 container>
-        {mode ? <AdminDashboardOrders /> : <AdminDashboardAccounts />}
+      <Grid2 container justifyContent="center">
+        <Box>
+          {mode ? <AdminDashboardOrders /> : <AdminDashboardAccounts />}
+        </Box>
       </Grid2>
     </Grid2>
   );
