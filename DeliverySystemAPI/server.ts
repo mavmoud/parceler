@@ -5,9 +5,17 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
+
+// Allow specific origins for CORS
+const allowedOrigins = [
+    "http://localhost:5173", // Local development
+    "https://parceler.mahmoud.am", // Deployed custom domain
+    "https://parcelerdelivery.vercel.app", // Deployed Vercel domain
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
