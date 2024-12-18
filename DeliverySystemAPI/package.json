@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch \"**/*.ts\" --exec ts-node server.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/server.ts",
     "migrate": "ts-node config/run-migrations.ts",
     "email": "email dev"
   },
@@ -20,6 +20,7 @@
     "@types/cors": "^2.8.17",
     "@types/pg": "^8.11.10",
     "@types/react": "^18.3.12",
+    "@vercel/node": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
