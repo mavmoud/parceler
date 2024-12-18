@@ -1,3 +1,8 @@
+import image1 from "./assets/ParcelerContainers/BottomLeft.png";
+import image2 from "./assets/ParcelerContainers/Bottom.png";
+import image3 from "./assets/ParcelerContainers/Right.png";
+import image4 from "./assets/ParcelerContainers/BottomRight.png";
+
 export const COLOR_MAIN: string = "#0A0F1A";
 export const BACKGROUND_COLOR_GRADIENT: string =
   "linear-gradient(to bottom, #000000 0%, #071528 100%)";
@@ -8,7 +13,6 @@ export const BACKGROUND_LEFT: string = "left";
 export const BACKGROUND_TOP: string = "top";
 export const BACKGROUND_BOTTOM: string = "bottom";
 
-export const PNG_PATH: string = "public/ParcelerContainers/";
 export const HOME_PAGE_URL: string = "/";
 export const CREATE_ACCOUNT_URL: string = "/signup";
 export const SIGN_IN_URL: string = "/login";
@@ -28,7 +32,7 @@ export const CREATE_ACCOUNT_FORM_BUTTON: string = "Signup";
 export const SIGN_IN_FORM_TITLE: string = "Login to Parceler";
 export const SIGN_IN_FORM_BUTTON: string = "Login";
 
-export const IMAGE1: string = "BottomLeft.png";
-export const IMAGE2: string = "Bottom.png";
-export const IMAGE3: string = "Right.png";
-export const IMAGE4: string = "BottomRight.png";
+export const IMAGE1: string = image1;
+export const IMAGE2: string = image2;
+export const IMAGE3: string = image3;
+export const IMAGE4: string = image4;
