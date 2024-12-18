@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { pngPathBuilder } from "../appUtils.ts";
 import {
   BACKGROUND_COLOR_GRADIENT,
   NO_REPEAT,
@@ -20,7 +19,7 @@ export const useBodyBackground = ({
 }: UseBodyBackgroundProps): void => {
   useEffect(() => {
     const originalBackground = document.body.style.background;
-    document.body.style.background = `url(${pngPathBuilder(backgroundImage)}) ${NO_REPEAT} ${backgroundPosition}, ${BACKGROUND_COLOR_GRADIENT}`;
+    document.body.style.background = `url(${backgroundImage}) ${NO_REPEAT} ${backgroundPosition}, ${BACKGROUND_COLOR_GRADIENT}`;
     return () => {
       document.body.style.background = originalBackground;
       document.body.style.backgroundSize = EMPTY_STRING;
