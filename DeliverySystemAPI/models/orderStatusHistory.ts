@@ -1,7 +1,7 @@
 import { Model, DataTypes, Optional, Association } from "sequelize";
 import { sequelize } from "../config/database";
 import { Order } from "./order";
-import { TrackingStatus } from "./trackingStatus";
+import { TrackingStatus } from "./TrackingStatus";
 
 interface OrderStatusHistoryAttributes {
   id: number;
