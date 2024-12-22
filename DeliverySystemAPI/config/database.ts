@@ -78,3 +78,4 @@ class Database {
 
 // Export as async function to properly handle connection
 export const getSequelizeInstance = () => Database.getInstance();
+export const sequelize = Database.getInstance();
