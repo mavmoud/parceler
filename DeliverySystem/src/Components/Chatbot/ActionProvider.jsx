@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ActionProvider as BaseActionProvider } from "react-chatbot-kit";
 
 const ActionProvider = ({
   createChatBotMessage,
@@ -12,7 +11,7 @@ const ActionProvider = ({
   const fetchTrackingStatus = async (trackingNumber) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/orders/trackingNumber/${trackingNumber}`
+        `https://api.parceler.mahmoud.am/api/orders/trackingNumber/${trackingNumber}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -54,7 +53,7 @@ const ActionProvider = ({
   const fetchTrackingEstimate = async (trackingNumber) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/orders/trackingNumber/${trackingNumber}`
+        `https://api.parceler.mahmoud.am/api/orders/trackingNumber/${trackingNumber}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -107,7 +106,7 @@ const ActionProvider = ({
   const fetchAmount = async (trackingNumber) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/orders/trackingNumber/${trackingNumber}`
+        `https://api.parceler.mahmoud.am/api/orders/trackingNumber/${trackingNumber}`
       );
       if (response.ok) {
         const data = await response.json();
