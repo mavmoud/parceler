@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ActionProvider as BaseActionProvider } from "react-chatbot-kit";
 
 const ActionProvider = ({
   createChatBotMessage,
