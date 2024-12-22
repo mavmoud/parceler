@@ -1,13 +1,14 @@
 const { Client } = require("pg");
 const { exec } = require("child_process");
+require("dotenv").config({ path: "./config/.env" });
 
 // PostgreSQL connection details
 const client = new Client({
-  user: "postgres",
-  host: "localhost",
-  database: "parceler_db",
-  password: "password",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    require: true,
+    rejectUnauthorized: false
+  }
 });
 
 // Function to check if the Users table exists
@@ -29,16 +30,16 @@ function runMigrations() {
   console.log("Running migrations...");
   return new Promise<void>((resolve, reject) => {
     exec(
-      "npx sequelize-cli db:migrate --env production",
-      (err: any, stdout: any, stderr: any) => {
-        if (err) {
-          console.error(`Error running migrations: ${stderr}`);
-          reject(err);
-        } else {
-          console.log(`Migrations output: ${stdout}`);
-          resolve();
-        }
-      }
+        "npx sequelize-cli db:migrate --env production",
+        (err: any, stdout: any, stderr: any) => {
+          if (err) {
+            console.error(`Error running migrations: ${stderr}`);
+            reject(err);
+          } else {
+            console.log(`Migrations output: ${stdout}`);
+            resolve();
+          }
+        },
     );
   });
 }
@@ -48,16 +49,16 @@ function runSeeders() {
   console.log("Running seeders...");
   return new Promise<void>((resolve, reject) => {
     exec(
-      "npx sequelize-cli db:seed:all --env production",
-      (err: any, stdout: any, stderr: any) => {
-        if (err) {
-          console.error(`Error running seeders: ${stderr}`);
-          reject(err);
-        } else {
-          console.log(`Seeders output: ${stdout}`);
-          resolve();
-        }
-      }
+        "npx sequelize-cli db:seed:all --env production",
+        (err: any, stdout: any, stderr: any) => {
+          if (err) {
+            console.error(`Error running seeders: ${stderr}`);
+            reject(err);
+          } else {
+            console.log(`Seeders output: ${stdout}`);
+            resolve();
+          }
+        },
     );
   });
 }
@@ -69,8 +70,8 @@ checkIfTableExists().then((tableExists) => {
   } else {
     console.log("Database not initialized. Running migrations and seeders...");
     runMigrations()
-      .then(runSeeders)
-      .then(() => console.log("Migrations and seeders completed."))
-      .catch((err) => console.error("Error during migrations/seeders:", err));
+        .then(runSeeders)
+        .then(() => console.log("Migrations and seeders completed."))
+        .catch((err) => console.error("Error during migrations/seeders:", err));
   }
 });
