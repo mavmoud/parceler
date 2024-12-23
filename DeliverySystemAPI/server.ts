@@ -4,7 +4,6 @@ import { port } from "./config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import Database from './config/database';
 
 dotenv.config();
 
@@ -32,18 +31,6 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 
-async function startServer() {
-    try {
-        // Test database connection before starting server
-        await Database.testConnection();
-
-        app.listen(port, () => {
-            console.log(`Server is running on http://localhost:${port}`);
-        });
-    } catch (error) {
-        console.error('Failed to start server:', error);
-        process.exit(1);
-    }
-}
-
-startServer();
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
