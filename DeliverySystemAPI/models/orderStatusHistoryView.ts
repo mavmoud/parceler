@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/sequelize";
+import { sequelize } from "../config/database";
 
 interface orderStatusHistoryViewAttributes {
   id: number;
