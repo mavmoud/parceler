@@ -1,14 +1,13 @@
 const { Client } = require("pg");
 const { exec } = require("child_process");
-require("dotenv").config({ path: "./config/.env" });
 
 // PostgreSQL connection details
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    require: true,
-    rejectUnauthorized: false
-  }
+  user: "postgres",
+  host: "localhost",
+  database: "parceler_db",
+  password: "password",
+  port: 5432,
 });
 
 // Function to check if the Users table exists
