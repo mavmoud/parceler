@@ -7,7 +7,8 @@
     "dev": "nodemon --watch \"**/*.ts\" --exec ts-node server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "migrate:prod": "NODE_ENV=production npx sequelize-cli db:migrate",
+    "migrate:prod": "npx sequelize-cli db:migrate",
+    "prod": "npm run migrate:prod && npm start",
     "migrate:seed:prod": "NODE_ENV=production npx sequelize-cli db:seed:all",
     "email": "email dev"
   },
