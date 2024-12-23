@@ -44,7 +44,7 @@ export const UpdateEmail = ({
             <Text style={paragraph}>Thank you for using Parceler!</Text>
             <Button
               style={button}
-              href={`http://localhost:5173/track/${trackingNumber}`}
+              href={`https://parceler.mahmoud.am/track/${trackingNumber}`}
             >
               Track your Shipment
             </Button>
