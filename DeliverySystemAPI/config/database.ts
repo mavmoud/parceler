@@ -7,10 +7,21 @@ class Database {
 
     static getInstance(): Sequelize {
         if (!Database.instance) {
-            Database.instance = new Sequelize("parceler_db", "postgres", "password", {
-                host: "localhost",
+            // Provide an error if DATABASE_URL is missing
+            if (!process.env.DATABASE_URL) {
+                throw new Error("DATABASE_URL environment variable is not set.");
+            }
+
+            Database.instance = new Sequelize(process.env.DATABASE_URL, {
                 dialect: "postgres",
                 logging: false,
+                // If you need SSL config, you can also add e.g.:
+                dialectOptions: {
+                  ssl: {
+                    require: true,
+                    rejectUnauthorized: false
+                  }
+                }
             });
         }
         return Database.instance;
