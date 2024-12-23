@@ -1,9 +1,16 @@
 {
   "production": {
-    "username": "postgres",
-    "password": "password",
-    "database": "parceler_db",
-    "host": "localhost",
-    "dialect": "postgres"
+    "username": "${PGUSER}",
+    "password": "${PGPASSWORD}",
+    "database": "${PGDATABASE}",
+    "host": "${PGHOST}",
+    "port": "${PGPORT}",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
