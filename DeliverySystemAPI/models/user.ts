@@ -1,5 +1,5 @@
 import { Model, DataTypes, Optional, Association } from "sequelize";
-import { sequelize } from "../config";
+import { sequelize } from "../config/sequelize";
 import { UserType } from "./userType";
 
 interface UserAttributes {
