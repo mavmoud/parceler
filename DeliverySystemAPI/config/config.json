@@ -1,10 +1,6 @@
 {
   "production": {
-    "username": "${PGUSER}",
-    "password": "${PGPASSWORD}",
-    "database": "${PGDATABASE}",
-    "host": "${PGHOST}",
-    "port": "${PGPORT}",
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
