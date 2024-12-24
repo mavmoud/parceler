@@ -1,6 +1,6 @@
 import { Grid2, Snackbar, Alert, Typography } from "@mui/material";
 import { useBodyBackground } from "../../../Hooks/useBodyBackground.ts";
-import {BACKGROUND_BOTTOM, BACKGROUND_RIGHT, BACKGROUND_TOP, IMAGE3} from "../../../constants.ts";
+import { BACKGROUND_RIGHT, BACKGROUND_TOP, IMAGE3} from "../../../constants.ts";
 import { motion, AnimatePresence } from "framer-motion"
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
