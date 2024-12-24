@@ -8,7 +8,7 @@ export const BACKGROUND_COLOR_GRADIENT: string =
   "linear-gradient(to bottom, #000000 0%, #071528 100%)";
 export const NO_REPEAT: string = "no-repeat";
 export const BACKGROUND_IMAGE_POSITION_DEFAULT: string = "left top";
-export const BACKGROUND_RIGHT: string = "right top";
+export const BACKGROUND_RIGHT: string = "right";
 export const BACKGROUND_LEFT: string = "left";
 export const BACKGROUND_TOP: string = "top";
 export const BACKGROUND_BOTTOM: string = "bottom";
