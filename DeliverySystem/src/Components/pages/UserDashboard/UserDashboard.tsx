@@ -1,7 +1,7 @@
 import { Grid2, Typography, Button } from "@mui/material";
 import { useBodyBackground } from "../../../Hooks/useBodyBackground";
 import { useAuthentication, ROLE_USER } from "../../../Hooks/useAuthentication";
-import { BACKGROUND_RIGHT, IMAGE3, QUOTE_URL } from "../../../constants";
+import { BACKGROUND_RIGHT, IMAGE2, QUOTE_URL } from "../../../constants";
 import { USER_DASHBOARD_TITLE } from "./constants";
 import { UserOrderTable } from "./UserOrderTable";
 import { Truck } from "lucide-react";
@@ -10,7 +10,7 @@ import { PageTitle } from "../../PageTitle.tsx";
 
 export const UserDashboard = () => {
   useBodyBackground({
-    backgroundImage: IMAGE3,
+    backgroundImage: IMAGE2,
     backgroundPosition: BACKGROUND_RIGHT,
     backgroundSize: "cover",
   });

@@ -12,7 +12,7 @@ const app = express();
 // CORS configuration
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://parceler.mahmoud.am",
+    "https://parceler.mahmmk.com",
     "https://parcelerdelivery.vercel.app",
 ];
 
