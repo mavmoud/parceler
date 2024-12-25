@@ -4,7 +4,7 @@ import {
   useAuthentication,
   ROLE_ADMIN,
 } from "../../../Hooks/useAuthentication";
-import { BACKGROUND_RIGHT, IMAGE3 } from "../../../constants";
+import {BACKGROUND_BOTTOM, IMAGE2 } from "../../../constants";
 import { useState } from "react";
 import { ACCOUNTS_INDEX } from "./constant";
 import { AdminDashboardAccounts } from "./AdminDashboardAccounts";
@@ -13,11 +13,11 @@ import { AdminDashboardTitle } from "./AdminDashboardTitle";
 import "./adminDashboard.css";
 
 export const AdminDashboard = () => {
-  useBodyBackground({
-    backgroundImage: IMAGE3,
-    backgroundPosition: BACKGROUND_RIGHT,
-    backgroundSize: "cover",
-  });
+    useBodyBackground({
+        backgroundImage: IMAGE2,
+        backgroundPosition: BACKGROUND_BOTTOM,
+        backgroundSize: "cover",
+    });
 
   useAuthentication(ROLE_ADMIN);
   const [mode, setMode] = useState<boolean>(ACCOUNTS_INDEX);

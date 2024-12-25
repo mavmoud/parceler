@@ -29,17 +29,15 @@ interface Order {
 }
 
 interface statusHistory {
-  createdAt: string;
-  packagePickedUp: string;
-  packageInTransit: string;
-  outForDelivery: string;
-  packageDelivered: string;
-  estimatedDelivery: string;
+    id: number;
+    statusId: number;
+    statusName: string;
+    createdAt: string;
 }
 
 interface OrderData {
   order: Order;
-  statusHistory: statusHistory;
+  statusHistory: statusHistory[];
 }
 
 export const iconMap = new Map([
@@ -230,13 +228,7 @@ export const Track = () => {
     return `${city}, ${province}`;
   };
 
-    const trackingStatus = orderData?.statusHistory
-        ? Object.entries(orderData.statusHistory).map(([key, value], index) => ({
-            id: index,
-            statusName: key,
-            createdAt: value,
-        }))
-        : [];
+  const trackingStatus = orderData?.statusHistory;
 
   return (
     <Grid2 container justifyContent="center" alignItems="center">
@@ -453,9 +445,9 @@ export const Track = () => {
                 </Typography>
                 {trackingStatus && (
                   <Grid2 container direction="column" spacing={"10px"}>
-                    {trackingStatus?.map((el) => {
+                    {trackingStatus?.map((status: any) => {
                       return (
-                        <Grid item key={el.id} container alignItems="center">
+                        <Grid item key={status.id} container alignItems="center">
                           <div
                             style={{
                               display: "flex",
@@ -464,7 +456,7 @@ export const Track = () => {
                               marginRight: "16px",
                             }}
                           >
-                            <span>{iconMap.get(el.statusName)?.()}</span>
+                            <span>{iconMap.get(status.statusName)?.()}</span>
                           </div>
                           <div>
                             <Typography
@@ -474,7 +466,7 @@ export const Track = () => {
                                 color: "#071528",
                               }}
                             >
-                              {el.statusName}
+                              {status.statusName}
                             </Typography>
                             <Typography
                               sx={{
@@ -483,7 +475,7 @@ export const Track = () => {
                                 color: "#848D9D",
                               }}
                             >
-                              {el.createdAt}
+                              {status.createdAt}
                             </Typography>
                           </div>
                         </Grid>
