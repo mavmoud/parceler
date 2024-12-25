@@ -4,16 +4,16 @@ import {
   useAuthentication,
   ROLE_DRIVER,
 } from "../../../Hooks/useAuthentication";
-import { BACKGROUND_RIGHT, IMAGE3 } from "../../../constants";
+import {BACKGROUND_BOTTOM, IMAGE2} from "../../../constants";
 import { DriverDashboardOrderList } from "./DriverDashboardOrderList";
 import { PageTitle } from "../../PageTitle.tsx";
 
 export const DriverDashboard = () => {
-  useBodyBackground({
-    backgroundImage: IMAGE3,
-    backgroundPosition: BACKGROUND_RIGHT,
-    backgroundSize: "cover",
-  });
+    useBodyBackground({
+        backgroundImage: IMAGE2,
+        backgroundPosition: BACKGROUND_BOTTOM,
+        backgroundSize: "cover",
+    });
 
   const driver = useAuthentication(ROLE_DRIVER);
 
@@ -32,8 +32,7 @@ export const DriverDashboard = () => {
           sx={{
             backgroundColor: "white",
             borderRadius: "70px",
-            minHeight: "fit-content",
-            maxHeight: "500px",
+            height: "400px",
             overflowY: "auto",
             width: "900px",
           }}
