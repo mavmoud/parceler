@@ -53,7 +53,7 @@ export const ShipmentEmail = ({
             )}
             <Button
               style={button}
-              href={`https://parceler.mahmoud.am/track/${trackingNumber}`}
+              href={`https://parceler.mahmmk.com/track/${trackingNumber}`}
             >
               Track your Shipment
             </Button>

@@ -197,7 +197,7 @@ export default function Ship() {
       }
 
       const response = await axios.post(
-          "https://api.parceler.mahmoud.am/api/payment/checkout",
+          "https://api.parceler.mahmmk.com/api/payment/checkout",
           {
             amount: Math.round(shipmentData.totalWithTax * 100),
             userEmail: user?.userInfo?.email,
