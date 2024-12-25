@@ -10,7 +10,7 @@ export class ResendService {
   async sendWelcomeEmail(userEmail: string) {
     try {
       const data = await resend.emails.send({
-        from: "Parceler <welcome@parceler.mahmoud.am>",
+        from: "Parceler <welcome@parceler.mahmmk.com>",
         to: userEmail,
         subject: "Welcome to Parceler!",
         react: Welcome(),
@@ -27,7 +27,7 @@ export class ResendService {
       const qrCodeUrl = await QRCode.toDataURL(trackingNumber);
 
       const data = await resend.emails.send({
-        from: "Parceler <ship@parceler.mahmoud.am>",
+        from: "Parceler <ship@parceler.mahmmk.com>",
         to: userEmail,
         subject: "Your Shipment Has Been Created",
         react: Shipment({ trackingNumber, qrCodeUrl }),
@@ -47,7 +47,7 @@ export class ResendService {
   ) {
     try {
       const data = await resend.emails.send({
-        from: "Parceler <update@parceler.mahmoud.am>",
+        from: "Parceler <update@parceler.mahmmk.com>",
         to: userEmail,
         subject: "Shipment Status Update",
         react: Update({

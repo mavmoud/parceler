@@ -33,7 +33,7 @@ export const WelcomeEmail = () => (
             You can visit our website to get a quote, create a shipment or track
             your existing shipments.
           </Text>
-          <Button style={button} href="https://parceler.mahmoud.am/quote">
+          <Button style={button} href="https://parceler.mahmmk.com/quote">
             Ship with Parceler
           </Button>
           <Text style={paragraph}>— The Parceler team</Text>
