@@ -1,7 +1,7 @@
 import { Grid2, Card, Typography } from "@mui/material";
 import { useBodyBackground } from "../../../Hooks/useBodyBackground";
 import { useAuthentication, ROLE_USER } from "../../../Hooks/useAuthentication";
-import { BACKGROUND_RIGHT, IMAGE3 } from "../../../constants";
+import {BACKGROUND_BOTTOM, IMAGE2 } from "../../../constants";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -53,8 +53,8 @@ function createData(
 
 export const UserOrderTable = () => {
   useBodyBackground({
-    backgroundImage: IMAGE3,
-    backgroundPosition: BACKGROUND_RIGHT,
+    backgroundImage: IMAGE2,
+    backgroundPosition: BACKGROUND_BOTTOM,
     backgroundSize: "cover",
   });
 
@@ -90,13 +90,13 @@ export const UserOrderTable = () => {
       {!isLoading && (
         <Grid2 container justifyContent="center">
           <Grid2
-              // item xs={12} md={12}
               sx={{ width: "100%" }}
           >
             <Card
               sx={{
-                height: "400px",
+                height: "350px",
                 padding: "25px",
+                overflowY: "auto",
                 background: "linear-gradient(to bottom, #ffffff, #f0f0f5)",
               }}
             >

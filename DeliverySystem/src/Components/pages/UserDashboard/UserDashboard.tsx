@@ -1,7 +1,6 @@
 import { Grid2, Typography, Button } from "@mui/material";
-import { useBodyBackground } from "../../../Hooks/useBodyBackground";
 import { useAuthentication, ROLE_USER } from "../../../Hooks/useAuthentication";
-import { BACKGROUND_RIGHT, IMAGE2, QUOTE_URL } from "../../../constants";
+import { QUOTE_URL } from "../../../constants";
 import { USER_DASHBOARD_TITLE } from "./constants";
 import { UserOrderTable } from "./UserOrderTable";
 import { Truck } from "lucide-react";
@@ -9,11 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { PageTitle } from "../../PageTitle.tsx";
 
 export const UserDashboard = () => {
-  useBodyBackground({
-    backgroundImage: IMAGE2,
-    backgroundPosition: BACKGROUND_RIGHT,
-    backgroundSize: "cover",
-  });
+
   const navigate = useNavigate();
   const user = useAuthentication(ROLE_USER);
 
@@ -31,12 +26,13 @@ export const UserDashboard = () => {
         <Grid2
           width={"800px"}
           sx={{
-            height: "400px", // Set the desired height
-            overflowY: "auto", // Enable vertical scrolling
-            borderRadius: "50px", // Optional: Add rounded corners
+            height: "400px",
+            overflowY: "auto",
+            borderRadius: "50px",
           }}
         >
           <UserOrderTable />
+
         </Grid2>
         <Grid2 pt={"40px"}>
           <Button

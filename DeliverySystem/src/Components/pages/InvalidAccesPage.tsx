@@ -7,17 +7,15 @@ import {
   INVALID_ACCESS_TITLE,
   INVALID_ACCESS_RETURN,
 } from "./constants";
-import { HOME_PAGE_URL } from "../../constants";
+import {BACKGROUND_BOTTOM, HOME_PAGE_URL, IMAGE2} from "../../constants";
 import { useBodyBackground } from "../../Hooks/useBodyBackground";
-import { BACKGROUND_RIGHT } from "../../constants"; // Adjust path if necessary
-import { EMPTY_STRING } from "Components/AuthForm/constants";
 
 export const InvalidAccessPage: React.FC = () => {
   const navigate = useNavigate();
 
   useBodyBackground({
-    backgroundImage: EMPTY_STRING,
-    backgroundPosition: BACKGROUND_RIGHT,
+    backgroundImage: IMAGE2,
+    backgroundPosition: BACKGROUND_BOTTOM,
     backgroundSize: "cover",
   });
 
