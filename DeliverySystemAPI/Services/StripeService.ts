@@ -9,8 +9,8 @@ export const createStripeSession = async (
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     success_url:
-      "https://parceler.mahmoud.am/payment-success?session_id={CHECKOUT_SESSION_ID}",
-    cancel_url: `https://parceler.mahmoud.am/user-dashboard/${userId}`,
+      "https://parceler.mahmmk.com/payment-success?session_id={CHECKOUT_SESSION_ID}",
+    cancel_url: `https://parceler.mahmmk.com/user-dashboard/${userId}`,
     customer_email: userEmail,
     line_items: [
       {

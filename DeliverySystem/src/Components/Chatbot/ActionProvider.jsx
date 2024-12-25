@@ -11,7 +11,8 @@ const ActionProvider = ({
   const fetchTrackingStatus = async (trackingNumber) => {
     try {
       const response = await fetch(
-        `https://api.parceler.mahmoud.am/api/orders/trackingNumber/${trackingNumber}`
+        `https://api.parceler.mahmmk.com/api/orders/trackingNumber/${trackingNumber}`
+
       );
       if (response.ok) {
         const data = await response.json();
@@ -53,7 +54,7 @@ const ActionProvider = ({
   const fetchTrackingEstimate = async (trackingNumber) => {
     try {
       const response = await fetch(
-        `https://api.parceler.mahmoud.am/api/orders/trackingNumber/${trackingNumber}`
+        `https://api.parceler.mahmmk.com/api/orders/trackingNumber/${trackingNumber}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -106,7 +107,7 @@ const ActionProvider = ({
   const fetchAmount = async (trackingNumber) => {
     try {
       const response = await fetch(
-        `https://api.parceler.mahmoud.am/api/orders/trackingNumber/${trackingNumber}`
+        `https://api.parceler.mahmmk.com/api/orders/trackingNumber/${trackingNumber}`
       );
       if (response.ok) {
         const data = await response.json();

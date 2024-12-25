@@ -1,1 +1,1 @@
-export const BASE_URL = "https://api.parceler.mahmoud.am";
+export const BASE_URL = "https://api.parceler.mahmmk.com";
