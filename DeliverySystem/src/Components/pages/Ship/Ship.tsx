@@ -123,12 +123,30 @@ export default function Ship() {
   const [recipientAddress, setRecipientAddress] = useState("");
   const [recipientFirstName, setRecipientFirstName] = useState("");
   const [recipientLastName, setRecipientLastName] = useState("");
+  const [dimension, setDimension] = useState("");
 
   const originAddress = `${shipmentData.originStreetNumber} ${shipmentData.originStreetName}`;
   const destinationAddress = `${shipmentData.destinationStreetNumber} ${shipmentData.destinationStreetName}`;
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const { type, subtype } = shipmentData;
+
+    if (type === "document" && subtype === "standard") {
+      setDimension("25x15");
+    } else if (type === "document" && subtype === "large") {
+      setDimension("38x26");
+    } else if (type === "package" && subtype === "small") {
+      setDimension("35x25x10");
+    } else if (type === "package" && subtype === "large") {
+      setDimension("40x30x20");
+    } else {
+      // Fallback if nothing matches
+      setDimension("N/A");
+    }
+  }, [shipmentData]);
 
   useEffect(() => {
     if (location.state) {
@@ -182,6 +200,7 @@ export default function Ship() {
         recipientLastName: lastName,
         senderAddress,
         recipientAddress: address,
+        dimension
       };
 
       sessionStorage.setItem(

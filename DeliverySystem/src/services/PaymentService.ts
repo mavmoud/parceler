@@ -8,6 +8,7 @@ export interface OrderPayload {
   recipientAddress: string;
   senderAddress: string;
   sessionId: string;
+  dimension: string;
 }
 
 export class PaymentService {
