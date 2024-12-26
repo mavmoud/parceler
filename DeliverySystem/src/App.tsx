@@ -6,9 +6,11 @@ import Ship from "./Components/pages/Ship/Ship";
 import Help from "./Components/pages/Help/Help";
 import { AuthForm } from "./Components/AuthForm/AuthForm";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@mui/material";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { Track } from "./Components/pages/HomePage/Track";
 import { TrackPage } from "./Components/pages/HomePage/TrackPage";
+import Mobile from "./Components/pages/Mobile/Mobile.tsx";
 import {
   CREATE_ACCOUNT_FIELDS,
   SIGN_IN_FIELDS,
@@ -41,9 +43,19 @@ function App() {
   const location = useLocation();
   const [signInAuth, setSignInAuth] = useState<boolean>(false);
 
+  const isMobile = useMediaQuery("(max-width: 1330px)");
+
   useEffect(() => {
     setSignInAuth(location.pathname === SIGN_IN_URL);
   }, [location]);
+
+  if (isMobile) {
+    return (
+        <>
+          <Mobile/>
+        </>
+    );
+  }
 
   return (
     <Container maxWidth="xl">

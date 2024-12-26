@@ -7,3 +7,8 @@ body {
 #root {
     padding-top: 35px;
 }
+@media (max-width: 1330px) {
+    #root {
+        padding-top: 0;
+    }
+}
