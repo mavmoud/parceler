@@ -14,13 +14,13 @@ module.exports = {
         },
         {
           id: 2,
-          statusName: "Picked Up",
+          statusName: "Package Picked Up",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           id: 3,
-          statusName: "In Transit",
+          statusName: "Package In Transit",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -32,7 +32,7 @@ module.exports = {
         },
         {
           id: 5,
-          statusName: "Delivered",
+          statusName: "Package Delivered",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
