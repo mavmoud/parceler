@@ -66,10 +66,10 @@ const ActionProvider = ({
 
         const estimatedDelivery =
           {
-            Delivered: "arrived",
+            "Package Delivered": "Delivered",
             "Out for Delivery": "1 day",
-            "In Transit": "2-3 days",
-            "Picked Up": "5-6 days",
+            "Package In Transit": "2-3 days",
+            "Package Picked Up": "5-6 days",
             "Shipment Created": "6-10 days",
           }[statusName] || "N/A";
 
