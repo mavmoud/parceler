@@ -44,6 +44,7 @@ paymentRoutes.post("/complete", async (req, res) => {
 
     const {
       weight,
+      dimension,
       recipientFirstName,
       recipientLastName,
       recipientAddress,
@@ -70,7 +71,7 @@ paymentRoutes.post("/complete", async (req, res) => {
     //create package first
     const p = await Package.create({
       weight,
-      dimension: "5x5x5",
+      dimension,
       declaredValue: 0,
     });
 

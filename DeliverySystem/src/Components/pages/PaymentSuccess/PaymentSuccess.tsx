@@ -29,6 +29,7 @@ export function PaymentSuccess() {
     recipientLastName: string;
     senderAddress: string;
     recipientAddress: string;
+    dimension: string;
   }
 
   const confirmPaymentAndCreateOrder = useCallback(async () => {
@@ -45,6 +46,7 @@ export function PaymentSuccess() {
           recipientLastName: payload.recipientLastName,
           senderAddress: payload.senderAddress,
           recipientAddress: payload.recipientAddress,
+          dimension: payload.dimension,
           sessionId,
         };
 
