@@ -553,7 +553,7 @@ export default function Quote() {
                                         fontSize: "14px",
                                       }}
                                     >
-                                      Max length: 245mm
+                                      Max length: 250mm
                                     </Typography>
                                     <Typography
                                       color={"#848D9D"}
@@ -562,7 +562,7 @@ export default function Quote() {
                                         fontSize: "14px",
                                       }}
                                     >
-                                      Max width: 156mm
+                                      Max width: 150mm
                                     </Typography>
                                     <Typography
                                       color={"#848D9D"}
@@ -650,7 +650,7 @@ export default function Quote() {
                                         fontSize: "14px",
                                       }}
                                     >
-                                      Max width: 270mm
+                                      Max width: 260mm
                                     </Typography>
                                     <Typography
                                       color={"#848D9D"}
@@ -752,7 +752,7 @@ export default function Quote() {
                                           fontSize: "14px",
                                         }}
                                       >
-                                        Max width: 26cm
+                                        Max width: 25cm
                                       </Typography>
                                       <Typography
                                         color={"#848D9D"}
@@ -761,7 +761,7 @@ export default function Quote() {
                                           fontSize: "14px",
                                         }}
                                       >
-                                        Max height: 5cm
+                                        Max height: 10cm
                                       </Typography>
                                       <Typography
                                         color={"#848D9D"}
@@ -870,7 +870,7 @@ export default function Quote() {
                                           fontSize: "14px",
                                         }}
                                       >
-                                        Max height: 19cm
+                                        Max height: 20cm
                                       </Typography>
                                       <Typography
                                         color={"#848D9D"}
