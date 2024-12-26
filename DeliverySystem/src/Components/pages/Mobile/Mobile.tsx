@@ -10,6 +10,10 @@ export default function Mobile() {
         backgroundSize: "cover",
     });
 
+    const handleClick = (url: string) => {
+        window.open(url);
+    };
+
     return (
         <>
             <Box sx={{
@@ -19,8 +23,11 @@ export default function Mobile() {
                 width: '100vw',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '25px'
+                gap: '25px',
             }}
+                 onClick={() =>
+                     handleClick("https://youtu.be/Pya3-ZYBBm0?si=TztrA170-hq2uz6v")
+                 }
             >
                 <Box sx={{
                     width: 'fit-content',
