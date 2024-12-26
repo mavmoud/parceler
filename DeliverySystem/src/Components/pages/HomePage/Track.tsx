@@ -475,7 +475,7 @@ export const Track = () => {
                                 color: "#848D9D",
                               }}
                             >
-                              {status.createdAt}
+                                {new Date(status.createdAt).toLocaleString()}
                             </Typography>
                           </div>
                         </Grid>
