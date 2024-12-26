@@ -26,8 +26,8 @@
     height: 500px; /* Fixed height for the chatbot */
     overflow-y: auto; /* Allow scrolling if messages overflow */
     background-color: #fff; /* White background for the chatbot */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-    border-radius: 8px; /* Rounded corners for the chatbot */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    border-radius: 15px; /* Rounded corners for the chatbot */
   }
   
   /* Add padding around the chatbot messages */
