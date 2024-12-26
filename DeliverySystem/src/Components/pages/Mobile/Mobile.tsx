@@ -15,9 +15,8 @@ export default function Mobile() {
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                maxHeight: '100vh',
-                minHeight: '100vh',
                 height: '100vh',
+                width: '100vw',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '25px'
@@ -27,7 +26,7 @@ export default function Mobile() {
                     width: 'fit-content',
                     display: 'flex',
                     flexDirection: 'column',
-                    // mx: 'auto',
+                    mx: 'auto',
                     gap: '10px'
                 }}
                 >
@@ -35,23 +34,22 @@ export default function Mobile() {
                         sx={{
                             cursor: "pointer",
                             display: "flex",
-                            // justifyContent: "center",
-                            gap: "14px",
+                            gap: "10px",
                             alignItems: "center",
                         }}
                     >
                         <img
                             src="/Parceler.svg"
                             alt="Home Icon"
-                            style={{ width: "40px", height: "40px" }}
+                            style={{ width: "30px", height: "30px" }}
                         />
                         <Typography
                             sx={{
                                 fontFamily: '"Montserrat", serif',
-                                fontSize: "18px",
+                                fontSize: "14px",
                                 fontWeight: "bold",
                                 letterSpacing: "3.5px",
-                                pt: "8px",
+                                pt: "6px",
                                 color: 'white'
                             }}
                         >
@@ -61,9 +59,9 @@ export default function Mobile() {
                     <Typography
                         sx={{
                             fontFamily: '"Montserrat", serif',
-                            fontSize: "18px",
+                            fontSize: "14px",
                             color: "white",
-                            pt: "10px",
+                            pt: "8px",
                         }}
                     >
                         Is only optimized for wider desktop screens.
