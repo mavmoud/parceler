@@ -60,7 +60,7 @@ export const iconMap = new Map([
     ),
   ],
   [
-    "Picked Up",
+    "Package Picked Up",
     () => (
       <Box
         sx={{
@@ -78,7 +78,7 @@ export const iconMap = new Map([
     ),
   ],
   [
-    "In Transit",
+    "Package In Transit",
     () => (
       <Box
         sx={{
@@ -114,7 +114,7 @@ export const iconMap = new Map([
     ),
   ],
   [
-    "Delivered",
+    "Package Delivered",
     () => (
       <Box
         sx={{
@@ -197,13 +197,13 @@ export const Track = () => {
 
   let EstimatedDelivery = "";
 
-  if (orderData?.order?.latestStatusName === "Delivered") {
+  if (orderData?.order?.latestStatusName === " Package Delivered") {
     EstimatedDelivery = "Delivered";
   } else if (orderData?.order?.latestStatusName === "Out for Delivery") {
     EstimatedDelivery = "1 Business Days";
-  } else if (orderData?.order?.latestStatusName === "In Transit") {
+  } else if (orderData?.order?.latestStatusName === "Package In Transit") {
     EstimatedDelivery = "2-3 Business Days";
-  } else if (orderData?.order?.latestStatusName === "Picked Up") {
+  } else if (orderData?.order?.latestStatusName === "Package Picked Up") {
     EstimatedDelivery = "5-6 Business Days";
   } else if (orderData?.order?.latestStatusName === "Shipment Created") {
     EstimatedDelivery = "6-10 Business Days";
