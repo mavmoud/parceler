@@ -19,7 +19,7 @@ export default function Mobile() {
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: '100vh',
+                height: '100dvh',
                 width: '100vw',
                 alignItems: 'center',
                 justifyContent: 'center',
